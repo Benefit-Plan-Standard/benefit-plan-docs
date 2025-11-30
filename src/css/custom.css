@@ -1,0 +1,11 @@
+/* You can override the default Docusaurus theme styles here */
+
+/* Example: Increase font-weight for headings */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+}
+
+/* Add margin to code blocks */
+.theme-code-block {
+  margin: 1rem 0;
+}

@@ -1,0 +1,16 @@
+{
+  "name": "benefit-plan-standard-docs",
+  "version": "1.0.0",
+  "description": "Documentation site for the Benefit Plan Standard",
+  "private": true,
+  "scripts": {
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "serve": "docusaurus serve",
+    "deploy": "docusaurus deploy"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^2.4.1",
+    "@docusaurus/preset-classic": "^2.4.1"
+  }
+}
