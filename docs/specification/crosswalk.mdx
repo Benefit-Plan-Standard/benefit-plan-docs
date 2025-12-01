@@ -4,6 +4,8 @@ title: Carrier Crosswalk
 sidebar_position: 3
 ---
 
+import CrosswalkIframe from '@site/src/components/CrosswalkIframe';
+
 # Carrier Crosswalk
 
 The Benefit Plan Standard maintains a **carrier crosswalk** that maps each issuer’s vocabulary, structure, and terminology into the normalized schema fields.  
@@ -13,20 +15,9 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
 
 ---
 
-## Live Crosswalk (Google Sheet)
+## 📊 Live Crosswalk Matrix
 
-A live version of the crosswalk is maintained below.
-
-<!-- Docusaurus SSR-safe iframe wrapper -->
-<div style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-  <iframe
-    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTgekv3wditmUSRm_CJv7O1PsC6KJHUDBNba7V8nYg2_kGiVj5dD8ho8WaUamf8czqvAnh-Xg9neT58/pubhtml"
-    width="100%"
-    height="800"
-    style="border: 1px solid #ccc;"
-  ></iframe>
-</div>
-
+<CrosswalkIframe />
 
 The sheet is read-only to ensure consistency of the standard.  
 Future carriers (e.g., Kaiser, Molina, Oscar, Ambetter) already have placeholder columns for expansion.
@@ -47,7 +38,7 @@ For example:
   - “Subject to deductible”
   - “Copay does not apply to deductible”
   - “Ded waived”
-  - Combined expressions such as *“$25 copay + 20% coinsurance after deductible”*
+  - Combined expressions such as _“$25 copay + 20% coinsurance after deductible”_
 
 Without a standardized crosswalk, ingestion pipelines must be hand-tuned for every carrier.
 
@@ -66,26 +57,26 @@ The Google Sheet contains multiple tabs, including:
 
 ### **Plan Metadata**
 Maps identifiers such as:
-- plan_id  
-- carrier name  
-- plan_type  
-- market segment  
+- `plan_id`  
+- `carrier`  
+- `plan_type`  
+- `market`  
 
 ### **Network Tiers**
 Mappings for:
-- In-network, out-of-network naming
+- In-network / out-of-network naming  
 - Tier structures  
 - Carrier-specific vocabulary  
 
 ### **Accumulators**
 How each carrier expresses:
-- individual_deductible  
-- family_deductible  
-- individual_oop  
-- family_oop  
+- `individual_deductible`  
+- `family_deductible`  
+- `individual_oop`  
+- `family_oop`  
 
 ### **Benefits**
-Mappings of:
+Mappings for:
 - categories  
 - service names  
 - copays  
@@ -116,31 +107,36 @@ When integrating a new carrier:
 Locate the carrier’s terms in the crosswalk (or add them when necessary).
 
 ### **2. Map each value to the normalized field**  
+
 Examples:
 
 - **Copay differences**  
   - Blue Cross: “$25 per visit”  
   - SCAN: “$0 copay, coinsurance does not apply”  
-  These map to the same `benefits[].cost_shares.copay` field.
+  These map to `benefits[].cost_shares.copay`.
 
 - **Deductible expressions**  
   - GatorCare lists medical and pharmacy separately  
   - Aetna merges them  
-  The crosswalk clarifies how to populate `individual_deductible` and related fields.
+  The crosswalk clarifies how to populate `individual_deductible`, `family_deductible`, and related fields.
 
 ### **3. Capture exceptions and conditions**  
 Ambiguous phrasing such as:
-- “after facility fee”
-- “per admission deductible”
-- “ded waived for virtual visits”
-is documented in the crosswalk’s notes column.
+
+- “after facility fee”  
+- “per admission deductible”  
+- “ded waived for virtual visits”  
+
+should be documented in the crosswalk’s notes column.
 
 ### **4. Extend when necessary**  
 If a carrier introduces:
+
 - new cost-share terminology  
 - split benefit categories  
 - multi-tier networks  
-add a row or column in the Google Sheet and update the ingestion rules.
+
+add a row or column to the Google Sheet and update the ingestion rules accordingly.
 
 ---
 
@@ -149,11 +145,11 @@ add a row or column in the Google Sheet and update the ingestion rules.
 The Google Sheet is the **canonical source of truth** for carrier mappings.  
 Updates follow these principles:
 
-- **Accuracy first**: No changes without verification against the carrier’s SBC/EOC.  
-- **Non-breaking additions**: New carriers and new vocabulary do not break prior mappings.  
-- **Schema-aligned**: Crosswalk rows always correspond to normalized fields.  
+- **Accuracy first** — No changes without verification against the SBC/EOC.  
+- **Non-breaking additions** — New carriers and vocabulary should not break prior mappings.  
+- **Schema alignment** — Crosswalk rows correspond exactly to the normalized fields.  
 
-For contributors participating in ingestion logic or carrier analysis, request edit access through the governance process.
+For contributors assisting with ingestion logic or analysis, edit access may be granted through the governance process.
 
 ---
 
@@ -162,9 +158,8 @@ For contributors participating in ingestion logic or carrier analysis, request e
 The Carrier Crosswalk is essential for:
 
 - Translating carrier-specific formats into a unified schema  
-- Ensuring ingestion is deterministic  
+- Ensuring ingestion is deterministic and predictable  
 - Maintaining consistency across carriers  
-- Supporting future expansion  
+- Supporting extension as new carriers and plan types are analyzed  
 
-The live version ensures that the standard remains current, accurate, and interoperable as additional carriers and plan formats are introduced.
-
+The live version ensures that the standard remains current, accurate, and interoperable across all benefit plan formats and carriers.
