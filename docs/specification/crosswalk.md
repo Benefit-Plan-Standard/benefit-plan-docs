@@ -6,37 +6,165 @@ sidebar_position: 3
 
 # Carrier Crosswalk
 
-The Benefit Plan Standard includes a **crosswalk** that maps each carrier’s terminology and structure into the normalized schema fields.  This ensures that, for example, a “facility fee” copay from Carrier A and a “hospital copay” from Carrier B end up in the same normalized field.
+The Benefit Plan Standard maintains a **carrier crosswalk** that maps each issuer’s vocabulary, structure, and terminology into the normalized schema fields.  
+This ensures that different carriers’ representations of benefits—often inconsistent in naming, structure, and granularity—can be interpreted in a unified, machine-readable way.
 
-This page summarizes the crosswalk and links to the detailed tables.
+Because carriers vary widely in how they describe deductibles, copays, limits, and categories, the crosswalk is a foundational component of the standard.
+
+---
+
+## 📊 Live Crosswalk (Google Sheet)
+
+The complete, continuously updated crosswalk matrix is maintained as a **live Google Sheet**:
+
+👉 **[Open the Carrier Crosswalk Matrix](https://docs.google.com/spreadsheets/d/e/2PACX-1vTgekv3wditmUSRm_CJv7O1PsC6KJHUDBNba7V8nYg2_kGiVj5dD8ho8WaUamf8czqvAnh-Xg9neT58/pubhtml)**
+
+You can also view it embedded below:
+
+<iframe 
+  src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTgekv3wditmUSRm_CJv7O1PsC6KJHUDBNba7V8nYg2_kGiVj5dD8ho8WaUamf8czqvAnh-Xg9neT58/pubhtml"
+  width="100%"
+  height="800"
+  style="border:1px solid #ccc;">
+</iframe>
+
+The sheet is read-only to ensure consistency of the standard.  
+Future carriers (e.g., Kaiser, Molina, Oscar, Ambetter) already have placeholder columns for expansion.
+
+---
 
 ## Purpose
 
-Carriers describe benefits in different ways.  Terms like “copay,” “office visit charge,” “coinsurance,” “deductible with 20% share,” or “per admission deductible” vary widely.  Without a crosswalk, ingestion would require custom logic for every carrier.
+Carriers do not use consistent terminology.  
+For example:
 
-The crosswalk solves this by specifying, for each normalized field:
+- One carrier may label a row **“Office Visit - Primary Care (PCP)”**,  
+  while another writes **“Primary Care Provider: You pay $25”**,  
+  and another uses **“PCP Copay per encounter”**.
 
-- The corresponding column or phrase used by each carrier
-- Notes on how to parse the carrier’s representation (e.g., combined copay and coinsurance expressions)
-- Exceptions and edge cases
+- Deductible applicability might be written as:
+  - “After deductible”
+  - “Subject to deductible”
+  - “Copay does not apply to deductible”
+  - “Ded waived”
+  - Combined expressions such as *“$25 copay + 20% coinsurance after deductible”*
 
-## Crosswalk Tables
+Without a standardized crosswalk, ingestion pipelines must be hand-tuned for every carrier.
 
-The full crosswalk tables are provided in the `field-crosswalk.xlsx` file within this repository.  Each sheet corresponds to a normalized field and contains columns for each carrier.  For example:
+The crosswalk solves this by documenting, for each normalized field:
 
-| Normalized Field        | Blue Cross | GatorCare | SCAN | Aetna | United | Cigna | Humana |
-|-------------------------|-----------|-----------|------|-------|--------|-------|--------|
-| `benefits.category`     | “Common Medical Event” | “Hospital Services” | “Services that are covered for you” | ... | ... | ... | ... |
-| `network_cost_shares`   | “In‑network Provider / Out‑of‑network Provider” | “Tier 1 / Tier 2 / OON” | “In network cost share / Out of network cost share” | ... | ... | ... | ... |
-| `limits`                | “Limitations and important notes” | “Notes” | “How often is it covered?” | ... | ... | ... | ... |
+- How each carrier expresses the value  
+- Semantics that must be preserved  
+- Parsing notes and exceptions  
+- Mappings into the normalized JSON structure  
 
-Due to size, the full crosswalk is not reproduced here.  You can download the Excel file from the repository root or view it in the [F.2 Carrier Crosswalk Tables](/docs/specification/crosswalk) section.
+---
+
+## Structure of the Crosswalk
+
+The Google Sheet contains multiple tabs, including:
+
+### **Plan Metadata**
+Maps identifiers such as:
+- plan_id  
+- carrier name  
+- plan_type  
+- market segment  
+
+### **Network Tiers**
+Mappings for:
+- In-network, out-of-network naming
+- Tier structures  
+- Carrier-specific vocabulary  
+
+### **Accumulators**
+How each carrier expresses:
+- individual_deductible  
+- family_deductible  
+- individual_oop  
+- family_oop  
+
+### **Benefits**
+Mappings of:
+- categories  
+- service names  
+- copays  
+- coinsurance expressions  
+- deductible applicability  
+
+### **Limits**
+Mappings for:
+- visit/day limits  
+- period definitions (annual, per stay, lifetime, etc.)  
+
+### **Conditions**
+Mappings for:
+- prior authorization  
+- referral requirements  
+- contextual notes  
+
+### **Source Reference**
+Extracts and page references used for ingestion traceability.
+
+---
 
 ## Using the Crosswalk
 
-When integrating a new carrier, refer to the crosswalk to identify how to map each benefit field.  For example:
+When integrating a new carrier:
 
-- **Copay**: Blue Cross uses a dollar amount with “per visit,” while SCAN lists a dollar amount followed by “coinsurance does not apply.”  The crosswalk clarifies which part goes to `network_cost_shares.copay` and which goes into a condition.
-- **Deductible**: GatorCare has separate deductibles for pharmacy and medical; Aetna’s SBC merges pharmacy into medical.  The crosswalk highlights these differences and specifies how to populate `individual_deductible` and `family_deductible`.
+### **1. Identify each benefit entry**  
+Locate the carrier’s terms in the crosswalk (or add them when necessary).
 
-If a carrier uses a new or ambiguous term, update the crosswalk and add an entry describing how to map it.  Consistent maintenance of the crosswalk keeps the ingestion pipeline accurate.
+### **2. Map each value to the normalized field**  
+Examples:
+
+- **Copay differences**  
+  - Blue Cross: “$25 per visit”  
+  - SCAN: “$0 copay, coinsurance does not apply”  
+  These map to the same `benefits[].cost_shares.copay` field.
+
+- **Deductible expressions**  
+  - GatorCare lists medical and pharmacy separately  
+  - Aetna merges them  
+  The crosswalk clarifies how to populate `individual_deductible` and related fields.
+
+### **3. Capture exceptions and conditions**  
+Ambiguous phrasing such as:
+- “after facility fee”
+- “per admission deductible”
+- “ded waived for virtual visits”
+is documented in the crosswalk’s notes column.
+
+### **4. Extend when necessary**  
+If a carrier introduces:
+- new cost-share terminology  
+- split benefit categories  
+- multi-tier networks  
+add a row or column in the Google Sheet and update the ingestion rules.
+
+---
+
+## Updating the Crosswalk
+
+The Google Sheet is the **canonical source of truth** for carrier mappings.  
+Updates follow these principles:
+
+- **Accuracy first**: No changes without verification against the carrier’s SBC/EOC.  
+- **Non-breaking additions**: New carriers and new vocabulary do not break prior mappings.  
+- **Schema-aligned**: Crosswalk rows always correspond to normalized fields.  
+
+For contributors participating in ingestion logic or carrier analysis, request edit access through the governance process.
+
+---
+
+## Summary
+
+The Carrier Crosswalk is essential for:
+
+- Translating carrier-specific formats into a unified schema  
+- Ensuring ingestion is deterministic  
+- Maintaining consistency across carriers  
+- Supporting future expansion  
+
+The live version ensures that the standard remains current, accurate, and interoperable as additional carriers and plan formats are introduced.
+

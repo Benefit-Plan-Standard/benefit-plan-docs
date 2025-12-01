@@ -1,6 +1,6 @@
 # Node dependencies
 node_modules/
-
+py/
 # Docusaurus build output
 .docusaurus/
 build/
