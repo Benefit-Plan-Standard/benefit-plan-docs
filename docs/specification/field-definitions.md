@@ -109,4 +109,4 @@ Each benefit item includes `source_refs`—a list of objects containing the page
 
 ## Deprecated and Reserved Fields
 
-The core schema reserves several fields for future expansions.  For example, `pharmacy_deductible` is not currently required but may become mandatory when the Pharmacy module is integrated.  See the [modules overview](../modules) for details.
+The core schema reserves several fields for future expansions.  For example, `pharmacy_deductible` is not currently required but may become mandatory when the Pharmacy module is integrated.  See the [modules overview](modules) for details.

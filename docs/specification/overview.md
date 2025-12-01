@@ -40,6 +40,6 @@ You can see the full JSON schema definition in the [benefit‑plan‑schema repo
 
 ## Next Steps
 
-* [Field Definitions](../field-definitions) — A detailed description of every field in the schema.
-* [Crosswalk](../crosswalk) — How carrier terms map into normalized fields.
-* [Modules](../modules) — Extensions for pharmacy, behavioral health and other lines of business.
+* [Field Definitions](field-definitions) — A detailed description of every field in the schema.
+* [Crosswalk](crosswalk) — How carrier terms map into normalized fields.
+* [Modules](modules) — Extensions for pharmacy, behavioral health and other lines of business.
