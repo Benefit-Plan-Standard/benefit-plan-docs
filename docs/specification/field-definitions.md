@@ -1,7 +1,7 @@
 ---
 id: field-definitions
 title: Field Definitions
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # Field Definitions
