@@ -13,20 +13,20 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
 
 ---
 
-## 📊 Live Crosswalk (Google Sheet)
+## Live Crosswalk (Google Sheet)
 
-The complete, continuously updated crosswalk matrix is maintained as a **live Google Sheet**:
+A live version of the crosswalk is maintained below.
 
-👉 **[Open the Carrier Crosswalk Matrix](https://docs.google.com/spreadsheets/d/e/2PACX-1vTgekv3wditmUSRm_CJv7O1PsC6KJHUDBNba7V8nYg2_kGiVj5dD8ho8WaUamf8czqvAnh-Xg9neT58/pubhtml)**
+<!-- Docusaurus SSR-safe iframe wrapper -->
+<div style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+  <iframe
+    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTgekv3wditmUSRm_CJv7O1PsC6KJHUDBNba7V8nYg2_kGiVj5dD8ho8WaUamf8czqvAnh-Xg9neT58/pubhtml"
+    width="100%"
+    height="800"
+    style="border: 1px solid #ccc;"
+  ></iframe>
+</div>
 
-You can also view it embedded below:
-
-<iframe 
-  src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTgekv3wditmUSRm_CJv7O1PsC6KJHUDBNba7V8nYg2_kGiVj5dD8ho8WaUamf8czqvAnh-Xg9neT58/pubhtml"
-  width="100%"
-  height="800"
-  style="border:1px solid #ccc;">
-</iframe>
 
 The sheet is read-only to ensure consistency of the standard.  
 Future carriers (e.g., Kaiser, Molina, Oscar, Ambetter) already have placeholder columns for expansion.
