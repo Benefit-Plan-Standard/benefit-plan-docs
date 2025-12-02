@@ -37,7 +37,14 @@ module.exports = {
       type: 'category',
       label: 'Governance',
       collapsible: true,
+      collapsed: false,
       items: [
+        // NEW GOVERNANCE PAGES (in sidebar_position order)
+        'governance/governance-overview',
+        'governance/versioning-release-policy',
+        'governance/contribution-process',
+
+        // EXISTING GOVERNANCE PAGES
         'governance/mission',
         'governance/roadmap',
         'governance/faq',
