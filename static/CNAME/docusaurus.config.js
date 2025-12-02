@@ -4,32 +4,37 @@
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Benefit Plan Standard',
-  tagline: 'An open, vendor‑neutral data schema for health benefit plans',
-  url: 'https://benefitplanstandard.org',
+  tagline: 'An open, vendor-neutral data schema for health benefit plans',
+  url: 'https://benefitplanstandard.org',   // Your custom domain
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'Benefit-Plan-Standard', // GitHub org name
-  projectName: 'benefit-plan-docs', // Repo name
+
+  // GitHub pages deployment config
+  organizationName: 'Benefit-Plan-Standard',  // GitHub org
+  projectName: 'benefit-plan-docs',           // Repo
+  deploymentBranch: 'gh-pages',               // CRITICAL FIX
+  trailingSlash: false,
 
   presets: [
     [
       '@docusaurus/preset-classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */ ({
+      {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/Benefit-Plan-Standard/benefit-plan-docs/edit/main/',
+          editUrl:
+            'https://github.com/Benefit-Plan-Standard/benefit-plan-docs/edit/main/',
         },
         blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      }),
+      },
     ],
   ],
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */ ({
+
+  themeConfig: {
     navbar: {
       title: 'Benefit Plan Standard',
       logo: {
@@ -61,22 +66,10 @@ const config = {
         {
           title: 'Docs',
           items: [
-            {
-              label: 'Overview',
-              to: '/docs/specification/overview',
-            },
-            {
-              label: 'Field Definitions',
-              to: '/docs/specification/field-definitions',
-            },
-            {
-              label: 'Crosswalk',
-              to: '/docs/specification/crosswalk',
-            },
-            {
-              label: 'Modules',
-              to: '/docs/specification/modules',
-            },
+            { label: 'Overview', to: '/docs/specification/overview' },
+            { label: 'Field Definitions', to: '/docs/specification/field-definitions' },
+            { label: 'Crosswalk', to: '/docs/specification/crosswalk' },
+            { label: 'Modules', to: '/docs/specification/modules' },
           ],
         },
         {
@@ -95,20 +88,14 @@ const config = {
         {
           title: 'More',
           items: [
-            {
-              label: 'About',
-              to: '/docs/about/team',
-            },
-            {
-              label: 'Governance',
-              to: '/docs/governance/mission',
-            },
+            { label: 'About', to: '/docs/about/team' },
+            { label: 'Governance', to: '/docs/governance/mission' },
           ],
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Benefit Plan Standard`,
     },
-  }),
+  },
 };
 
 module.exports = config;
