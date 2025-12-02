@@ -53,9 +53,9 @@ module.exports = {
       label: 'Compliance',
       collapsible: true,
       items: [
-        'compliance/overview',
-        'compliance/validation',
-        'compliance/certification',
+        'compliance/compliance-overview',
+        'compliance/compliance-validation',
+        'compliance/compliance-certification',
       ],
     },
     {
