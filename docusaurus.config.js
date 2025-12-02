@@ -23,8 +23,12 @@ const config = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl:
-            'https://github.com/Benefit-Plan-Standard/benefit-plan-docs/edit/main/',
+          editUrl: 'https://github.com/Benefit-Plan-Standard/benefit-plan-docs/edit/main/',
+          remarkPlugins: [
+            require('remark-directive'),
+            require('./scripts/directives.js'),
+            require('remark-gfm'),
+          ],
         },
         blog: false,
         theme: {
@@ -33,6 +37,7 @@ const config = {
       },
     ],
   ],
+
 
   themeConfig: {
     navbar: {

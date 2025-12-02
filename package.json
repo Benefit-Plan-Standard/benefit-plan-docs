@@ -7,10 +7,14 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "serve": "docusaurus serve",
-    "deploy": "docusaurus deploy"
+    "deploy": "docusaurus deploy",
+    "generate:crosswalk": "node scripts/generateCrosswalk.js"
   },
   "dependencies": {
     "@docusaurus/core": "^2.4.1",
-    "@docusaurus/preset-classic": "^2.4.1"
+    "@docusaurus/preset-classic": "^2.4.1",
+    "remark-directive": "^4.0.0",
+    "remark-gfm": "^4.0.1",
+    "unist-util-visit": "^5.0.0"
   }
 }
