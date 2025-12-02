@@ -24,7 +24,7 @@ All changes are discussed publicly on GitHub.  Open an issue in the relevant rep
 
 ## What versions will be supported?
 
-The standard follows semantic versioning.  Breaking changes increment the major version.  Minor versions add new optional fields or modules.  Patch versions fix errors or clarify documentation.  See the [changelog](../../benefit-plan-schema/docs/changelog.md) for release history.
+The standard follows semantic versioning.  Breaking changes increment the major version.  Minor versions add new optional fields or modules.  Patch versions fix errors or clarify documentation.  See the [Schema Changelog](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md) for release history.
 
 ## Can carriers adopt part of the standard?
 
