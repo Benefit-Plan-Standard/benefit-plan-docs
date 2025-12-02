@@ -37,17 +37,25 @@ module.exports = {
       type: 'category',
       label: 'Governance',
       collapsible: true,
-      collapsed: false,
       items: [
-        // NEW GOVERNANCE PAGES (in sidebar_position order)
+        // Governance overview and policies
         'governance/governance-overview',
         'governance/versioning-release-policy',
         'governance/contribution-process',
-
-        // EXISTING GOVERNANCE PAGES
+        // Legacy governance docs
         'governance/mission',
         'governance/roadmap',
         'governance/faq',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Compliance',
+      collapsible: true,
+      items: [
+        'compliance/overview',
+        'compliance/validation',
+        'compliance/certification',
       ],
     },
     {
