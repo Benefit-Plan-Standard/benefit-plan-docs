@@ -22,7 +22,8 @@ module.exports = {
         'specification/field-definitions',
         'specification/crosswalk',
         'specification/modules',
-        'specification/examples', 
+        'specification/examples',
+        'specification/roadmap-v1.1',   // <-- ADDED HERE
       ],
     },
     {
@@ -43,6 +44,7 @@ module.exports = {
         'governance/governance-overview',
         'governance/versioning-release-policy',
         'governance/contribution-process',
+
         // Legacy governance docs
         'governance/mission',
         'governance/roadmap',
