@@ -22,6 +22,7 @@ module.exports = {
         'specification/field-definitions',
         'specification/crosswalk',
         'specification/modules',
+        'specification/examples', 
       ],
     },
     {
