@@ -1,0 +1,184 @@
+/*
+ * Styles for the Benefit Plan Standard homepage.
+ *
+ * This module defines the layout and appearance of the custom
+ * home page for the documentation website.  It extends the
+ * Docusaurus theme by introducing a hero banner, feature grid,
+ * informational sections and community call‑to‑action buttons.
+ * Colors leverage the existing theme palette via CSS variables.
+ */
+
+/* Global spacing helpers */
+:root {
+  --homepage-section-padding: 4rem 0;
+}
+
+/* Hero banner styling */
+.heroBanner {
+  background: var(--ifm-hero-background-color) !important;
+  color: var(--ifm-hero-text-color) !important;
+  border-bottom: 1px solid rgba(148,163,184,0.25);
+  padding-top: 4rem !important;
+  padding-bottom: 4rem !important;
+}
+
+.heroContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.heroButtons > * {
+  margin: 0.5rem;
+}
+
+/* Features section */
+.featuresSection {
+  background-color: var(--ifm-background-surface-color);
+  padding: var(--homepage-section-padding);
+}
+
+.featuresGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.featureItem {
+  flex: 1 1 280px;
+  max-width: 300px;
+  text-align: center;
+  padding: 1rem;
+}
+
+.featureImage {
+  height: 80px;
+  width: 80px;
+  margin-bottom: 1rem;
+  object-fit: contain;
+}
+
+.featureTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.featureDescription {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--ifm-font-color-base);
+}
+
+/* Generic section styling */
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.whySection {
+  padding: var(--homepage-section-padding);
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+.whyList {
+  list-style: none;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.whyList li {
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+/* Custom bullet style for why list */
+.whyList li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  height: 0.5rem;
+  width: 0.5rem;
+  background-color: var(--ifm-color-primary);
+  border-radius: 50%;
+}
+
+.getStartedSection {
+  padding: var(--homepage-section-padding);
+  background-color: var(--ifm-background-color);
+}
+
+.getStartedLead {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.getStartedList {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+}
+
+.getStartedList li {
+  margin-bottom: 0.75rem;
+}
+
+.communitySection {
+  padding: var(--homepage-section-padding);
+  background-color: var(--ifm-color-emphasis-50);
+  text-align: center;
+}
+
+.communityText {
+  max-width: 600px;
+  margin: 0 auto 1.5rem auto;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.communityButtons > * {
+  margin: 0.5rem;
+}
+
+/* Larger icon wrapper */
+.featureIconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+/* Control icon size for inline SVG icons */
+.featureIconWrapper svg {
+  width: 64px;
+  height: 64px;
+}
+
+/* Mobile increase even more if needed */
+@media (max-width: 600px) {
+  .featureIconWrapper svg {
+    width: 72px;
+    height: 72px;
+  }
+}

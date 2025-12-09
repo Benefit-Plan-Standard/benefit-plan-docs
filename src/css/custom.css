@@ -1,0 +1,181 @@
+/************************************
+ * CSS VARIABLES
+ ************************************/
+:root {
+  --page-bg: radial-gradient(circle at top left, #0f172a 0%, #020617 45%, #020617 100%);
+  --ifm-color-primary: #0ea5e9;
+  --ifm-color-primary-dark: #0284c7;
+  --ifm-color-primary-light: #38bdf8;
+  --ifm-color-primary-lighter: #7dd3fc;
+  --ifm-font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  --ifm-code-font-size: 0.85rem;
+  --ifm-global-radius: 18px;
+
+  --ifm-hero-background-color: var(--page-bg);
+  --ifm-hero-text-color: #f9fafb;
+}
+
+/************************************
+ * GLOBAL BACKGROUND
+ ************************************/
+html,
+body {
+  background: var(--page-bg) !important;
+  font-family: var(--ifm-font-family-base);
+  color: #e5e7eb !important;
+}
+
+/************************************
+ * NAVBAR
+ ************************************/
+.navbar {
+  position: relative;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(148,163,184,0.35);
+  background: transparent !important;
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(14px);
+  background: linear-gradient(to bottom, rgba(15,23,42,0.95), rgba(15,23,42,0.75));
+  z-index: -1;
+}
+
+.navbar__logo img {
+  border-radius: 999px;
+  background: conic-gradient(from 180deg, #22c55e, #0ea5e9, #6366f1, #22c55e);
+  padding: 4px;
+  box-shadow: 0 0 16px rgba(56,189,248,0.6);
+}
+
+.navbar__title {
+  font-weight: 600;
+  color: #f9fafb !important;
+}
+
+/************************************
+ * MOBILE SIDEBAR — CORRECT, CLEAN, FINAL VERSION
+ ************************************/
+
+/* SIDEBAR PANEL (correct class name) */
+.navbar-sidebar {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 80%;
+  max-width: 320px;
+
+  overflow-y: auto;
+
+  background: rgba(15,23,42,0.97);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(148,163,184,0.25);
+
+  z-index: 20001 !important; /* MUST be above backdrop */
+}
+
+/* BACKDROP (correct stacking) */
+.navbar-sidebar__backdrop {
+  position: fixed !important;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 20000 !important;  /* BELOW sidebar */
+}
+
+/* WHEN SIDEBAR IS HIDDEN (correct sibling selector) */
+.navbar-sidebar--hidden + .navbar-sidebar__backdrop {
+  opacity: 0;
+  pointer-events: none !important;
+}
+
+
+/************************************
+ * HERO
+ ************************************/
+.heroBanner {
+  background: var(--ifm-hero-background-color) !important;
+  color: var(--ifm-hero-text-color) !important;
+  padding-top: 4rem !important;
+  padding-bottom: 4rem !important;
+}
+
+/************************************
+ * CTA BUTTONS
+ ************************************/
+@media (max-width: 768px) {
+  [class*="heroButtons"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  [class*="heroButtons"] .button {
+    width: 100% !important;
+    justify-content: center;
+    border-radius: 999px;
+  }
+}
+
+/************************************
+ * FEATURE ICONS
+ ************************************/
+.featureIconWrapper svg {
+  width: 72px !important;
+  height: 72px !important;
+}
+
+@media (min-width: 900px) {
+  .featureIconWrapper svg {
+    width: 64px !important;
+    height: 64px !important;
+  }
+}
+
+/************************************
+ * DOC PAGE PANELS
+ ************************************/
+.theme-doc-markdown {
+  background: radial-gradient(circle at top left, rgba(148,163,184,0.12), rgba(15,23,42,0.96));
+  border: 1px solid rgba(148,163,184,0.35);
+  border-radius: 18px;
+  padding: 2rem;
+}
+
+/************************************
+ * SIDEBAR LINKS
+ ************************************/
+.menu__link {
+  color: #cbd5f5 !important;
+  opacity: 0.85;
+}
+
+.menu__link--active {
+  background: rgba(148,163,184,0.15);
+  border-radius: 8px;
+  color: #f9fafb !important;
+}
+
+/************************************
+ * CODE BLOCKS
+ ************************************/
+.codeBlockContainer {
+  background: #020617 !important;
+  border: 1px solid rgba(148,163,184,0.35);
+  border-radius: 12px;
+}
+
+.token.keyword { color: #22c55e !important; }
+.token.string { color: #38bdf8 !important; }
+.token.function { color: #7dd3fc !important; }
+
+/************************************
+ * FOCUS
+ ************************************/
+*:focus-visible {
+  outline: 2px solid #22c55e;
+  outline-offset: 2px;
+}

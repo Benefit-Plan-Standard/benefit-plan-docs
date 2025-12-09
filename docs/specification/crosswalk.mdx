@@ -1,0 +1,803 @@
+---
+id: crosswalk
+title: Carrier Crosswalk
+sidebar_position: 4
+---
+
+import CrosswalkIframe from '@site/src/components/CrosswalkIframe';
+
+# Carrier Crosswalk
+
+The Benefit Plan Standard maintains a **carrier crosswalk** that maps each issuer’s vocabulary, structure, and terminology into the normalized schema fields.  
+This ensures that different carriers’ representations of benefits—often inconsistent in naming, structure, and granularity—can be interpreted in a unified, machine-readable way.
+
+Because carriers vary widely in how they describe deductibles, copays, limits, and categories, the crosswalk is a foundational component of the standard.
+
+---
+
+## 📊 Live Crosswalk Matrix
+
+<!-- AUTO-GENERATED-CROSSWALK:START -->
+<details class="crosswalk-details">
+<summary>Plan Metadata</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>Normalized Field</th>
+      <th>Blue Cross</th>
+      <th>GatorCare</th>
+      <th>SCAN</th>
+      <th>Aetna</th>
+      <th>UHC</th>
+      <th>Cigna</th>
+      <th>Humana</th>
+      <th>Kaiser (future)</th>
+      <th>Molina (future)</th>
+      <th>Oscar (future)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>plan_id</td>
+      <td>Contract Number</td>
+      <td>Plan ID</td>
+      <td>H Number</td>
+      <td>SBC ID</td>
+      <td>Plan Number</td>
+      <td>Policy Number</td>
+      <td>Contract ID</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>carrier</td>
+      <td>Florida Blue</td>
+      <td>UF Health / GatorCare</td>
+      <td>SCAN Health Plan</td>
+      <td>Aetna</td>
+      <td>UnitedHealthcare</td>
+      <td>Cigna</td>
+      <td>Humana</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>plan_name</td>
+      <td>BlueOptions 505 PPO</td>
+      <td>Prime Plus</td>
+      <td>Classic</td>
+      <td>PPO 1500 80/50</td>
+      <td>MA Plan Name</td>
+      <td>Preferred Plan</td>
+      <td>Gold Plus</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>plan_type</td>
+      <td>PPO</td>
+      <td>PPO</td>
+      <td>HMO / MA</td>
+      <td>PPO</td>
+      <td>HMO / PPO / MA</td>
+      <td>PPO / HMO</td>
+      <td>HMO / MA</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>year</td>
+      <td>Coverage Year</td>
+      <td>Plan Year</td>
+      <td>Plan Year</td>
+      <td>SBC Year</td>
+      <td>Plan Year</td>
+      <td>Calendar Year</td>
+      <td>Calendar Year</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>market</td>
+      <td>Group or Individual</td>
+      <td>Employer Group</td>
+      <td>Medicare Advantage</td>
+      <td>Commercial</td>
+      <td>Commercial / MA</td>
+      <td>Commercial</td>
+      <td>Medicare Advantage</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+<details class="crosswalk-details">
+<summary>Network Tiers</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>Normalized Field</th>
+      <th>Blue Cross</th>
+      <th>GatorCare</th>
+      <th>SCAN</th>
+      <th>Aetna</th>
+      <th>UHC</th>
+      <th>Cigna</th>
+      <th>Humana</th>
+      <th>Kaiser (future)</th>
+      <th>Molina (future)</th>
+      <th>Oscar (future)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tier_id</td>
+      <td>IN / OUT</td>
+      <td>IN / OUT</td>
+      <td>IN</td>
+      <td>IN / OUT</td>
+      <td>IN / OUT</td>
+      <td>IN / OUT</td>
+      <td>IN</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>In / Out of Network</td>
+      <td>In / Out of Network</td>
+      <td>In Network</td>
+      <td>In / Out of Network</td>
+      <td>Participating / Non-Participating</td>
+      <td>In / Out Network</td>
+      <td>In Network</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>description</td>
+      <td>Network Level</td>
+      <td>Network Level</td>
+      <td>Plan Network</td>
+      <td>Network Level</td>
+      <td>Benefit Level</td>
+      <td>Network Tier</td>
+      <td>Plan Network</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+<details class="crosswalk-details">
+<summary>Accumulators</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>Normalized Field</th>
+      <th>Blue Cross</th>
+      <th>GatorCare</th>
+      <th>SCAN</th>
+      <th>Aetna</th>
+      <th>UHC</th>
+      <th>Cigna</th>
+      <th>Humana</th>
+      <th>Kaiser (future)</th>
+      <th>Molina (future)</th>
+      <th>Oscar (future)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>individual_deductible</td>
+      <td>Individual Deductible</td>
+      <td>Individual Deductible</td>
+      <td>Usually none</td>
+      <td>Individual Deductible</td>
+      <td>Deductible IN/OUT</td>
+      <td>Individual Deductible</td>
+      <td>Mostly none</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>family_deductible</td>
+      <td>Family Deductible</td>
+      <td>Family Deductible</td>
+      <td>None</td>
+      <td>Family Deductible</td>
+      <td>Family Deductible</td>
+      <td>Family Deductible</td>
+      <td>Not used</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>individual_oop</td>
+      <td>Individual OOP Max</td>
+      <td>OOP Max (Ind.)</td>
+      <td>MOOP</td>
+      <td>OOP Max (Ind.)</td>
+      <td>MOOP Ind</td>
+      <td>OOP Max</td>
+      <td>MOOP</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>family_oop</td>
+      <td>Family OOP Max</td>
+      <td>OOP Max (Family)</td>
+      <td>None</td>
+      <td>OOP Max (Family)</td>
+      <td>MOOP Fam</td>
+      <td>Family OOP Max</td>
+      <td>Not used</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+<details class="crosswalk-details">
+<summary>Benefits</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>Normalized Field</th>
+      <th>Blue Cross</th>
+      <th>GatorCare</th>
+      <th>SCAN</th>
+      <th>Aetna</th>
+      <th>UHC</th>
+      <th>Cigna</th>
+      <th>Humana</th>
+      <th>Kaiser (future)</th>
+      <th>Molina (future)</th>
+      <th>Oscar (future)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>category</td>
+      <td>Category Header</td>
+      <td>Category</td>
+      <td>Common Medical Event</td>
+      <td>Medical Event</td>
+      <td>Category</td>
+      <td>Benefit Category</td>
+      <td>Category</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>service_name</td>
+      <td>PCP Visit</td>
+      <td>Primary Care Provider</td>
+      <td>PCP Visit</td>
+      <td>Primary Care Visit</td>
+      <td>PCP Office Visit</td>
+      <td>PCP Visit</td>
+      <td>Primary Care Physician</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>place_of_service</td>
+      <td>Office Visit</td>
+      <td>Office</td>
+      <td>Office</td>
+      <td>Office</td>
+      <td>Office / Telehealth</td>
+      <td>Office</td>
+      <td>Office / Telehealth</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>deductible</td>
+      <td>Deductible Applies?</td>
+      <td>Subject to Deductible</td>
+      <td>Deductible Waived?</td>
+      <td>Subject to Deductible</td>
+      <td>Applies / Waived</td>
+      <td>Applies</td>
+      <td>Usually Waived</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>copay</td>
+      <td>Copay</td>
+      <td>Copayment</td>
+      <td>Copay</td>
+      <td>Copay</td>
+      <td>Copay</td>
+      <td>Copay</td>
+      <td>Copay</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>coinsurance</td>
+      <td>Coinsurance</td>
+      <td>Coinsurance</td>
+      <td>Coins</td>
+      <td>Coinsurance</td>
+      <td>Coinsurance</td>
+      <td>Coinsurance</td>
+      <td>Coinsurance</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+<details class="crosswalk-details">
+<summary>Limits</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>Normalized Field</th>
+      <th>Blue Cross</th>
+      <th>GatorCare</th>
+      <th>SCAN</th>
+      <th>Aetna</th>
+      <th>UHC</th>
+      <th>Cigna</th>
+      <th>Humana</th>
+      <th>Kaiser (future)</th>
+      <th>Molina (future)</th>
+      <th>Oscar (future)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>type</td>
+      <td>Visits / Days</td>
+      <td>Visits</td>
+      <td>Days</td>
+      <td>Visits</td>
+      <td>Days / Units</td>
+      <td>Visits</td>
+      <td>Frequency</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>Visit Limit / Day Limit</td>
+      <td>Visit Limit</td>
+      <td>Day Limit</td>
+      <td>Visit Limit</td>
+      <td>Stay Limit</td>
+      <td>Visit Limit</td>
+      <td>Allowance</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>period</td>
+      <td>Per Year / Per Stay</td>
+      <td>Annual</td>
+      <td>Benefit Period</td>
+      <td>Per Year</td>
+      <td>Per Stay / Per Year</td>
+      <td>Per Year</td>
+      <td>Annual</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+<details class="crosswalk-details">
+<summary>Conditions</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>Normalized Field</th>
+      <th>Blue Cross</th>
+      <th>GatorCare</th>
+      <th>SCAN</th>
+      <th>Aetna</th>
+      <th>UHC</th>
+      <th>Cigna</th>
+      <th>Humana</th>
+      <th>Kaiser (future)</th>
+      <th>Molina (future)</th>
+      <th>Oscar (future)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>prior_authorization</td>
+      <td>Prior Auth</td>
+      <td>Prior Authorization</td>
+      <td>Prior Auth</td>
+      <td>Prior Auth</td>
+      <td>Prior Auth</td>
+      <td>Prior Auth</td>
+      <td>Prior Auth</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>referral_required</td>
+      <td>Referral Required</td>
+      <td>Referral Required</td>
+      <td>Referral</td>
+      <td>Referral</td>
+      <td>Referral Required</td>
+      <td>Referral Required</td>
+      <td>Referral Required</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>notes</td>
+      <td>Notes / Limitations</td>
+      <td>Limitations</td>
+      <td>Notes</td>
+      <td>Notes</td>
+      <td>Limitations</td>
+      <td>Notes</td>
+      <td>Plan Notes</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+<details class="crosswalk-details">
+<summary>Source Reference</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>Normalized Field</th>
+      <th>Blue Cross</th>
+      <th>GatorCare</th>
+      <th>SCAN</th>
+      <th>Aetna</th>
+      <th>UHC</th>
+      <th>Cigna</th>
+      <th>Humana</th>
+      <th>Kaiser (future)</th>
+      <th>Molina (future)</th>
+      <th>Oscar (future)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>page</td>
+      <td>SBC Page</td>
+      <td>SBC Page</td>
+      <td>SBC Page</td>
+      <td>SBC Page</td>
+      <td>SBC / EOC Page</td>
+      <td>SBC Page</td>
+      <td>SBC/EOC Page</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>excerpt</td>
+      <td>Text Snippet</td>
+      <td>Text Snippet</td>
+      <td>Snippet</td>
+      <td>Snippet</td>
+      <td>Snippet</td>
+      <td>Snippet</td>
+      <td>Snippet</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+<details class="crosswalk-details">
+<summary>Field Definitions</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>plan_id</td>
+      <td>string</td>
+      <td>Normalized unique identifier of the plan</td>
+    </tr>
+    <tr>
+      <td>carrier</td>
+      <td>string</td>
+      <td>Carrier or issuer name</td>
+    </tr>
+    <tr>
+      <td>plan_name</td>
+      <td>string</td>
+      <td>Marketing name</td>
+    </tr>
+    <tr>
+      <td>plan_type</td>
+      <td>string</td>
+      <td>HMO / PPO / EPO / MA</td>
+    </tr>
+    <tr>
+      <td>year</td>
+      <td>integer</td>
+      <td>Coverage year</td>
+    </tr>
+    <tr>
+      <td>market</td>
+      <td>string</td>
+      <td>Commercial, MA, Group, etc.</td>
+    </tr>
+    <tr>
+      <td>individual_deductible</td>
+      <td>money</td>
+      <td>Deductible for individual</td>
+    </tr>
+    <tr>
+      <td>family_deductible</td>
+      <td>money</td>
+      <td>Deductible for family</td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+<details class="crosswalk-details">
+<summary>Carrier Vocabulary</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>plan_id</td>
+      <td>string</td>
+      <td>Normalized unique identifier of the plan</td>
+    </tr>
+    <tr>
+      <td>carrier</td>
+      <td>string</td>
+      <td>Carrier or issuer name</td>
+    </tr>
+    <tr>
+      <td>plan_name</td>
+      <td>string</td>
+      <td>Marketing name</td>
+    </tr>
+    <tr>
+      <td>plan_type</td>
+      <td>string</td>
+      <td>HMO / PPO / EPO / MA</td>
+    </tr>
+    <tr>
+      <td>year</td>
+      <td>integer</td>
+      <td>Coverage year</td>
+    </tr>
+    <tr>
+      <td>market</td>
+      <td>string</td>
+      <td>Commercial, MA, Group, etc.</td>
+    </tr>
+    <tr>
+      <td>individual_deductible</td>
+      <td>money</td>
+      <td>Deductible for individual</td>
+    </tr>
+    <tr>
+      <td>family_deductible</td>
+      <td>money</td>
+      <td>Deductible for family</td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+<!-- AUTO-GENERATED-CROSSWALK:END -->
+
+Future carriers (e.g., Kaiser, Molina, Oscar, Ambetter) already have placeholder columns for expansion.
+
+## Purpose
+
+Carriers do not use consistent terminology.  
+For example:
+
+- One carrier may label a row **“Office Visit - Primary Care (PCP)”**,  
+  while another writes **“Primary Care Provider: You pay $25”**,  
+  and another uses **“PCP Copay per encounter”**.
+
+- Deductible applicability might be written as:
+  - “After deductible”
+  - “Subject to deductible”
+  - “Copay does not apply to deductible”
+  - “Ded waived”
+  - Combined expressions such as _“$25 copay + 20% coinsurance after deductible”_
+
+Without a standardized crosswalk, ingestion pipelines must be hand-tuned for every carrier.
+
+The crosswalk solves this by documenting, for each normalized field:
+
+- How each carrier expresses the value  
+- Semantics that must be preserved  
+- Parsing notes and exceptions  
+- Mappings into the normalized JSON structure  
+
+---
+
+## Structure of the Crosswalk
+
+The Google Sheet contains multiple tabs, including:
+
+### **Plan Metadata**
+Maps identifiers such as:
+- `plan_id`  
+- `carrier`  
+- `plan_type`  
+- `market`  
+
+### **Network Tiers**
+Mappings for:
+- In-network / out-of-network naming  
+- Tier structures  
+- Carrier-specific vocabulary  
+
+### **Accumulators**
+How each carrier expresses:
+- `individual_deductible`  
+- `family_deductible`  
+- `individual_oop`  
+- `family_oop`  
+
+### **Benefits**
+Mappings for:
+- categories  
+- service names  
+- copays  
+- coinsurance expressions  
+- deductible applicability  
+
+### **Limits**
+Mappings for:
+- visit/day limits  
+- period definitions (annual, per stay, lifetime, etc.)  
+
+### **Conditions**
+Mappings for:
+- prior authorization  
+- referral requirements  
+- contextual notes  
+
+### **Source Reference**
+Extracts and page references used for ingestion traceability.
+
+---
+
+## Using the Crosswalk
+
+When integrating a new carrier:
+
+### **1. Identify each benefit entry**  
+Locate the carrier’s terms in the crosswalk (or add them when necessary).
+
+### **2. Map each value to the normalized field**  
+
+Examples:
+
+- **Copay differences**  
+  - Blue Cross: “$25 per visit”  
+  - SCAN: “$0 copay, coinsurance does not apply”  
+  These map to `benefits[].cost_shares.copay`.
+
+- **Deductible expressions**  
+  - GatorCare lists medical and pharmacy separately  
+  - Aetna merges them  
+  The crosswalk clarifies how to populate `individual_deductible`, `family_deductible`, and related fields.
+
+### **3. Capture exceptions and conditions**  
+Ambiguous phrasing such as:
+
+- “after facility fee”  
+- “per admission deductible”  
+- “ded waived for virtual visits”  
+
+should be documented in the crosswalk’s notes column.
+
+### **4. Extend when necessary**  
+If a carrier introduces:
+
+- new cost-share terminology  
+- split benefit categories  
+- multi-tier networks  
+
+add a row or column to the Google Sheet and update the ingestion rules accordingly.
+
+---
+
+## Updating the Crosswalk
+
+The Google Sheet is the **canonical source of truth** for carrier mappings.  
+Updates follow these principles:
+
+- **Accuracy first** — No changes without verification against the SBC/EOC.  
+- **Non-breaking additions** — New carriers and vocabulary should not break prior mappings.  
+- **Schema alignment** — Crosswalk rows correspond exactly to the normalized fields.  
+
+For contributors assisting with ingestion logic or analysis, edit access may be granted through the governance process.
+
+---
+
+## Summary
+
+The Carrier Crosswalk is essential for:
+
+- Translating carrier-specific formats into a unified schema  
+- Ensuring ingestion is deterministic and predictable  
+- Maintaining consistency across carriers  
+- Supporting extension as new carriers and plan types are analyzed  
+
+The live version ensures that the standard remains current, accurate, and interoperable across all benefit plan formats and carriers.
