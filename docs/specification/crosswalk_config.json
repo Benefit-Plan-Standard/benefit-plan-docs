@@ -1,0 +1,423 @@
+{
+  "version": "1.0.0",
+  "documentType": "sbc",
+  "tabs": {
+    "Plan Metadata": {
+      "Normalized Field": [
+        "Blue Cross",
+        "GatorCare",
+        "SCAN",
+        "Aetna",
+        "UHC",
+        "Cigna",
+        "Humana",
+        "Kaiser (future)",
+        "Molina (future)",
+        "Oscar (future)"
+      ],
+      "plan_id": [
+        "Contract Number",
+        "Plan ID",
+        "H Number",
+        "SBC ID",
+        "Plan Number",
+        "Policy Number",
+        "Contract ID"
+      ],
+      "carrier": [
+        "Florida Blue",
+        "UF Health / GatorCare",
+        "SCAN Health Plan",
+        "Aetna",
+        "UnitedHealthcare",
+        "Cigna",
+        "Humana"
+      ],
+      "plan_name": [
+        "BlueOptions 505 PPO",
+        "Prime Plus",
+        "Classic",
+        "PPO 1500 80/50",
+        "MA Plan Name",
+        "Preferred Plan",
+        "Gold Plus"
+      ],
+      "plan_type": [
+        "PPO",
+        "PPO",
+        "HMO / MA",
+        "PPO",
+        "HMO / PPO / MA",
+        "PPO / HMO",
+        "HMO / MA"
+      ],
+      "year": [
+        "Coverage Year",
+        "Plan Year",
+        "Plan Year",
+        "SBC Year",
+        "Plan Year",
+        "Calendar Year",
+        "Calendar Year"
+      ],
+      "market": [
+        "Group or Individual",
+        "Employer Group",
+        "Medicare Advantage",
+        "Commercial",
+        "Commercial / MA",
+        "Commercial",
+        "Medicare Advantage"
+      ]
+    },
+    "Network Tiers": {
+      "Normalized Field": [
+        "Blue Cross",
+        "GatorCare",
+        "SCAN",
+        "Aetna",
+        "UHC",
+        "Cigna",
+        "Humana",
+        "Kaiser (future)",
+        "Molina (future)",
+        "Oscar (future)"
+      ],
+      "tier_id": [
+        "IN / OUT",
+        "IN / OUT",
+        "IN",
+        "IN / OUT",
+        "IN / OUT",
+        "IN / OUT",
+        "IN"
+      ],
+      "name": [
+        "In / Out of Network",
+        "In / Out of Network",
+        "In Network",
+        "In / Out of Network",
+        "Participating / Non-Participating",
+        "In / Out Network",
+        "In Network"
+      ],
+      "description": [
+        "Network Level",
+        "Network Level",
+        "Plan Network",
+        "Network Level",
+        "Benefit Level",
+        "Network Tier",
+        "Plan Network"
+      ]
+    },
+    "Accumulators": {
+      "Normalized Field": [
+        "Blue Cross",
+        "GatorCare",
+        "SCAN",
+        "Aetna",
+        "UHC",
+        "Cigna",
+        "Humana",
+        "Kaiser (future)",
+        "Molina (future)",
+        "Oscar (future)"
+      ],
+      "individual_deductible": [
+        "Individual Deductible",
+        "Individual Deductible",
+        "Usually none",
+        "Individual Deductible",
+        "Deductible IN/OUT",
+        "Individual Deductible",
+        "Mostly none"
+      ],
+      "family_deductible": [
+        "Family Deductible",
+        "Family Deductible",
+        "None",
+        "Family Deductible",
+        "Family Deductible",
+        "Family Deductible",
+        "Not used"
+      ],
+      "individual_oop": [
+        "Individual OOP Max",
+        "OOP Max (Ind.)",
+        "MOOP",
+        "OOP Max (Ind.)",
+        "MOOP Ind",
+        "OOP Max",
+        "MOOP"
+      ],
+      "family_oop": [
+        "Family OOP Max",
+        "OOP Max (Family)",
+        "None",
+        "OOP Max (Family)",
+        "MOOP Fam",
+        "Family OOP Max",
+        "Not used"
+      ]
+    },
+    "Benefits": {
+      "Normalized Field": [
+        "Blue Cross",
+        "GatorCare",
+        "SCAN",
+        "Aetna",
+        "UHC",
+        "Cigna",
+        "Humana",
+        "Kaiser (future)",
+        "Molina (future)",
+        "Oscar (future)"
+      ],
+      "category": [
+        "Category Header",
+        "Category",
+        "Common Medical Event",
+        "Medical Event",
+        "Category",
+        "Benefit Category",
+        "Category"
+      ],
+      "service_name": [
+        "PCP Visit",
+        "Primary Care Provider",
+        "PCP Visit",
+        "Primary Care Visit",
+        "PCP Office Visit",
+        "PCP Visit",
+        "Primary Care Physician"
+      ],
+      "place_of_service": [
+        "Office Visit",
+        "Office",
+        "Office",
+        "Office",
+        "Office / Telehealth",
+        "Office",
+        "Office / Telehealth"
+      ],
+      "deductible": [
+        "Deductible Applies?",
+        "Subject to Deductible",
+        "Deductible Waived?",
+        "Subject to Deductible",
+        "Applies / Waived",
+        "Applies",
+        "Usually Waived"
+      ],
+      "copay": [
+        "Copay",
+        "Copayment",
+        "Copay",
+        "Copay",
+        "Copay",
+        "Copay",
+        "Copay"
+      ],
+      "coinsurance": [
+        "Coinsurance",
+        "Coinsurance",
+        "Coins",
+        "Coinsurance",
+        "Coinsurance",
+        "Coinsurance",
+        "Coinsurance"
+      ]
+    },
+    "Limits": {
+      "Normalized Field": [
+        "Blue Cross",
+        "GatorCare",
+        "SCAN",
+        "Aetna",
+        "UHC",
+        "Cigna",
+        "Humana",
+        "Kaiser (future)",
+        "Molina (future)",
+        "Oscar (future)"
+      ],
+      "type": [
+        "Visits / Days",
+        "Visits",
+        "Days",
+        "Visits",
+        "Days / Units",
+        "Visits",
+        "Frequency"
+      ],
+      "value": [
+        "Visit Limit / Day Limit",
+        "Visit Limit",
+        "Day Limit",
+        "Visit Limit",
+        "Stay Limit",
+        "Visit Limit",
+        "Allowance"
+      ],
+      "period": [
+        "Per Year / Per Stay",
+        "Annual",
+        "Benefit Period",
+        "Per Year",
+        "Per Stay / Per Year",
+        "Per Year",
+        "Annual"
+      ]
+    },
+    "Conditions": {
+      "Normalized Field": [
+        "Blue Cross",
+        "GatorCare",
+        "SCAN",
+        "Aetna",
+        "UHC",
+        "Cigna",
+        "Humana",
+        "Kaiser (future)",
+        "Molina (future)",
+        "Oscar (future)"
+      ],
+      "prior_authorization": [
+        "Prior Auth",
+        "Prior Authorization",
+        "Prior Auth",
+        "Prior Auth",
+        "Prior Auth",
+        "Prior Auth",
+        "Prior Auth"
+      ],
+      "referral_required": [
+        "Referral Required",
+        "Referral Required",
+        "Referral",
+        "Referral",
+        "Referral Required",
+        "Referral Required",
+        "Referral Required"
+      ],
+      "notes": [
+        "Notes / Limitations",
+        "Limitations",
+        "Notes",
+        "Notes",
+        "Limitations",
+        "Notes",
+        "Plan Notes"
+      ]
+    },
+    "Source Reference": {
+      "Normalized Field": [
+        "Blue Cross",
+        "GatorCare",
+        "SCAN",
+        "Aetna",
+        "UHC",
+        "Cigna",
+        "Humana",
+        "Kaiser (future)",
+        "Molina (future)",
+        "Oscar (future)"
+      ],
+      "page": [
+        "SBC Page",
+        "SBC Page",
+        "SBC Page",
+        "SBC Page",
+        "SBC / EOC Page",
+        "SBC Page",
+        "SBC/EOC Page"
+      ],
+      "excerpt": [
+        "Text Snippet",
+        "Text Snippet",
+        "Snippet",
+        "Snippet",
+        "Snippet",
+        "Snippet",
+        "Snippet"
+      ]
+    },
+    "Field Definitions": {
+      "Field": [
+        "Type",
+        "Description"
+      ],
+      "plan_id": [
+        "string",
+        "Normalized unique identifier of the plan"
+      ],
+      "carrier": [
+        "string",
+        "Carrier or issuer name"
+      ],
+      "plan_name": [
+        "string",
+        "Marketing name"
+      ],
+      "plan_type": [
+        "string",
+        "HMO / PPO / EPO / MA"
+      ],
+      "year": [
+        "integer",
+        "Coverage year"
+      ],
+      "market": [
+        "string",
+        "Commercial, MA, Group, etc."
+      ],
+      "individual_deductible": [
+        "money",
+        "Deductible for individual"
+      ],
+      "family_deductible": [
+        "money",
+        "Deductible for family"
+      ]
+    },
+    "Carrier Vocabulary": {
+      "Field": [
+        "Type",
+        "Description"
+      ],
+      "plan_id": [
+        "string",
+        "Normalized unique identifier of the plan"
+      ],
+      "carrier": [
+        "string",
+        "Carrier or issuer name"
+      ],
+      "plan_name": [
+        "string",
+        "Marketing name"
+      ],
+      "plan_type": [
+        "string",
+        "HMO / PPO / EPO / MA"
+      ],
+      "year": [
+        "integer",
+        "Coverage year"
+      ],
+      "market": [
+        "string",
+        "Commercial, MA, Group, etc."
+      ],
+      "individual_deductible": [
+        "money",
+        "Deductible for individual"
+      ],
+      "family_deductible": [
+        "money",
+        "Deductible for family"
+      ]
+    }
+  }
+}

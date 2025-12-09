@@ -1,0 +1,21 @@
+.crosswalk-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.crosswalk-table th {
+  background-color: #f4f4f4;
+  padding: 8px;
+  font-weight: 700;
+  border: 1px solid #ddd;
+}
+
+.crosswalk-table td {
+  padding: 6px;
+  border: 1px solid #ddd;
+}
+
+.crosswalk-table tr:nth-child(even) {
+  background: #fafafa;
+}
