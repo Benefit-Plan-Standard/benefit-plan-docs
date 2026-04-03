@@ -11,6 +11,17 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'icon',
+        type: 'image/svg+xml',
+        href: '/img/favicon.svg',
+      },
+    },
+  ],
+
   // GitHub pages deployment config
   organizationName: 'Benefit-Plan-Standard',  // GitHub org
   projectName: 'benefit-plan-docs',           // Repo
@@ -40,6 +51,16 @@ const config = {
 
 
   themeConfig: {
+    image: 'img/og-image.png',
+    metadata: [
+      {name: 'twitter:card', content: 'summary_large_image'},
+      {name: 'twitter:title', content: 'Benefit Plan Standard'},
+      {name: 'twitter:description', content: 'An open, vendor-neutral data standard for normalizing and exchanging health benefit plan information.'},
+      {property: 'og:type', content: 'website'},
+      {property: 'og:title', content: 'Benefit Plan Standard'},
+      {property: 'og:description', content: 'An open, vendor-neutral data standard for normalizing and exchanging health benefit plan information.'},
+      {property: 'og:url', content: 'https://benefitplanstandard.org'},
+    ],
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: true,
@@ -49,7 +70,7 @@ const config = {
       hideOnScroll: false,
       logo: {
         alt: 'Benefit Plan Standard',
-        src: 'img/logo.png',
+        src: 'img/logo.svg',
       },
       title: 'Benefit Plan Standard'
     },
