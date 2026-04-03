@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1200">
+  <title>OG Image Export — Benefit Plan Standard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background: #0f172a;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+      color: #f9fafb;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Background glows */
+    .glow-blue {
+      position: absolute;
+      width: 700px;
+      height: 500px;
+      left: -150px;
+      top: -150px;
+      background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .glow-purple {
+      position: absolute;
+      width: 550px;
+      height: 450px;
+      right: -80px;
+      bottom: -100px;
+      background: radial-gradient(circle, rgba(99,102,241,0.11) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* Left accent bar */
+    .accent-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 5px;
+      height: 100%;
+      background: #0ea5e9;
+    }
+
+    /* Content */
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 55px;
+      padding: 0 75px 0 80px;
+      width: 100%;
+    }
+
+    /* Logo */
+    .logo-mark {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+    }
+
+    /* Text */
+    .text-section {
+      flex: 1;
+    }
+
+    .title {
+      font-size: 66px;
+      font-weight: 800;
+      color: #f9fafb;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 14px;
+    }
+
+    .subtitle {
+      font-size: 25px;
+      font-weight: 400;
+      color: #94a3b8;
+      line-height: 1.4;
+      margin-bottom: 30px;
+    }
+
+    .divider {
+      height: 1.5px;
+      background: #1e293b;
+      margin-bottom: 18px;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .domain {
+      font-size: 21px;
+      font-weight: 500;
+      color: #0ea5e9;
+      letter-spacing: 0.3px;
+    }
+
+    .badge {
+      font-size: 14px;
+      font-weight: 600;
+      color: #38bdf8;
+      background: rgba(14, 165, 233, 0.10);
+      border: 1px solid rgba(14, 165, 233, 0.35);
+      padding: 7px 18px;
+      border-radius: 20px;
+      letter-spacing: 0.4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-blue"></div>
+  <div class="glow-purple"></div>
+  <div class="accent-bar"></div>
+
+  <div class="content">
+    <!-- Hexagon logo mark -->
+    <div class="logo-mark">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#0ea5e9"/>
+            <stop offset="100%" stop-color="#22c55e"/>
+          </linearGradient>
+        </defs>
+        <polygon points="50,10 85,30 85,70 50,90 15,70 15,30" fill="url(#g)"/>
+        <rect x="23" y="33" width="26" height="8" rx="4" fill="white" opacity="0.55"/>
+        <rect x="23" y="46" width="54" height="8" rx="4" fill="white" opacity="0.95"/>
+        <rect x="23" y="59" width="38" height="8" rx="4" fill="white" opacity="0.75"/>
+      </svg>
+    </div>
+
+    <div class="text-section">
+      <div class="title">Benefit Plan Standard</div>
+      <div class="subtitle">Open, vendor-neutral schema for health benefit plan data</div>
+      <div class="divider"></div>
+      <div class="footer-row">
+        <div class="domain">benefitplanstandard.org</div>
+        <div class="badge">JSON Schema v1.0.0</div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    TO EXPORT AS PNG:
+    1. Open this file in Chrome
+    2. Open DevTools (F12) > toggle device toolbar > set to 1200 x 630
+    3. Right-click the page > "Capture screenshot" (or use DevTools screenshot feature)
+    4. Save as: static/img/og-image.png
+    5. Commit og-image.png to the repo
+  -->
+</body>
+</html>
