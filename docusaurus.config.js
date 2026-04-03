@@ -56,9 +56,11 @@ const config = {
       {name: 'twitter:card', content: 'summary_large_image'},
       {name: 'twitter:title', content: 'Benefit Plan Standard'},
       {name: 'twitter:description', content: 'An open, vendor-neutral data standard for normalizing and exchanging health benefit plan information.'},
+      {name: 'twitter:image', content: 'https://benefitplanstandard.org/img/og-image.png'},
       {property: 'og:type', content: 'website'},
       {property: 'og:title', content: 'Benefit Plan Standard'},
       {property: 'og:description', content: 'An open, vendor-neutral data standard for normalizing and exchanging health benefit plan information.'},
+      {property: 'og:image', content: 'https://benefitplanstandard.org/img/og-image.png'},
       {property: 'og:url', content: 'https://benefitplanstandard.org'},
     ],
     colorMode: {
