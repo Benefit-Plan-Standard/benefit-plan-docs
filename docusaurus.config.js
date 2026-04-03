@@ -16,8 +16,8 @@ const config = {
       tagName: 'link',
       attributes: {
         rel: 'icon',
-        type: 'image/svg+xml',
-        href: '/img/favicon.svg',
+        type: 'image/x-icon',
+        href: '/img/favicon.ico',
       },
     },
   ],
@@ -70,7 +70,7 @@ const config = {
       hideOnScroll: false,
       logo: {
         alt: 'Benefit Plan Standard',
-        src: 'img/logo.svg',
+        src: 'img/logo.png',
       },
       title: 'Benefit Plan Standard'
     },
