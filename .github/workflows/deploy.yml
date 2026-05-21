@@ -34,6 +34,12 @@ jobs:
         run: npm run generate:crosswalk
 
       - name: Commit and Push changes
+        # Only push the regenerated crosswalk on push-to-main runs.
+        # On pull_request events, actions/checkout@v4 checks out a merge
+        # ref in detached HEAD state, so `git push` cannot infer a branch
+        # and fails. The downstream build job still validates that the
+        # regenerated MDX builds cleanly.
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           if [[ -n "$(git status --porcelain)" ]]; then
             git config user.name "github-actions[bot]"
@@ -56,6 +62,10 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: Pull latest changes
+        # Only needed on push-to-main runs to pick up the auto-commit
+        # from update-crosswalk. On PR runs, github.ref_name is
+        # `<n>/merge` which is not a valid remote branch.
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: git pull origin ${{ github.ref_name }}
 
       - name: Setup Node
