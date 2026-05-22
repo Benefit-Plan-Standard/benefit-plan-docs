@@ -142,7 +142,7 @@
         "Family Deductible",
         "Not used"
       ],
-      "individual_oop": [
+      "individual_oop_max": [
         "Individual OOP Max",
         "OOP Max (Ind.)",
         "MOOP",
@@ -151,7 +151,7 @@
         "OOP Max",
         "MOOP"
       ],
-      "family_oop": [
+      "family_oop_max": [
         "Family OOP Max",
         "OOP Max (Family)",
         "None",

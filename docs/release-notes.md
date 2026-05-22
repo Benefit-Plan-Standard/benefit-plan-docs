@@ -11,6 +11,99 @@ For a detailed, chronological record of all technical changes, see the **Changel
 
 ---
 
+# v1.1.0 — Production-Driven Refinement
+
+**Release Date:** May 21, 2026  
+**Status:** Stable (backward-compatible with v1.0.0)
+
+v1.1.0 is the first minor release after six months of production extraction experience across real carrier SBCs and EOCs. Every v1.0.0 document continues to validate against v1.1.0 unchanged.
+
+## 🎯 What v1.1.0 Solves
+
+Three concrete gaps surfaced in production:
+
+1. **PPO accumulators needed separate in- and out-of-network slots.** v1.0.0 had only four accumulator slots (implicitly in-network). Real PPO plans publish distinct out-of-network deductibles and OOP maxes.
+2. **Plan identity needed structure across years.** Effective dates are routinely missing or ambiguous; a `plan_year` field and explicit `coverage_period` make plan-family grouping possible.
+3. **Future modules needed a discriminator hook.** Pharmacy, dental, vision, and behavioral health benefits should share the same schema as medical, but only if there is a `benefit_type` field that downstream consumers can branch on.
+
+## 📐 Schema Additions
+
+### Plan identity
+- `plan_year` (integer)
+- `coverage_period` (`start_date`, `end_date`)
+- `market` (string) — now formally in the schema, not just the docs
+
+### Accumulators
+- 4 new out-of-network slots: `oon_individual_deductible`, `oon_family_deductible`, `oon_individual_oop_max`, `oon_family_oop_max`
+- New per-slot fields: `period`, `network_tier`, `embedded`, `applies_to` (now on OOP max too)
+
+### Benefits
+- `benefit_type` discriminator (default `medical`) — enables future modules without restructuring
+- `canonical_key` — machine-readable canonical identifier
+- `raw_label` — verbatim source-document label for traceability
+
+### Cost shares
+- `notes` field added to `cost_shares[]` items
+
+## 🗂 Recommended Vocabularies
+
+New `vocabularies/` directory in the schema repo:
+
+| Vocabulary | Purpose | Entries |
+|------------|---------|---------|
+| Canonical benefits | Recommended values for `canonical_key` | 100 across 13 categories |
+| Categories | Recommended values for `category` | 25 codes |
+| Markets | Recommended values for `market` | 12 codes |
+| Plan types | Recommended values for `plan_type` | 12 codes |
+
+These are **non-normative**: the schema treats the corresponding fields as free-form strings. Adopters who want strict enums can layer them locally.
+
+## 📦 Expanded Examples
+
+All 7 carrier example plans now cover 25–30 benefits each (198 total):
+
+| Carrier | Plan type | Benefits |
+|---------|-----------|----------|
+| Aetna | PPO | 30 |
+| Blue Cross | PPO | 30 |
+| Cigna | PPO (OAP) | 30 |
+| GatorCare | PPO | 30 |
+| Humana | MA-PD HMO | 28 |
+| SCAN | MA-PD HMO | 25 |
+| UnitedHealthcare | MA-PD HMO | 25 |
+
+Generation is deterministic — see `scripts/build_examples.py` in the schema repo.
+
+## 🩹 FHIR Alignment
+
+New guide: [`docs/fhir-alignment.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/fhir-alignment.md). Field-by-field BPS ↔ FHIR R4 `InsurancePlan` mapping, a worked example, a lossy-mapping table (with extension/qualifier advice), and round-tripping guidance. The HL7 R6 ballot is in flight; the guide will be refreshed once R6 stabilizes.
+
+## 🩹 Documentation Fixes
+
+The docs site was out of sync with the published schema in three places. All three are corrected in v1.1.0:
+
+- `product_type` → `plan_type`
+- `individual_oop` / `family_oop` → `individual_oop_max` / `family_oop_max`
+- `source_refs` → `source_references` (also clarified: top-level and optional, not per-benefit)
+
+The published schema itself was already correct.
+
+## 🔁 Backward Compatibility
+
+- All v1.0.0 required fields remain required.
+- All v1.0.0 optional fields remain present with the same types.
+- All additions are optional; `additionalProperties: false` boundaries are respected.
+- A document declaring `"schema_version": "1.0.0"` validates against the v1.1.0 schema without changes.
+
+## 🧭 What's Next
+
+- Formal **pharmacy module** schema using `benefit_type: "pharmacy"`.
+- **Behavioral health, dental, vision, maternity** modules.
+- HealthPlanAPI **reference-implementation alignment** to v1.1.0.
+- Refreshed FHIR alignment once **R6** normative behavior stabilizes.
+
+---
+
 # v1.0.0 — Foundational Release (Draft)
 
 **Release Date:** June 2025  

@@ -13,7 +13,7 @@ This section explains how to obtain the Benefit Plan Standard schema and start u
 
 ## Installing the Schema
 
-The canonical JSON schema is available in the `benefit-plan-schema` repository under `schema/v1.0.0/benefit-plan.schema.json`.  You can download this file directly or install it via npm.
+The canonical JSON schema (v1.1.0) is available in the `benefit-plan-schema` repository under `schema/v1.1.0/benefit-plan.schema.json`. v1.0.0 remains available at `schema/v1.0.0/benefit-plan.schema.json` for backward-compatible consumers. You can download these files directly or install via npm.
 
 ### Via npm
 
@@ -32,7 +32,7 @@ The package exports the JSON schema and TypeScript typings.
 You can download the schema file directly from GitHub:
 
 ```bash
-curl -O https://raw.githubusercontent.com/Benefit-Plan-Standard/benefit-plan-schema/main/schema/v1.0.0/benefit-plan.schema.json
+curl -O https://raw.githubusercontent.com/Benefit-Plan-Standard/benefit-plan-schema/main/schema/v1.1.0/benefit-plan.schema.json
 ```
 
 Store it in your project and use your preferred JSON Schema validator (AJV, JSON Schema Core, etc.) to validate normalized plans.
@@ -68,6 +68,6 @@ If you want to create normalized JSON from carrier SBCs or EOCs, follow these hi
 2. **Identify sections** — Locate the benefit schedule, deductible table, OOP table, and any ancillary sections (pharmacy, dental, vision).
 3. **Extract data** — Using the field definition matrix and crosswalk, extract values from the document and map them to normalized fields.
 4. **Validate and clean** — Convert strings to numbers, normalize units, and validate your JSON against the schema.
-5. **Augment with source_refs** — Store references back to the original document for traceability.
+5. **Augment with `source_references`** — Store references back to the original document for traceability.
 
 We plan to provide open source ingestion scripts in a future repository.  For now, see the [Carrier Crosswalk](/docs/specification/crosswalk) for mapping guidance.
