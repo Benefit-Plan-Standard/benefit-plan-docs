@@ -5,10 +5,10 @@ The official documentation site for the open, vendor-neutral data standard for r
   <a href="https://benefitplanstandard.org">
     <img src="https://img.shields.io/badge/Documentation-Live-blue?style=for-the-badge" />
   </a>
-  <a href="https://github.com/Benefit-Plan-Standard/benefit-plan-schema">
-    <img src="https://img.shields.io/badge/Schema-v1.0.0-green?style=for-the-badge" />
+  <a href="https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.1.0">
+    <img src="https://img.shields.io/badge/Schema-v1.1.0-green?style=for-the-badge" />
   </a>
-  <img src="https://img.shields.io/badge/Status-Active_Development-purple?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Status-Stable-blueviolet?style=for-the-badge" />
   <img src="https://img.shields.io/github/license/Benefit-Plan-Standard/benefit-plan-docs?style=for-the-badge" />
 </p>
 
@@ -25,8 +25,12 @@ It provides:
 - Schema-level validation rules  
 - Extensible modules (pharmacy, behavioral health, dental/vision, supplemental benefits)  
 - A normalized data model for analytics, automation, and interoperability  
+- A FHIR R4 `InsurancePlan` alignment guide for interoperability with payer APIs  
+- Recommended vocabularies (100 canonical benefits, categories, markets, plan types)
 
 Supported plan types include SBCs, EOCs, ACA plans, employer group plans, Medicare Advantage, and more.
+
+The current schema release is **v1.1.0** (backward-compatible with v1.0.0). See the [changelog](https://benefitplanstandard.org/docs/changelog) for what's new.
 
 All official documentation is published at:
 
