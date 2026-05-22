@@ -122,5 +122,5 @@ We encourage community discussions, issue reports, and pull requests that help i
 
 🌐 [https://benefitplanstandard.org](https://benefitplanstandard.org)
 
-<!-- Crosswalk re-sync: 2026-05-22 (BPS v1.1 accumulator updates) -->
+<!-- Crosswalk re-sync: 2026-05-22 (BPS v1.1 accumulator updates; A4 typo fix in Accumulators tab) -->
 
