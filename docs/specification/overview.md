@@ -10,6 +10,10 @@ The **Benefit Plan Standard** defines a canonical JSON data model for representi
 
 This overview introduces the major concepts in the specification and links to detailed sections.
 
+:::info Current version
+The current published version is **v1.1.0** (released May 2026), which is backward-compatible with v1.0.0.  See the [release notes](/docs/release-notes) for what changed, and the [roadmap](roadmap) for what's next — including the v1.2.0 formulary module.
+:::
+
 ## Why a New Standard?
 
 Benefit plans today are published in human‑readable PDFs and spreadsheets.  Carriers describe deductibles, copays, and out‑of‑pocket maximums in inconsistent formats, making automated processing nearly impossible.  Brokers, employers and insurtechs must invest in bespoke data pipelines for each carrier.

@@ -68,6 +68,11 @@ export default function Home() {
         <div className={styles.heroContainer}>
           <h1 className={styles.heroTitle}>Benefit Plan Standard</h1>
 
+          <div className={styles.heroVersion}>
+            ✅ Latest release:&nbsp;
+            <Link to="/docs/release-notes">v1.1.0</Link>&nbsp;(May 2026)
+          </div>
+
           <p className={styles.heroSubtitle}>
             Open, vendor-neutral schema for health benefit plans. Normalize data,
             enable interoperability, and extend with custom modules.

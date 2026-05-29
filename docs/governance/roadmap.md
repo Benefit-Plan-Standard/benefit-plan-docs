@@ -10,18 +10,18 @@ This roadmap outlines planned features and releases for the Benefit Plan Standar
 
 ## Near Term (2025–2026)
 
-- **Publish v1.0.0 Specification** — Completed.  The first formal release of the core schema, field definitions, and crosswalk tables.
+- **Publish v1.0.0 Specification** — Completed (2025).  The first formal release of the core schema, field definitions, and crosswalk tables.
+- **Release v1.1.0** — Completed (May 2026).  Expanded accumulators, pharmacy module foundations, and enhanced cost-sharing structures, backward-compatible with v1.0.0.  See the [v1.1.0 release notes](/docs/release-notes).
 - **Release Example Plans** — Publish normalized plans for at least ten carriers, covering commercial and Medicare lines of business.
-- **Standards Website** — Launch https://benefitplanstandard.org with documentation, governance charter, and adoption resources.
-- **Begin Pharmacy Module** — Draft a schema extension covering formulary tiers, day‑supply limits, and pharmacy deductible logic.
+- **Standards Website** — Launched at https://benefitplanstandard.org with documentation, governance charter, and adoption resources.
+- **Plan v1.2.0 — Formulary Module** — Define drug-to-tier mapping, formulary references, NDC/RxNorm identifiers, CMS and carrier formulary ingestion, and drug-level coverage conditions, with GLP-1 and specialty drugs as the driving use case.  See the [specification roadmap](../specification/roadmap.md).
 - **Gather Community Feedback** — Host virtual workshops with carriers, brokers, and insurtechs to refine the next modules.
 
 ## Medium Term (2026–2027)
 
-- **Finalize Pharmacy Module v1.0** — Complete the schema, field definitions, and crosswalk for pharmacy benefits.
-- **Publish Accumulator Groups Module** — Support multiple deductibles and cross‑tier accumulation rules.
-- **Expand Carrier Crosswalk** — Incorporate additional carriers (Aetna, Anthem, Kaiser, etc.) and update mapping guidance.
+- **Ship the Formulary Module (v1.2.0)** — Complete the schema, field definitions, and crosswalk for drug-level formulary coverage.
 - **Begin Behavioral Health Module** — Define fields for mental health and substance use benefit nuances.
+- **Expand Carrier Crosswalk** — Incorporate additional carriers (Kaiser, Molina, Oscar, Ambetter, etc.) and update mapping guidance.
 - **Build Open Source Ingestion Tools** — Provide reference parsers and transformation scripts for PDFs and DOCX documents.
 
 ## Long Term (2027 and Beyond)

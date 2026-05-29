@@ -10,11 +10,11 @@ The core Benefit Plan Standard provides a flexible backbone for plan metadata, n
 
 Modules are optional extensions that build on the core schema.  Each module defines its own JSON schema, field definitions, validation rules and mapping guidance.  Modules allow carriers and integrators to add specialized data while maintaining compatibility with the core model.
 
-## Current Modules
+## Module Status
 
-The following modules are planned for upcoming releases:
+Pharmacy **foundations** shipped in v1.1.0: the `benefit_type` discriminator (default `medical`) lets pharmacy, dental, vision, and behavioral-health benefits share the core schema without restructuring.  The formal modules below build on that hook.
 
-- **Pharmacy Module** — Captures formulary tiers, retail vs. mail cost shares, pharmacy deductible, day‑supply limits, and DAW (dispense as written) penalties.
+- **Pharmacy Module** — Captures formulary tiers, retail vs. mail cost shares, pharmacy deductible, day‑supply limits, and DAW (dispense as written) penalties.  Foundations shipped in v1.1.0; the **formulary layer** (drug-to-tier mapping, formulary references, NDC/RxNorm identifiers, CMS and carrier formulary ingestion, and drug-level coverage conditions) is targeted for **v1.2.0** — see the [specification roadmap](roadmap.md).
 - **Behavioral Health Module** — Adds condition codes and benefit items specific to mental health and substance use services, including therapy bundles and inpatient/residential coverage nuances.
 - **Dental and Vision Module** — Defines fields for annual maximums, per tooth/eye visit limits, waiting periods and orthodontia benefits.
 - **Accumulator Groups Module** — Allows multiple deductibles (e.g., pharmacy vs. medical), tier‑specific accumulators, embedded vs. non‑embedded logic, and cross‑accumulation flows.

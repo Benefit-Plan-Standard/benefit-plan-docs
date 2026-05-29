@@ -23,7 +23,7 @@ module.exports = {
         'specification/crosswalk',
         'specification/modules',
         'specification/examples',
-        'specification/roadmap-v1.1',   // <-- ADDED HERE
+        'specification/roadmap',
       ],
     },
     {
