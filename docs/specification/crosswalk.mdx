@@ -710,6 +710,268 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
 
 </details>
 
+<details class="crosswalk-details">
+<summary>Pharmacy Tiers</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>Normalized Field</th>
+      <th>Blue Cross</th>
+      <th>GatorCare</th>
+      <th>SCAN</th>
+      <th>Aetna</th>
+      <th>UHC</th>
+      <th>Cigna</th>
+      <th>Humana</th>
+      <th>Kaiser (future)</th>
+      <th>Molina (future)</th>
+      <th>Oscar (future)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tier_id</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>T1; T2; T3; T4; T5 (Humana, illustrative)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Tier 1 Preferred Generic … Tier 5 Specialty (Humana, illustrative)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>drug_class</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>preferred_generic; generic; preferred_brand; nonpreferred_brand; specialty (Humana, illustrative)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>tier_code</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>preferred-generic; generic; preferred-brand; non-preferred-brand; specialty (FHIR DrugTierVS)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+<details class="crosswalk-details">
+<summary>Pharmacy Networks</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>Normalized Field</th>
+      <th>Blue Cross</th>
+      <th>GatorCare</th>
+      <th>SCAN</th>
+      <th>Aetna</th>
+      <th>UHC</th>
+      <th>Cigna</th>
+      <th>Humana</th>
+      <th>Kaiser (future)</th>
+      <th>Molina (future)</th>
+      <th>Oscar (future)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>network_id</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>PREF_RETAIL; STD_RETAIL; MAIL_ORDER (Humana, illustrative)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Preferred Retail; Standard Retail; Mail Order (Humana, illustrative)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>network_type</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>preferred_retail; standard_retail; mail_order (Humana, illustrative)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>default_day_supply</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>30 retail; 90 mail order (Humana, illustrative)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+<details class="crosswalk-details">
+<summary>Coverage Stages</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>Normalized Field</th>
+      <th>Blue Cross</th>
+      <th>GatorCare</th>
+      <th>SCAN</th>
+      <th>Aetna</th>
+      <th>UHC</th>
+      <th>Cigna</th>
+      <th>Humana</th>
+      <th>Kaiser (future)</th>
+      <th>Molina (future)</th>
+      <th>Oscar (future)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>stage_id</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>DEDUCTIBLE; INITIAL; CATASTROPHIC (Humana, illustrative)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Deductible; Initial Coverage; Catastrophic Coverage (Humana, illustrative)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>stage_type</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>deductible; initial; catastrophic (Humana, illustrative)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+<details class="crosswalk-details">
+<summary>Pharmacy Tier Codes</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>drug_class</th>
+      <th>tier_code (FHIR DrugTierVS)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>preferred_generic</td>
+      <td>preferred-generic</td>
+    </tr>
+    <tr>
+      <td>generic</td>
+      <td>generic</td>
+    </tr>
+    <tr>
+      <td>preferred_brand</td>
+      <td>preferred-brand</td>
+    </tr>
+    <tr>
+      <td>nonpreferred_brand</td>
+      <td>non-preferred-brand</td>
+    </tr>
+    <tr>
+      <td>preferred_specialty</td>
+      <td>specialty</td>
+    </tr>
+    <tr>
+      <td>nonpreferred_specialty</td>
+      <td>specialty</td>
+    </tr>
+    <tr>
+      <td>preventive</td>
+      <td>zero-cost-share-preventive</td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
 <!-- AUTO-GENERATED-CROSSWALK:END -->
 
 Future carriers (e.g., Kaiser, Molina, Oscar, Ambetter) already have placeholder columns for expansion.
