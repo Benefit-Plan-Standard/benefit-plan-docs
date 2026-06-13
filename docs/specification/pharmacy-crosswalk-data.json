@@ -1,0 +1,243 @@
+{
+  "_comment": "Phase 1 of the crosswalk pipeline (Operations/research/crosswalk-pipeline/crosswalk-pipeline-design.md): the draft pharmacy crosswalk tabs are sourced from THIS versioned repo file, not the Google Sheet. scripts/generateCrosswalk.js reads these 2D-array rows (header + data rows, same shape parseCSV yields for Sheet tabs) and renders them into the AUTO-GENERATED block of crosswalk.mdx. Carrier data is accuracy-first: only the Humana column is populated (illustrative, from the public pharmacy module example modules/pharmacy/v0.2.0/examples/humana_part_d_example.json — verify against a real Humana Part D EOC before relying on it); all other carriers are blank. tier_code values are canonical FHIR DrugTierVS. Drug-level formulary data is intentionally absent (its source is formulary files, not SBCs).",
+  "module": "pharmacy",
+  "module_version": "0.2.0",
+  "status": "draft_non_normative",
+  "source_schema": "benefit-plan-schema/modules/pharmacy/v0.2.0/pharmacy.schema.json",
+  "carrier_columns": [
+    "Blue Cross",
+    "GatorCare",
+    "SCAN",
+    "Aetna",
+    "UHC",
+    "Cigna",
+    "Humana",
+    "Kaiser (future)",
+    "Molina (future)",
+    "Oscar (future)"
+  ],
+  "tabs": {
+    "Pharmacy Tiers": [
+      [
+        "Normalized Field",
+        "Blue Cross",
+        "GatorCare",
+        "SCAN",
+        "Aetna",
+        "UHC",
+        "Cigna",
+        "Humana",
+        "Kaiser (future)",
+        "Molina (future)",
+        "Oscar (future)"
+      ],
+      [
+        "tier_id",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "T1; T2; T3; T4; T5 (Humana, illustrative)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "name",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Tier 1 Preferred Generic … Tier 5 Specialty (Humana, illustrative)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "drug_class",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "preferred_generic; generic; preferred_brand; nonpreferred_brand; specialty (Humana, illustrative)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "tier_code",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "preferred-generic; generic; preferred-brand; non-preferred-brand; specialty (FHIR DrugTierVS)",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "Pharmacy Networks": [
+      [
+        "Normalized Field",
+        "Blue Cross",
+        "GatorCare",
+        "SCAN",
+        "Aetna",
+        "UHC",
+        "Cigna",
+        "Humana",
+        "Kaiser (future)",
+        "Molina (future)",
+        "Oscar (future)"
+      ],
+      [
+        "network_id",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "PREF_RETAIL; STD_RETAIL; MAIL_ORDER (Humana, illustrative)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "name",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Preferred Retail; Standard Retail; Mail Order (Humana, illustrative)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "network_type",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "preferred_retail; standard_retail; mail_order (Humana, illustrative)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "default_day_supply",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "30 retail; 90 mail order (Humana, illustrative)",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "Coverage Stages": [
+      [
+        "Normalized Field",
+        "Blue Cross",
+        "GatorCare",
+        "SCAN",
+        "Aetna",
+        "UHC",
+        "Cigna",
+        "Humana",
+        "Kaiser (future)",
+        "Molina (future)",
+        "Oscar (future)"
+      ],
+      [
+        "stage_id",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "DEDUCTIBLE; INITIAL; CATASTROPHIC (Humana, illustrative)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "name",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Deductible; Initial Coverage; Catastrophic Coverage (Humana, illustrative)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "stage_type",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "deductible; initial; catastrophic (Humana, illustrative)",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "Pharmacy Tier Codes": [
+      [
+        "drug_class",
+        "tier_code (FHIR DrugTierVS)"
+      ],
+      [
+        "preferred_generic",
+        "preferred-generic"
+      ],
+      [
+        "generic",
+        "generic"
+      ],
+      [
+        "preferred_brand",
+        "preferred-brand"
+      ],
+      [
+        "nonpreferred_brand",
+        "non-preferred-brand"
+      ],
+      [
+        "preferred_specialty",
+        "specialty"
+      ],
+      [
+        "nonpreferred_specialty",
+        "specialty"
+      ],
+      [
+        "preventive",
+        "zero-cost-share-preventive"
+      ]
+    ]
+  }
+}
