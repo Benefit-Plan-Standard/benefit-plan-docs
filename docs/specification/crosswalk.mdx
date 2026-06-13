@@ -791,6 +791,21 @@ Mappings for:
 ### **Source Reference**
 Extracts and page references used for ingestion traceability.
 
+### **Pharmacy Module (draft v0.2.0)**
+
+:::caution Draft — non-normative
+The pharmacy crosswalk tabs render the **BPS pharmacy module v0.2.0**, a **draft** module that is **not yet wired into the core schema** (it targets core **v1.2.0**). Unlike the medical tabs (sourced from the carrier Google Sheet), the pharmacy tabs are sourced from a **versioned repo file** (`docs/specification/pharmacy-crosswalk-data.json`) and validated against the module's JSON Schema — Phase 1 of the crosswalk pipeline. Carrier data is illustrative for now: only the Humana column is populated (from the public module example), and other carriers are intentionally blank.
+:::
+
+The pharmacy module adds crosswalk coverage for the pharmacy concepts that appear in carrier **SBCs/EOCs**. Because the crosswalk is a *carrier-SBC-vocabulary* map, only those concepts get carrier-matrix tabs:
+
+- **Pharmacy Tiers** — formulary tier structure (`tier_id`, `name`, `drug_class`, `tier_code`). Maps how each carrier labels its drug tiers (e.g., Tier 1 Preferred Generic … Tier 5 Specialty).
+- **Pharmacy Networks** — pharmacy network structure (`network_id`, `name`, `network_type`, `default_day_supply`). Distinct from the medical **Network Tiers** tab; covers preferred retail / standard retail / mail order / specialty pharmacy.
+- **Coverage Stages** — Medicare Part D coverage phases (`stage_id`, `name`, `stage_type`). Post-2025 (IRA redesign): Deductible / Initial Coverage / Catastrophic Coverage. (The pre-2025 Coverage Gap is retained only for historical plan years.)
+- **Pharmacy Tier Codes** — a **reference** table (not a carrier matrix) mapping the module's `drug_class` values to the canonical **FHIR DrugTierVS** `tier_code` (e.g., `preferred_brand` → `preferred-brand`, `preferred_specialty` → `specialty`, `preventive` → `zero-cost-share-preventive`).
+
+**Not in the crosswalk:** the module's *drug-level* formulary data — individual drugs (`rxcui`, `drug_name`, `ndc`), utilization-management flags, and indication-dependent `coverage_exceptions[]`. That data comes from **formulary files** (CMS QHP / Medicare Part D / FHIR DaVinci US Drug Formulary), **not** from SBCs/EOCs, so it is documented in the module schema as a field reference rather than mapped here as carrier vocabulary.
+
 ---
 
 ## Using the Crosswalk
