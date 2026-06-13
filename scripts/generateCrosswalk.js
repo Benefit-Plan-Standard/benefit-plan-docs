@@ -14,7 +14,15 @@ const TABS = [
   { name: "Conditions", gid: "1702172376" },
   { name: "Source Reference", gid: "1846651702" },
   { name: "Field Definitions", gid: "1583805432" },
-  { name: "Carrier Vocabulary", gid: "1583805432" }
+  { name: "Carrier Vocabulary", gid: "1583805432" },
+  // --- Pharmacy module v0.2.0 (DRAFT, non-normative) tabs ---
+  // gid: null until the tabs are created in the source Sheet. Null-gid tabs are
+  // skipped during generation (see the loop below) so the deploy keeps working
+  // before the Sheet tabs exist. Once a tab is created, paste its gid here.
+  { name: "Pharmacy Tiers", gid: null },
+  { name: "Pharmacy Networks", gid: null },
+  { name: "Coverage Stages", gid: null },
+  { name: "Pharmacy Tier Codes", gid: null }
 ];
 
 const TARGET_FILE = 'docs/specification/crosswalk.mdx';
@@ -48,6 +56,11 @@ async function main() {
     let generatedContent = ''; // ← FIX: Start with **empty string**, not newline.
 
 for (const tab of TABS) {
+      // Skip tabs declared but not yet created in the Sheet (no gid).
+      if (tab.gid === null || tab.gid === undefined) {
+        console.log(`Skipping tab: ${tab.name} (PENDING — no gid yet)`);
+        continue;
+      }
       const csvData = await fetchSheetCSV(SHEET_ID, tab.gid, tab.name);
       const parsedData = parseCSV(csvData);
 
