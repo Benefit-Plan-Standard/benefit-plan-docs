@@ -1,5 +1,5 @@
 {
-  "_comment": "Phase 1 of the crosswalk pipeline (Operations/research/crosswalk-pipeline/crosswalk-pipeline-design.md): the draft pharmacy crosswalk tabs are sourced from THIS versioned repo file, not the Google Sheet. scripts/generateCrosswalk.js reads these 2D-array rows (header + data rows, same shape parseCSV yields for Sheet tabs) and renders them into the AUTO-GENERATED block of crosswalk.mdx. Carrier data is accuracy-first: only the Humana column is populated (illustrative, from the public pharmacy module example modules/pharmacy/v0.2.0/examples/humana_part_d_example.json — verify against a real Humana Part D EOC before relying on it); all other carriers are blank. tier_code values are canonical FHIR DrugTierVS. Drug-level formulary data is intentionally absent (its source is formulary files, not SBCs).",
+  "_comment": "Phase 1 of the crosswalk pipeline (Operations/research/crosswalk-pipeline/crosswalk-pipeline-design.md): the draft pharmacy crosswalk tabs are sourced from THIS versioned repo file, not the Google Sheet. scripts/generateCrosswalk.js reads these 2D-array rows (header + data rows, same shape parseCSV yields for Sheet tabs) and renders them into the AUTO-GENERATED block of crosswalk.mdx. Carrier data is accuracy-first. Humana is illustrative (from the public pharmacy module example modules/pharmacy/v0.2.0/examples/humana_part_d_example.json; verify against a real Humana Part D EOC before relying on it). Blue Cross is populated from a verified extraction of a public 2025 Florida Blue ACA SBC (BlueCare 14256 HMO; Florida Blue is an independent BCBS licensee), verified live 2026-07-03. Coverage Stages stay blank for Blue Cross because commercial ACA plans have no Part D style stages. All other carriers are blank pending verified public sources. tier_code values are canonical FHIR DrugTierVS. Drug-level formulary data is intentionally absent (its source is formulary files, not SBCs).",
   "module": "pharmacy",
   "module_version": "0.2.0",
   "status": "draft_non_normative",
@@ -33,7 +33,7 @@
       ],
       [
         "tier_id",
-        "",
+        "generic_drugs__preventive; generic_drugs__condition_care_rx; generic_drugs; preferred_brand_drugs__condition_care_rx; preferred_brand_drugs; nonpreferred_brand_drugs; specialty_drugs (Florida Blue, public 2025 SBC)",
         "",
         "",
         "",
@@ -46,7 +46,7 @@
       ],
       [
         "name",
-        "",
+        "Generic Drugs (Preventive; Condition Care Rx; All Other) … Specialty Drugs (Florida Blue, public 2025 SBC)",
         "",
         "",
         "",
@@ -59,7 +59,7 @@
       ],
       [
         "drug_class",
-        "",
+        "Preventive; Condition Care Rx; All Other Generic; All Other Preferred Brand; Non-preferred brand drugs; Specialty drugs (Florida Blue, public 2025 SBC)",
         "",
         "",
         "",
@@ -72,7 +72,7 @@
       ],
       [
         "tier_code",
-        "",
+        "zero-cost-share-preventive; generic; preferred-brand; non-preferred-brand; specialty (FHIR DrugTierVS)",
         "",
         "",
         "",
@@ -100,7 +100,7 @@
       ],
       [
         "network_id",
-        "",
+        "retail; mail_order (Florida Blue, public 2025 SBC)",
         "",
         "",
         "",
@@ -113,7 +113,7 @@
       ],
       [
         "name",
-        "",
+        "Retail; Mail Order (Florida Blue, public 2025 SBC)",
         "",
         "",
         "",
@@ -126,7 +126,7 @@
       ],
       [
         "network_type",
-        "",
+        "standard_retail; mail_order (Florida Blue, public 2025 SBC)",
         "",
         "",
         "",
@@ -139,7 +139,7 @@
       ],
       [
         "default_day_supply",
-        "",
+        "30 retail; 90 mail order (Florida Blue, public 2025 SBC)",
         "",
         "",
         "",
