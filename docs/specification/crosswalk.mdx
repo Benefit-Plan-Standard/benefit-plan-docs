@@ -1056,7 +1056,7 @@ Extracts and page references used for ingestion traceability.
 ### **Pharmacy Module (draft v0.2.0)**
 
 :::caution Draft — non-normative
-The pharmacy crosswalk tabs render the **BPS pharmacy module v0.2.0**, a **draft** module that is **not yet wired into the core schema** (it targets core **v1.2.0**). Unlike the medical tabs (sourced from the carrier Google Sheet), the pharmacy tabs are sourced from a **versioned repo file** (`docs/specification/pharmacy-crosswalk-data.json`) and validated against the module's JSON Schema — Phase 1 of the crosswalk pipeline. Carrier data is illustrative for now: only the Humana column is populated (from the public module example), and other carriers are intentionally blank.
+The pharmacy crosswalk tabs render the **BPS pharmacy module v0.2.0**, a **draft** module that is **not yet wired into the core schema** (it targets core **v1.2.0**). Unlike the medical tabs (sourced from the carrier Google Sheet), the pharmacy tabs are sourced from a **versioned repo file** (`docs/specification/pharmacy-crosswalk-data.json`) and validated against the module's JSON Schema — Phase 1 of the crosswalk pipeline. Carrier data is accuracy-first: the Blue Cross column is populated from a verified extraction of a public 2025 Florida Blue ACA SBC (Coverage Stages remain blank for commercial plans, which have no Part D stages); the Humana column is illustrative (from the public module example); other carriers are intentionally blank pending verified public sources.
 :::
 
 The pharmacy module adds crosswalk coverage for the pharmacy concepts that appear in carrier **SBCs/EOCs**. Because the crosswalk is a *carrier-SBC-vocabulary* map, only those concepts get carrier-matrix tabs:
