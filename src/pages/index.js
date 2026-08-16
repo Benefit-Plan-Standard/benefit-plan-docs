@@ -82,6 +82,13 @@ export default function Home() {
           <div className={styles.heroButtons}>
             <Link
               className="button button--primary button--lg"
+              to="/why/"
+            >
+              See Why in 90 Seconds
+            </Link>
+
+            <Link
+              className="button button--primary button--lg"
               to="/docs/specification/overview"
             >
               Read the Specification
