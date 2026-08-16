@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why the Benefit Plan Standard exists</title>
+<meta name="description" content="Every health plan speaks its own language. Scroll to make them one. An interactive explanation of the open Benefit Plan Standard.">
+<style>
+  :root{
+    --ink:#2E2A25; --ink-soft:#57504a; --paper:#f7f4ef; --paper-edge:#e7e1d6;
+    --blue:#1E5EA8; --blue-dk:#123c6e; --ok:#1d7a3e;
+    --code-bg:#101820; --code-key:#7FB3EC; --code-str:#c8e09c; --code-num:#f0c674; --code-pun:#8a97a6;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: 'Segoe UI', -apple-system, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, 'Cascadia Code', Consolas, Menlo, monospace;
+    --tr: .85s cubic-bezier(.33,.02,.2,1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{background:var(--paper); color:var(--ink); font-family:var(--sans); line-height:1.6; overflow-x:hidden}
+
+  .kicker{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--blue); font-weight:700; margin-bottom:16px}
+  h1,h2{font-family:var(--serif); font-weight:400}
+  h1{font-size:clamp(34px,6vw,64px); line-height:1.12; max-width:820px; text-align:center}
+  h2{font-size:clamp(24px,3.6vw,40px); line-height:1.2; max-width:780px; text-align:center}
+  .lede{max-width:620px; text-align:center; color:var(--ink-soft); font-size:clamp(15px,1.9vw,18px); margin-top:12px}
+
+  .track{position:relative}
+  .stage{position:sticky; top:0; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; overflow:hidden; padding:0 22px}
+  #rail{position:fixed; top:0; left:0; height:3px; background:var(--blue); width:0%; z-index:50; transition:width .2s linear}
+
+  /* ---------- 1 · hero ---------- */
+  #hero .stage{background:linear-gradient(180deg,#fdfcf9,var(--paper))}
+  .frag{position:absolute; font-family:var(--serif); font-size:13px; color:var(--ink-soft); background:#fff;
+        border:1px solid var(--paper-edge); box-shadow:0 8px 24px rgba(46,42,37,.10); padding:13px 15px; max-width:225px; border-radius:2px;
+        transition:transform 1.1s cubic-bezier(.33,.02,.2,1), opacity 1.1s}
+  .frag b{color:var(--ink)}
+  .f1{top:15%; left:5%; transform:rotate(-4deg)}.f2{top:11%; right:6%; transform:rotate(3deg)}
+  .f3{bottom:14%; left:9%; transform:rotate(2deg)}.f4{bottom:16%; right:8%; transform:rotate(-3deg)}
+  #hero.s1 .f1{transform:translate(-46vw,-26vh) rotate(-18deg)} #hero.s1 .f2{transform:translate(46vw,-26vh) rotate(16deg)}
+  #hero.s1 .f3{transform:translate(-46vw,26vh) rotate(14deg)}  #hero.s1 .f4{transform:translate(46vw,26vh) rotate(-16deg)}
+  #hero.s1 .frag{opacity:0}
+  #hero .hgroup{transition:opacity .9s, transform .9s}
+  #hero.s1 .hgroup{opacity:0; transform:translateY(-28px)}
+  .scrollcue{position:absolute; bottom:24px; left:50%; transform:translateX(-50%); color:var(--ink-soft); font-size:12px; letter-spacing:.18em; text-transform:uppercase}
+  .scrollcue::after{content:""; display:block; width:1px; height:32px; background:var(--ink-soft); margin:8px auto 0; animation:drip 1.6s infinite}
+  @keyframes drip{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  /* ---------- 2 · documents → JSON (staged) ---------- */
+  .duo{position:relative; width:min(960px,94vw); height:min(66vh,560px); margin-top:24px}
+  .doc{position:absolute; top:0; width:280px; background:#fff; border:1px solid var(--paper-edge); border-radius:2px; padding-bottom:16px;
+       box-shadow:0 10px 30px rgba(46,42,37,.12); opacity:0; transform:translateY(70px);
+       transition:transform var(--tr), opacity var(--tr)}
+  .doc .head{padding:11px 15px 9px; border-bottom:3px solid}
+  .doc .head .co{font-weight:800; font-size:15px}
+  .doc .head .pl{font-size:11px; color:var(--ink-soft); margin-top:1px}
+  .doc.aetna{left:calc(50% - 440px)} .doc.aetna .head{border-color:#7A1FA2}.doc.aetna .co{color:#7A1FA2}
+  .doc.cigna{left:calc(50% - 140px)} .doc.cigna .head{border-color:#0e7c3a}.doc.cigna .co{color:#0e7c3a}
+  .doc.humana{left:calc(50% + 160px)} .doc.humana .head{border-color:#4a7729}.doc.humana .co{color:#4a7729}
+  .doc .sbc{font-family:var(--serif); font-size:13px; padding:13px 15px 2px}
+  .doc .sbc .q{font-size:10px; font-family:var(--sans); text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin-bottom:6px}
+  .doc .sbc p{margin-bottom:7px}
+  .doc .sbc .fine{font-size:11px; color:var(--ink-soft); font-style:italic}
+  @media (max-width:960px){ .doc{width:220px}
+    .doc.aetna{left:calc(50% - 348px)}.doc.cigna{left:calc(50% - 110px)}.doc.humana{left:calc(50% + 128px)} }
+  @media (max-width:740px){ .doc{width:180px}.doc .sbc .fine{display:none}
+    .doc.aetna{left:calc(50% - 285px)}.doc.cigna{left:calc(50% - 90px)}.doc.humana{left:calc(50% + 105px)} }
+
+  /* state 1: docs in (staggered) */
+  #merge.s1 .doc, #merge.s2 .doc{opacity:1}
+  #merge.s1 .doc.aetna, #merge.s2wait .doc{transition-delay:0s}
+  #merge.s1 .doc.aetna{transform:translateY(0) rotate(-2.4deg)}
+  #merge.s1 .doc.cigna{transform:translateY(10px) rotate(1.6deg); transition-delay:.12s}
+  #merge.s1 .doc.humana{transform:translateY(0) rotate(3deg); transition-delay:.24s}
+  #merge.s2 .doc.aetna,#merge.s2 .doc.cigna,#merge.s2 .doc.humana{transform:translateY(0) rotate(0)}
+  /* state 2: converge into center and vanish */
+  #merge.s2 .doc{opacity:0}
+  #merge.s2 .doc.aetna{transform:translate(150px,-30px) scale(.55) rotate(0); transition-delay:0s}
+  #merge.s2 .doc.cigna{transform:translate(0,-30px) scale(.55) rotate(0); transition-delay:.08s}
+  #merge.s2 .doc.humana{transform:translate(-150px,-30px) scale(.55) rotate(0); transition-delay:.16s}
+  #merge .codewrap{position:absolute; left:50%; top:46%; width:min(660px,92vw);
+      background:var(--code-bg); border-radius:6px; box-shadow:0 18px 50px rgba(16,24,32,.35); overflow:hidden;
+      opacity:0; transform:translate(-50%,-50%) translateY(46px) scale(.96); transition:transform var(--tr), opacity var(--tr)}
+  #merge.s2 .codewrap{opacity:1; transform:translate(-50%,-50%) translateY(0) scale(1); transition-delay:.4s}
+  .codewrap .bar{display:flex; align-items:center; gap:8px; background:#0a0f14; padding:8px 14px; font-family:var(--mono); font-size:11.5px; color:#93a1af}
+  .codewrap .dot{width:9px;height:9px;border-radius:50%;background:#22303c}
+  .codewrap pre{padding:14px 18px 18px; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#dbe4ec; overflow:hidden; white-space:pre}
+  .codewrap .ln{display:block; opacity:0; transform:translateX(12px); transition:opacity .45s, transform .45s}
+  /* one trigger: when the panel arrives, the whole JSON plays itself as a sequence */
+  #merge.s2 .ln{opacity:1; transform:none}
+  #merge.s2 .ln.g1{transition-delay:calc(.9s + var(--i,0)*.18s)}
+  #merge.s2 .ln.g2{transition-delay:calc(1.7s + var(--i)*.22s)}
+  #merge.s2 .ln.g3{transition-delay:calc(3.1s + var(--i)*.22s)}
+  .k{color:var(--code-key)}.s{color:var(--code-str)}.n{color:var(--code-num)}.p{color:var(--code-pun)}.cm{color:#5d6f80;font-style:italic}
+  #merge .htitle{transition:opacity .7s}
+  #merge.s2 .htitle{opacity:.22}
+  .scene-cap{position:absolute; bottom:4.5vh; left:0; right:0; text-align:center; font-family:var(--serif); font-size:clamp(15px,2vw,19px);
+             padding:0 24px; opacity:0; transition:opacity .7s}
+  .scene-cap em{color:var(--blue); font-style:normal; border-bottom:2px solid var(--blue)}
+  #merge.s1 .cap1{opacity:1}
+  #merge.s2 .cap1{opacity:0; transition-delay:0s}
+  #merge.s2 .cap2{opacity:1; transition-delay:4.4s}
+
+  /* ---------- 3 · vocabulary (staged) ---------- */
+  .vstage{position:relative; width:min(760px,94vw); height:280px; margin-top:34px}
+  .term{position:absolute; left:50%; font-family:var(--serif); font-size:16px; background:#fff; border:1px solid var(--paper-edge);
+        padding:8px 17px; border-radius:999px; box-shadow:0 4px 14px rgba(46,42,37,.08); white-space:nowrap;
+        opacity:0; transition:transform var(--tr), opacity var(--tr)}
+  .t1{transform:translate(calc(-50% - 260px),30px) translateY(30px)}
+  .t2{transform:translate(-50%,0px) translateY(30px)}
+  .t3{transform:translate(calc(-50% + 250px),25px) translateY(30px)}
+  #vocab.s1 .t1{opacity:1; transform:translate(calc(-50% - 260px),30px)}
+  #vocab.s1 .t2{opacity:1; transform:translate(-50%,0px); transition-delay:.12s}
+  #vocab.s1 .t3{opacity:1; transform:translate(calc(-50% + 250px),25px); transition-delay:.24s}
+  #vocab.s2 .term{opacity:0}
+  #vocab.s2 .t1{transform:translate(-50%,170px) scale(.5); transition-delay:0s}
+  #vocab.s2 .t2{transform:translate(-50%,170px) scale(.5); transition-delay:.1s}
+  #vocab.s2 .t3{transform:translate(-50%,170px) scale(.5); transition-delay:.2s}
+  .canon{position:absolute; left:50%; bottom:16px; font-family:var(--mono); font-size:15.5px;
+         background:var(--code-bg); color:var(--code-str); padding:12px 24px; border-radius:6px; box-shadow:0 10px 28px rgba(16,24,32,.3);
+         opacity:0; transform:translateX(-50%) translateY(26px) scale(.92); transition:transform var(--tr), opacity var(--tr)}
+  #vocab.s2 .canon{opacity:1; transform:translateX(-50%) translateY(0) scale(1); transition-delay:.4s}
+  .canon .k{color:var(--code-key)}
+  #vocab .lede{opacity:0; transition:opacity .8s}
+  #vocab.s2 .lede{opacity:1; transition-delay:.8s}
+
+  /* ---------- 4 · family (staged flip) ---------- */
+  #family .stage{background:#fdfcf9}
+  .bignum{font-family:var(--serif); font-size:clamp(38px,6vw,64px); margin-top:6px}
+  .bignum small{font-size:.34em; color:var(--ink-soft); font-family:var(--sans); letter-spacing:.08em; text-transform:uppercase; display:block; margin-top:2px}
+  .modeword{font-family:var(--mono); font-size:clamp(15px,2vw,18px); margin-top:14px; padding:8px 20px; border-radius:6px; background:var(--code-bg); color:#dbe4ec}
+  .modeword .n{color:var(--code-num)}
+  .famrow{display:flex; gap:clamp(14px,4vw,34px); margin-top:24px; justify-content:center}
+  .member{width:clamp(74px,12vw,120px); text-align:center}
+  .member .fig{width:clamp(52px,8vw,70px); height:clamp(52px,8vw,70px); margin:0 auto 8px; border-radius:50%; background:#fff; border:2px solid var(--paper-edge);
+               display:flex; align-items:center; justify-content:center; font-size:clamp(24px,4vw,32px); transition:border-color .6s, box-shadow .6s}
+  .member.cov .fig{border-color:var(--ok); box-shadow:0 0 0 4px rgba(29,122,62,.14)}
+  .member .who{font-weight:700; font-size:13px}
+  .member .spent{font-family:var(--mono); font-size:11.5px; color:var(--ink-soft)}
+  .member .state{font-size:11.5px; margin-top:3px; font-weight:700; color:#a33; transition:color .5s}
+  .member.cov .state{color:var(--ok)}
+  /* Mom is the protagonist */
+  #famrow .member{transition:opacity .5s, transform .5s}
+  #famrow .member:not(.mom){opacity:.4; transform:scale(.9)}
+  .member.mom .fig{width:clamp(64px,9vw,86px); height:clamp(64px,9vw,86px); border-color:var(--blue); box-shadow:0 0 0 4px rgba(30,94,168,.15); font-size:clamp(30px,4.6vw,40px)}
+  .member.mom.cov .fig{border-color:var(--ok); box-shadow:0 0 0 5px rgba(29,122,62,.18)}
+  .member.mom .who{font-size:15px}
+  .member.mom .state{display:none}
+  .momans{display:inline-block; margin-top:6px; font-family:var(--sans); font-weight:800; font-size:clamp(15px,2vw,19px); letter-spacing:.05em; padding:3px 14px; border-radius:6px; color:#fff; transition:background .4s}
+  .momans.yes{background:var(--ok)}
+  .momans.no{background:#a33}
+  .famq{margin-top:16px; font-family:var(--serif); font-size:clamp(16px,2.2vw,21px); text-align:center}
+  .famq b{color:var(--blue)}
+  .verdict{margin-top:18px; max-width:620px; text-align:center; font-family:var(--serif); font-size:clamp(15px,2vw,19px); min-height:3.4em; transition:opacity .5s}
+  .ans{display:inline-block; font-family:var(--sans); font-weight:800; font-size:clamp(20px,3vw,28px); letter-spacing:.04em; padding:2px 14px; border-radius:6px; margin-bottom:6px}
+  .ans.yes{color:#fff; background:var(--ok)}
+  .ans.no{color:#fff; background:#a33}
+  .verdict b{color:var(--blue)}
+  .verdict.swap{opacity:0}
+
+  /* ---------- 5 · validator (staged lines) ---------- */
+  .term-sim{width:min(620px,92vw); background:var(--code-bg); border-radius:6px; margin-top:26px; box-shadow:0 18px 50px rgba(16,24,32,.35)}
+  .term-sim pre{padding:16px 20px; font-family:var(--mono); font-size:13px; line-height:1.7; color:#dbe4ec; white-space:pre-wrap; min-height:150px}
+  .term-sim .tl{display:block; opacity:0; transition:opacity .5s}
+  .term-sim .tl:nth-child(2){transition-delay:.15s}
+  .term-sim .tl:nth-child(3){transition-delay:.55s}
+  .term-sim .tl:nth-child(4){transition-delay:.95s}
+  .term-sim .tl:nth-child(5){transition-delay:1.25s}
+  .term-sim .tl:nth-child(6){transition-delay:1.45s}
+  .term-sim .tl:first-child{opacity:1}
+  #validate.s1 .tl{opacity:1}
+  .ok{color:#69d38a; font-weight:700}
+  .prompt{color:#7FB3EC}
+
+  /* ---------- 6 · close ---------- */
+  #close{background:var(--code-bg); color:#dbe4ec; min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:14vh 24px}
+  #close h2{color:#fff}
+  #close .lede{color:#9fb0c0}
+  .facts{display:flex; gap:38px; flex-wrap:wrap; justify-content:center; margin-top:38px; text-align:center}
+  .fact .big{font-family:var(--serif); font-size:32px; color:#fff}
+  .fact .small{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#8fa2b5; margin-top:4px}
+  .cta{margin-top:40px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center}
+  .cta a{font-weight:700; font-size:15px; text-decoration:none; padding:13px 26px; border-radius:4px}
+  .cta .primary{background:var(--blue); color:#fff}
+  .cta .ghost{border:1.5px solid #3d5266; color:#cfdae4}
+  .foot{margin-top:56px; font-size:12px; color:#5d6f80; text-align:center}
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .8s, transform .8s}
+  .reveal.on{opacity:1; transform:none}
+</style>
+</head>
+<body>
+<div id="rail"></div>
+
+<!-- 1 · HERO : one trigger (scatter) -->
+<div class="track" id="hero" data-steps="2" data-len="110">
+  <div class="stage">
+    <div class="frag f1"><b>Aetna:</b> “$50 copay/visit, deductible does not apply…”</div>
+    <div class="frag f2"><b>Cigna:</b> “You pay $60 per office visit…”</div>
+    <div class="frag f3"><b>Humana:</b> “$40 copayment. Referral required.”</div>
+    <div class="frag f4"><b>Plan doc:</b> “50% coinsurance after deductible…”</div>
+    <div class="hgroup" style="display:flex;flex-direction:column;align-items:center">
+      <div class="kicker">The Benefit Plan Standard</div>
+      <h1>Every health plan speaks<br>its own language.</h1>
+      <p class="lede">Thousands of carriers. Millions of plan documents. The same benefit, described a thousand ways, none of them machine-readable.<br><b>Scroll, and watch them become one.</b></p>
+    </div>
+    <div class="scrollcue">Scroll</div>
+  </div>
+</div>
+
+<!-- 2 · DOCS → JSON : five staged triggers -->
+<div class="track" id="merge" data-steps="3" data-len="180">
+  <div class="stage">
+    <div class="htitle" style="display:flex;flex-direction:column;align-items:center">
+      <div class="kicker">One benefit · three carriers</div>
+      <h2>The same specialist visit,<br>described three different ways.</h2>
+    </div>
+    <div class="duo">
+      <div class="doc aetna">
+        <div class="head"><div class="co">Aetna</div><div class="pl">PPO 1500 80/50 · Summary of Benefits</div></div>
+        <div class="sbc"><div class="q">If you visit a specialist</div>
+          <p><b>$50 copay</b>/visit; deductible does not apply.</p>
+          <p class="fine">Out-of-network: 50% coinsurance after you meet your deductible.</p></div>
+      </div>
+      <div class="doc cigna">
+        <div class="head"><div class="co">Cigna</div><div class="pl">Open Access Plus · What You Will Pay</div></div>
+        <div class="sbc"><div class="q">Specialist visit</div>
+          <p>You pay <b>$60 per office visit</b>. Not subject to deductible.</p>
+          <p class="fine">Non-participating providers: plan pays 60% after deductible; you pay the rest.</p></div>
+      </div>
+      <div class="doc humana">
+        <div class="head"><div class="co">Humana</div><div class="pl">Gold Plus HMO · Evidence of Coverage</div></div>
+        <div class="sbc"><div class="q">Physician specialist services</div>
+          <p><b>$40 copayment</b> for each covered visit.</p>
+          <p class="fine">A referral from your PCP is required. Out-of-network is not covered.</p></div>
+      </div>
+      <div class="codewrap">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>&nbsp;specialist_visit.bps.json, one shape for all three</div>
+<pre><span class="ln g1"><span class="p">{</span></span><span class="ln g1">  <span class="k">"benefit_id"</span><span class="p">: </span><span class="s">"SPECIALIST_VISIT"</span><span class="p">,</span></span><span class="ln g1">  <span class="k">"canonical_key"</span><span class="p">: </span><span class="s">"specialist"</span><span class="p">,</span></span><span class="ln g1">  <span class="k">"category"</span><span class="p">: </span><span class="s">"PHYSICIAN_SERVICES"</span><span class="p">,</span></span><span class="ln g2" style="--i:0">  <span class="k">"network_cost_shares"</span><span class="p">: [</span></span><span class="ln g2" style="--i:1">    <span class="p">{ </span><span class="k">"tier_id"</span><span class="p">: </span><span class="s">"IN"</span><span class="p">, </span><span class="k">"cost_shares"</span><span class="p">: [</span></span><span class="ln g2" style="--i:2">      <span class="p">{ </span><span class="k">"type"</span><span class="p">: </span><span class="s">"copay"</span><span class="p">, </span><span class="k">"amount"</span><span class="p">: </span><span class="n">50</span><span class="p"> },   </span><span class="cm">// Aetna</span></span><span class="ln g2" style="--i:3">      <span class="p">{ </span><span class="k">"type"</span><span class="p">: </span><span class="s">"copay"</span><span class="p">, </span><span class="k">"amount"</span><span class="p">: </span><span class="n">60</span><span class="p"> },   </span><span class="cm">// Cigna</span></span><span class="ln g2" style="--i:4">      <span class="p">{ </span><span class="k">"type"</span><span class="p">: </span><span class="s">"copay"</span><span class="p">, </span><span class="k">"amount"</span><span class="p">: </span><span class="n">40</span><span class="p"> } ] },  </span><span class="cm">// Humana</span></span><span class="ln g2" style="--i:5">    <span class="p">{ </span><span class="k">"tier_id"</span><span class="p">: </span><span class="s">"OUT"</span><span class="p">: </span><span class="cm">deductible → coinsurance, in sequence</span><span class="p"> }</span></span><span class="ln g3" style="--i:0">  <span class="p">],</span></span><span class="ln g3" style="--i:1">  <span class="k">"conditions"</span><span class="p">: [ { </span><span class="k">"type"</span><span class="p">: </span><span class="s">"referral"</span><span class="p"> } ]   </span><span class="cm">// fine print, as data</span></span><span class="ln g3" style="--i:2"><span class="p">}</span></span></pre>
+      </div>
+    </div>
+    <div class="scene-cap cap1">Three carriers, three vocabularies, three structures. A person can read all of them. <em>Software cannot.</em></div>
+    <div class="scene-cap cap2">Scroll back up, and it takes itself apart. <em>Your scroll runs the play.</em></div>
+  </div>
+</div>
+
+<!-- 3 · VOCABULARY : two triggers (terms in, funnel) -->
+<div class="track" id="vocab" data-steps="3" data-len="150">
+  <div class="stage">
+    <div class="kicker">Controlled vocabulary</div>
+    <h2>Three names for the same visit.<br>A standard gives it one.</h2>
+    <div class="vstage">
+      <div class="term t1">“Specialist office visit”</div>
+      <div class="term t2">“Physician specialist services”</div>
+      <div class="term t3">“Visit to a specialist’s office”</div>
+      <div class="canon"><span class="k">"canonical_key"</span>: "specialist"</div>
+    </div>
+    <p class="lede">Software can read the words off any page. What it cannot do is know that these three phrases are the same benefit. BPS settles that with controlled vocabularies: canonical benefits, categories, plan types, markets. Seven carriers stop being seven dialects and become one comparable dataset.</p>
+  </div>
+</div>
+
+<!-- 4 · FAMILY : one trigger (the flip) -->
+<div class="track" id="family" data-steps="2" data-len="150">
+  <div class="stage">
+    <div class="kicker">The ambiguity that costs real money</div>
+    <h2>Two plans print the same number.</h2>
+    <div class="bignum">$4,500<small>family deductible</small></div>
+    <p class="famq">Mom has spent <b>$1,500</b> this year. Is her coverage active?</p>
+    <div class="modeword">"family_deductible": { "amount": <span class="n">4500</span>, "embedded": <span class="n" id="flagval">true</span> }</div>
+    <div class="famrow" id="famrow">
+      <div class="member mom" data-spent="1500"><div class="fig">👩</div><div class="who">Mom</div><div class="spent">spent $1,500</div><div class="state"></div><div class="momans" id="momans"></div></div>
+      <div class="member" data-spent="600"><div class="fig">👨</div><div class="who">Dad</div><div class="spent">spent $600</div><div class="state"></div></div>
+      <div class="member" data-spent="300"><div class="fig">👧</div><div class="who">Sofia</div><div class="spent">spent $300</div><div class="state"></div></div>
+      <div class="member" data-spent="150"><div class="fig">👦</div><div class="who">Leo</div><div class="spent">spent $150</div><div class="state"></div></div>
+    </div>
+    <p class="verdict" id="famverdict"></p>
+  </div>
+</div>
+
+<!-- 5 · VALIDATOR : one trigger (run) -->
+<div class="track" id="validate" data-steps="2" data-len="140">
+  <div class="stage">
+    <div class="kicker">No gatekeeper</div>
+    <h2>How do you know you did it right?<br>The file answers for itself.</h2>
+    <p class="lede">Every BPS document is checked <b>against the published schema, the standard’s rulebook</b>. The validator confirms the required fields are present, the structure is right, and every term comes from the shared vocabularies. Pass or fail, in seconds, by anyone, for free. No certification body, no committee, no waiting for approval.</p>
+    <div class="term-sim"><pre><span class="tl"><span class="prompt">$</span> npx ajv validate -s benefit-plan.schema.json -d my-plan.json</span><span class="tl">loading schema v1.1.0 …</span><span class="tl">checking required: plan_id, plan_name, carrier, network_tiers, benefits …</span><span class="tl">checking vocabularies: canonical_key, category, plan_type …</span><span class="tl">&nbsp;</span><span class="tl"><span class="ok">✔ my-plan.json is a valid Benefit Plan Standard document</span></span></pre></div>
+  </div>
+</div>
+
+<!-- 6 · CLOSE -->
+<section id="close">
+  <div class="kicker reveal" style="color:#7FB3EC">Open · Vendor-neutral · MIT</div>
+  <h2 class="reveal">However you extract,<br>land it here.</h2>
+  <p class="lede reveal">BPS does not care how you get the data. It defines what shape it lands in. The schema, seven worked carrier examples, controlled vocabularies and a pharmacy module are public today.</p>
+  <div class="facts reveal">
+    <div class="fact"><div class="big">MIT</div><div class="small">licensed · no fee</div></div>
+    <div class="fact"><div class="big">7</div><div class="small">carrier examples</div></div>
+    <div class="fact"><div class="big">v1.1.0</div><div class="small">stable · v1.2.0 draft</div></div>
+    <div class="fact"><div class="big">2</div><div class="small">independent adopters make it final</div></div>
+  </div>
+  <div class="cta reveal">
+    <a class="primary" href="https://benefitplanstandard.org" target="_blank" rel="noopener">benefitplanstandard.org</a>
+    <a class="ghost" href="https://github.com/Benefit-Plan-Standard/benefit-plan-schema" target="_blank" rel="noopener">Clone the schema</a>
+  </div>
+  <p class="foot reveal">The Benefit Plan Standard · An open, vendor-neutral standard for health benefit plan data.<br>Governance is public. Versioning is semantic. Contributions are welcome.</p>
+</section>
+
+<script>
+/* ============ trigger engine ============
+   Scroll position selects a STEP per scene. Crossing a threshold fires the
+   step; CSS transitions play the chunk to completion and stop. Scrolling
+   back re-crosses the threshold and the chunk plays in reverse.
+   Hysteresis keeps steps from flickering at the boundary. */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const tracks=[...document.querySelectorAll('.track')];
+tracks.forEach(t=>t.style.height=(+t.dataset.len)+'vh');
+const HYST=.045;
+
+function prog(track){
+  const r=track.getBoundingClientRect(), total=r.height-innerHeight;
+  return total<=0?1:clamp(-r.top/total,0,1);
+}
+const state=new Map(tracks.map(t=>[t,0]));
+function setStep(track,step){
+  const cur=state.get(track);
+  if(cur===step) return;
+  state.set(track,step);
+  const n=+track.dataset.steps;
+  for(let i=1;i<n;i++) track.classList.toggle('s'+i, step>=i);
+  track.dispatchEvent(new CustomEvent('step',{detail:{step,prev:cur}}));
+}
+function stepFromProgress(track,p){
+  const n=+track.dataset.steps;              // number of states (0..n-1)
+  const cur=state.get(track);
+  const raw=p*(n-1)+0.45;                     // biased forward: scenes act on arrival
+  let target=Math.round(raw);
+  /* hysteresis: only advance/retreat once clearly past the midpoint */
+  if(target>cur && raw-(cur+.5)< HYST*(n-1)) target=cur;
+  if(target<cur && (cur-.5)-raw< HYST*(n-1)) target=cur;
+  return clamp(target,0,n-1);
+}
+
+/* family scene text swap */
+const members=[...document.querySelectorAll('#famrow .member')];
+const famverdict=document.getElementById('famverdict'), flagval=document.getElementById('flagval');
+const FAM=4500, IND=1500;
+function renderFam(embedded){
+  const total=members.reduce((a,m)=>a+ +m.dataset.spent,0);
+  members.forEach(m=>{
+    const covered=embedded? +m.dataset.spent>=IND : total>=FAM;
+    m.classList.toggle('cov',covered);
+    m.querySelector('.state').textContent=covered?'coverage active':'still paying';
+  });
+    famverdict.classList.add('swap');
+  setTimeout(()=>{
+    flagval.textContent=embedded?'true':'false';
+    const momans=document.getElementById('momans');
+    momans.textContent=embedded?'YES':'NO';
+    momans.className='momans '+(embedded?'yes':'no');
+    famverdict.innerHTML=embedded
+      ? 'Each person has their own $1,500 deductible <b>inside</b> the family amount. Mom hit hers. <b>She is covered, today.</b>'
+      : 'One field changed. Now nothing starts until the family pays <b>$4,500 together</b>, and Mom\u2019s $1,500 counts for nothing. Same printed number, a very different year.';
+    famverdict.classList.remove('swap');
+  },260);
+}
+document.getElementById('family').addEventListener('step',e=>renderFam(e.detail.step<1));
+renderFam(true);
+
+/* master loop: cheap; all motion is CSS transitions */
+const rail=document.getElementById('rail');
+let ticking=false;
+function onScroll(){
+  if(ticking) return; ticking=true;
+  requestAnimationFrame(()=>{
+    const doc=document.documentElement;
+    rail.style.width=(100*doc.scrollTop/(doc.scrollHeight-innerHeight))+'%';
+    tracks.forEach(t=>setStep(t, stepFromProgress(t, prog(t))));
+    ticking=false;
+  });
+}
+addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+/* ============ scene snapping ============
+   One wheel gesture (or arrow key) glides to the next stop. Touch and
+   scrollbar drags remain free; the step engine reacts either way. */
+let stops=[];
+function buildStops(){
+  stops=[0];
+  tracks.forEach(t=>{
+    const top=t.offsetTop, S=t.offsetHeight-innerHeight, n=+t.dataset.steps;
+    for(let i=1;i<n;i++){
+      const p=Math.min(1, (i-0.45)/(n-1)+0.10);   // just past the trigger
+      stops.push(Math.round(top+p*S));
+    }
+  });
+  stops.push(document.getElementById('close').offsetTop);
+  stops=[...new Set(stops)].sort((a,b)=>a-b);
+}
+buildStops();
+addEventListener('resize',buildStops);
+
+let gliding=false;
+function glideTo(y){
+  gliding=true;
+  const from=scrollY, dist=y-from, t0=performance.now(),
+        dur=Math.min(950, 450+Math.abs(dist)*.25);
+  function step(now){
+    const t=Math.min(1,(now-t0)/dur), e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+    scrollTo(0, from+dist*e);
+    if(t<1) requestAnimationFrame(step); else setTimeout(()=>gliding=false,120);
+  }
+  requestAnimationFrame(step);
+}
+function nextStop(dir){
+  const y=scrollY, EPS=12;
+  if(dir>0){ for(const st of stops) if(st>y+EPS) return st; return document.body.scrollHeight; }
+  for(let i=stops.length-1;i>=0;i--) if(stops[i]<y-EPS) return stops[i];
+  return 0;
+}
+let wheelAcc=0, wheelReset=null;
+addEventListener('wheel',e=>{
+  if(e.ctrlKey) return;                 // let pinch-zoom through
+  e.preventDefault();
+  if(gliding) return;
+  wheelAcc+=e.deltaY;
+  clearTimeout(wheelReset); wheelReset=setTimeout(()=>wheelAcc=0,220);
+  if(Math.abs(wheelAcc)>40){ const d=Math.sign(wheelAcc); wheelAcc=0; glideTo(nextStop(d)); }
+},{passive:false});
+addEventListener('keydown',e=>{
+  if(gliding) return;
+  if(['ArrowDown','PageDown',' '].includes(e.key)){ e.preventDefault(); glideTo(nextStop(1)); }
+  if(['ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); glideTo(nextStop(-1)); }
+});
+
+/* close section reveals */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.25});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

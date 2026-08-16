@@ -82,9 +82,9 @@ export default function Home() {
           <div className={styles.heroButtons}>
             <Link
               className="button button--primary button--lg"
-              to="/why/"
+              to="/why"
             >
-              See Why in 90 Seconds
+              How It Works, in 90 Seconds
             </Link>
 
             <Link
