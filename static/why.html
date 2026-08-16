@@ -185,6 +185,45 @@
   .foot{margin-top:56px; font-size:12px; color:#5d6f80; text-align:center}
   .reveal{opacity:0; transform:translateY(24px); transition:opacity .8s, transform .8s}
   .reveal.on{opacity:1; transform:none}
+
+  /* ================= MOBILE (phones) ================= */
+  @media (max-width:680px){
+    /* hero: small fragments, clear of the title */
+    .frag{max-width:150px; font-size:11px; padding:8px 10px}
+    .f1{top:5%; left:4%}.f2{top:13%; right:4%}
+    .f3{bottom:19%; left:5%}.f4{bottom:7%; right:5%}
+    h1{font-size:clamp(30px,9vw,40px)}
+    /* merge: stack the three documents */
+    .duo{height:auto; min-height:62vh; display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:12px}
+    .doc{position:static; width:min(88vw,340px); transform:translateY(40px)}
+    #merge.s1 .doc.aetna{transform:translateY(0) rotate(-1.2deg)}
+    #merge.s1 .doc.cigna{transform:translateY(0) rotate(.8deg)}
+    #merge.s1 .doc.humana{transform:translateY(0) rotate(1.2deg)}
+    #merge.s2 .doc.aetna,#merge.s2 .doc.cigna,#merge.s2 .doc.humana{transform:translateY(-20px) scale(.9) rotate(0)}
+    #merge .codewrap{top:50%}
+    .codewrap pre{font-size:10.5px; padding:12px 12px 14px}
+    .codewrap .bar{font-size:10px}
+    .scene-cap{bottom:2.5vh; font-size:14px}
+    /* vocabulary: stack the bubbles */
+    .vstage{height:330px; margin-top:22px}
+    .term{white-space:normal; max-width:82vw; text-align:center; font-size:13.5px; padding:7px 14px}
+    .t1{transform:translate(-50%,0) translateY(24px)}
+    .t2{transform:translate(-50%,54px) translateY(24px)}
+    .t3{transform:translate(-50%,108px) translateY(24px)}
+    #vocab.s1 .t1{transform:translate(-50%,0)}
+    #vocab.s1 .t2{transform:translate(-50%,54px)}
+    #vocab.s1 .t3{transform:translate(-50%,108px)}
+    #vocab.s2 .t1,#vocab.s2 .t2,#vocab.s2 .t3{transform:translate(-50%,195px) scale(.5)}
+    .canon{font-size:13px; padding:10px 16px; bottom:12px; white-space:nowrap}
+    /* family + validator + close */
+    .famq{font-size:15.5px; padding:0 8px}
+    .modeword{font-size:12px}
+    .famrow{gap:10px}
+    .verdict{font-size:14.5px; padding:0 6px}
+    .term-sim pre{font-size:11px; padding:12px 12px}
+    .facts{gap:22px}
+    .fact .big{font-size:26px}
+  }
 </style>
 </head>
 <body>
