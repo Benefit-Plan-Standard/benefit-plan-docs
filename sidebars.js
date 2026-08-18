@@ -33,6 +33,7 @@ module.exports = {
       items: [
         'getting-started/installation',
         'getting-started/examples',
+        'getting-started/ingestion-guidelines',
       ],
     },
     {
@@ -59,6 +60,15 @@ module.exports = {
         'compliance/compliance-overview',
         'compliance/compliance-validation',
         'compliance/compliance-certification',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Releases',
+      collapsible: true,
+      items: [
+        'changelog',
+        'release-notes',
       ],
     },
     {
