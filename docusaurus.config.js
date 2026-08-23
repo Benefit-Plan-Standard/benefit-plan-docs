@@ -48,6 +48,16 @@ const config = {
         googleTagManager: {
           containerId: 'GTM-WJTC7XWZ',
         },
+        // Explicit rather than relying on plugin defaults, so the crawl
+        // surface is visible in config. NOTE: this plugin only sees pages
+        // Docusaurus routes. Standalone pages under static/ (e.g. /why) are
+        // added post-build by scripts/enrich-sitemap.js.
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+          ignorePatterns: [],
+          filename: 'sitemap.xml',
+        },
       },
     ],
   ],

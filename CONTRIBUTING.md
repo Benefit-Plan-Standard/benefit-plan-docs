@@ -40,6 +40,22 @@ git push origin fix/crosswalk-typo
 
 Open a pull request against the `main` branch of this repository. Include a description of the changes, the rationale behind them, and any relevant issue numbers. The project maintainers will review your PR and provide feedback.
 
+## Search Visibility: every page must be reachable
+
+Google can only index pages it can discover. Before merging anything that adds a page:
+
+- **Normal docs pages** (`docs/**/*.md`) are handled automatically. Docusaurus routes them, the
+  sitemap plugin lists them, and they appear in the sidebar if added to `sidebars.js`.
+- **Standalone pages under `static/`** are NOT seen by the sitemap generator. If you add one,
+  register its path in `EXTRA_PAGES` at the top of `scripts/enrich-sitemap.js`, or Google will
+  never learn the page exists.
+- **Removing or renaming a page** leaves a 404 for anyone who linked to the old URL. Leave a
+  redirect stub at the old path (see `static/docs/specification/roadmap-v1.1/index.html` for the
+  pattern) rather than letting the URL die.
+- After deploying a structural change, resubmit the sitemap in Google Search Console.
+
+The generated sitemap lives at `/sitemap.xml` and is referenced from `static/robots.txt`.
+
 ## Reporting Issues
 
 If you encounter a bug or have a suggestion, please open an issue using the appropriate template. Include as much detail as possible, including steps to reproduce the issue and the environment in which it occurs.
