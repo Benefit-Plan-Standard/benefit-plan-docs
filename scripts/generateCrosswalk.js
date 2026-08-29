@@ -9,19 +9,23 @@ const SHEET_ID = "2PACX-1vTgekv3wditmUSRm_CJv7O1PsC6KJHUDBNba7V8nYg2_kGiVj5dD8ho
 // the draft pharmacy tabs are sourced from a versioned repo file, NOT the Sheet.
 const PHARMACY_DATA_FILE = 'docs/specification/pharmacy-crosswalk-data.json';
 
+// Phase 2 of the crosswalk pipeline (2026-08-29): the medical tabs are ALSO
+// repo-file-sourced now. The Google Sheet is no longer load-bearing.
+const MEDICAL_DATA_FILE = 'docs/specification/medical-crosswalk-data.json';
+
 // The generator is DUAL-SOURCE:
-//   - a tab with `gid`  → fetched from the Google Sheet as CSV (all medical tabs).
-//   - a tab with `file` → read from a versioned repo JSON file (the pharmacy tabs).
+//   - a tab with `gid`  → fetched from the Google Sheet as CSV (none currently).
+//   - a tab with `file` → read from a versioned repo JSON file (all tabs since Phase 2).
 const TABS = [
-  { name: "Plan Metadata", gid: "1330740892" },
-  { name: "Network Tiers", gid: "770854045" },
-  { name: "Accumulators", gid: "6477239" },
-  { name: "Benefits", gid: "1949697548" },
-  { name: "Limits", gid: "1700182924" },
-  { name: "Conditions", gid: "1702172376" },
-  { name: "Source Reference", gid: "1846651702" },
-  { name: "Field Definitions", gid: "1583805432" },
-  { name: "Carrier Vocabulary", gid: "1583805432" },
+  { name: "Plan Metadata", file: MEDICAL_DATA_FILE },
+  { name: "Network Tiers", file: MEDICAL_DATA_FILE },
+  { name: "Accumulators", file: MEDICAL_DATA_FILE },
+  { name: "Benefits", file: MEDICAL_DATA_FILE },
+  { name: "Limits", file: MEDICAL_DATA_FILE },
+  { name: "Conditions", file: MEDICAL_DATA_FILE },
+  { name: "Source Reference", file: MEDICAL_DATA_FILE },
+  { name: "Field Definitions", file: MEDICAL_DATA_FILE },
+  { name: "Carrier Vocabulary", file: MEDICAL_DATA_FILE },
   // --- Pharmacy module v0.2.0 (DRAFT, non-normative) tabs — repo-file-sourced ---
   { name: "Pharmacy Tiers",      file: PHARMACY_DATA_FILE },
   { name: "Pharmacy Networks",   file: PHARMACY_DATA_FILE },
