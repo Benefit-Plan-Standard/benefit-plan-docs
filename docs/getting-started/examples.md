@@ -6,45 +6,50 @@ sidebar_position: 2
 
 # Examples
 
-This page showcases example normalized plan files and explains how to interpret them.  These examples correspond to real carrier plans that have been converted into the Benefit Plan Standard.  All seven worked examples live in the [`examples/` directory of the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples): Aetna, Blue Cross, Cigna, GatorCare, Humana, SCAN, and UnitedHealthcare.
+This page showcases example normalized plan files and explains how to interpret them.  Every example is a real plan, normalized into the Benefit Plan Standard from the Summary of Benefits and Coverage the carrier published, and verified value by value against that document.  All 8 live in the [`examples/` directory of the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples), with the source PDF beside each one in [`examples/sources/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/sources):
+
+| File | Plan | Type | Market |
+|---|---|---|---|
+| `aetna_example.json` | Aetna FL PPO 1500 80/50 | PPO | Large group |
+| `aetna_ppo5000_example.json` | Aetna FL PPO 5000 80/50 | PPO | Large group |
+| `ambetter_example.json` | Health Net of CA Silver 94 Ambetter | HMO | Individual |
+| `bluecross_example.json` | Florida Blue BlueOptions 505 | PPO | Individual |
+| `cigna_example.json` | Bowdoin College Open Access Plus | OAP | Large group |
+| `gatorcare_example.json` | Florida Blue BlueOptions 03768 Prime | EPO | Self-funded |
+| `kaiser_example.json` | Kaiser Permanente Gold 80 | HMO | Individual |
+| `united_example.json` | UHC Choice Plus HSA Gold 1700-4 | POS | Small group |
+
+All 8 are commercial and marketplace plans built from the SBC. Medicare Advantage plans use a different document, the CMS Summary of Benefits, and worked examples for that document are in progress. Medicaid is not part of this set yet.
 
 ## Example: Blue Cross PPO
 
-You can view a normalized Blue Cross plan in the schema repository under [`examples/bluecross_example.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/bluecross_example.json).  It illustrates how deductibles, copays, coinsurance, network tiers, and limits are represented in a single JSON object.
+[`examples/bluecross_example.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/bluecross_example.json) is a good first read.  It shows how deductibles, copays, coinsurance and network tiers fit together in one JSON object.
 
-Key features:
+- Two tiers, `IN` and `OUT`, each with its own cost shares
+- Separate in-network and out-of-network deductibles and out-of-pocket maximums, at both the individual and family level
+- 31 benefit entries, each carrying a source reference back to the page of the SBC it came from
 
-- Multiple tiers (`IN`, `OUT`) with different cost shares
-- Separate plan‑wide deductible and OOP maximum
-- Limit objects for rehabilitation services (e.g., 25 visits per year)
-- Conditions for prior authorization on certain imaging services
-- Source references pointing back to the SBC
+## Example: Kaiser Permanente HMO
 
-## Example: Humana Medicare Advantage
+[`examples/kaiser_example.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/kaiser_example.json) shows a closed-network plan.
 
-The [`examples/humana_example.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/humana_example.json) file shows how a Medicare Advantage plan is encoded:
+- One tier, `IN`, and no out-of-network accumulators, because the plan has no out-of-network benefit
+- The same benefit categories as the PPO examples, so the two can be compared field for field
 
-- Many services have $0 copay because MA plans typically cover preventive services fully
-- A pharmacy deductible applies only to tiers 3–5
-- Worldwide emergency coverage is captured with a separate tier and MOOP exclusion flag
-- Supplemental benefits such as hearing and vision are represented as additional benefit items
+## Example: GatorCare EPO
 
-## Example: UnitedHealthcare HMO
+[`examples/gatorcare_example.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/gatorcare_example.json) is a self-funded employer plan administered under a carrier's document.
 
-In [`examples/united_example.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/united_example.json) you’ll find a commercial HMO plan with:
-
-- Flat copays for physician visits and urgent care
-- Tier‑specific deductibles for in‑network and out‑of‑network providers
-- Combined annual visit caps for therapies
-- Conditions requiring referrals for specialist visits
+- Market is `self_funded`, which is how the standard records a plan the employer funds and a carrier administers
+- `IN` and `OUT` tiers with a single set of plan-wide accumulators
 
 ## How to Explore Examples
 
 To inspect any example plan:
 
-1. Clone the schema repository: `git clone https://github.com/Benefit-Plan-Standard/benefit-plan-schema` — or browse the [`examples/` directory](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples) directly on GitHub.
+1. Clone the schema repository: `git clone https://github.com/Benefit-Plan-Standard/benefit-plan-schema`, or browse the [`examples/` directory](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples) directly on GitHub.
 2. Open one of the JSON files in the `examples/` directory.
 3. Compare the fields to the [Field Definitions](/docs/specification/field-definitions) to understand their meaning.
 4. Validate the JSON using a schema validator (see [Installation & Usage](/docs/getting-started/installation)).
 
-These examples serve as a practical guide for developers and analysts.  As more carriers are normalized, new examples will be added.
+As more carriers and lines of business are normalized, new examples will be added.
