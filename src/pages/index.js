@@ -71,6 +71,8 @@ export default function Home() {
           <div className={styles.heroVersion}>
             ✅ Latest release:&nbsp;
             <Link to="/docs/release-notes">v1.1.0</Link>&nbsp;(May 2026)
+            &nbsp;·&nbsp;
+            <Link to="/docs/changelog">v1.2.0 draft</Link>: CARIN alignment and Medicare Advantage
           </div>
 
           <p className={styles.heroSubtitle}>

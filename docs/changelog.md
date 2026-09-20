@@ -8,10 +8,34 @@ sidebar_position: 5
 
 This changelog lists all notable changes to the Benefit Plan Standard.  For a high‑level overview of changes in each release, see the [release notes](/docs/release-notes).  The format is based on [Keep a Changelog](https://keepachangelog.com/) and adheres to Semantic Versioning.
 
-## [Unreleased]
+## [Unreleased]: v1.2.0 draft
 
-### Added
-- Placeholder for future changes since the last release.  Once changes are merged into `main` or `next`, they will be listed here until a new version is tagged.
+**Status:** draft, tagged [`v1.2.0-draft.1`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.2.0-draft.1) on 2026-09-20. Not a release. Every v1.0.0 and v1.1.0 document validates against it unchanged; every addition is optional. A final v1.2.0 release needs validation by two independent adopters, per the [governance policy](/docs/governance/versioning-release-policy). Full field-by-field detail with page evidence: [docs/changelog.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md) in the schema repository.
+
+The draft carries two additive blocks.
+
+### Added, 2026-07-02: alignment with the HL7 CARIN Digital Insurance Card IG
+Reconciles the three `InsurancePlan` changes merged into the CARIN IG on June 25, 2026 (FHIR-57525 multi-tier cost sharing, FHIR-57526 deductible applicability, FHIR-57527 structured benefit limitation).
+- `tier_class`, `parent_tier_id` and `provider_set` on `network_tiers[]`, so a cost designation within one network (a carrier's "Value Choice" rate) or a delivery channel (virtual care) is distinguishable from an actual provider network.
+- `raw_text` on `benefits[].limits[]`, the verbatim limitation text; `limits[].period` now recommends `per_plan_year`, `per_calendar_year`, `per_benefit_period`, `per_lifetime`.
+- Mapping notes: per-cost-share deductible applicability and typed limits were already expressed since v1.0.0. See [docs/carin-dic-reconciliation.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/carin-dic-reconciliation.md).
+
+### Added, 2026-09-20: Medicare Advantage
+What a CMS Summary of Benefits for a Medicare Advantage plan carries and an ACA Summary of Benefits and Coverage does not. Origin: two 2026 documents read end to end and mapped construct by construct, the SCAN Classic (HMO) Summary of Benefits for Los Angeles County and the Humana Gold Plus H1036-025 (HMO) Summary of Benefits. Fourteen constructs had no home in the standard; twelve are added, two are deferred.
+- **Plan identity:** `plan_identifiers[]` (CMS contract, plan and segment, HIOS), `service_area` (state and counties), `premium` and `part_b_premium_reduction`.
+- **Pharmacy accumulators:** an optional core `pharmacy` object (Part D deductible scoped to tiers, out-of-pocket threshold, coverage stages), a strict subset of the pharmacy module shape, plus `cost_shares[].deductible_ref` to say which deductible a step refers to.
+- **Cost shares:** `unit_range` for day-range copays (days 1 to 6 at one price, 7 to 90 at another); `max_amount` and `max_basis` for caps; `amount_min`, `amount_max`, `rate_min`, `rate_max` for ranges.
+- **Benefits:** `coverage_basis` (`medicare_covered`, `supplemental_mandatory`, `supplemental_optional`); `alternative_group` for either/or benefits; benefit-level `source_references[]`; an explicit null `moop_applicability` now means "not stated."
+- **Limits:** `carryover` (`none`, `next_period`, `within_year`) for allowances; `scope` and `shared_limit_id` for per-ear limits and one count spread across several benefits; `per_12_months` as a rolling period.
+- **Vocabulary (non-normative):** twelve category codes for areas the Summary of Benefits prices and the SBC does not (`HEARING`, `DENTAL`, `VISION`, `PART_B_DRUGS`, `PODIATRY`, `TRANSPORTATION`, `OVER_THE_COUNTER`, `MEALS`, `IN_HOME_SUPPORT`, `FITNESS`, `PERSONAL_EMERGENCY_RESPONSE`, `MEMBER_SUPPORT`), and a new `benefit-types.json`.
+- **Examples:** `scan_example.json` and `humana_example.json`, keyed by hand from their Summary of Benefits, verified value by value against the cited pages, with both source PDFs alongside. They validate against the v1.2.0 draft only. Analysis and verification record: [docs/medicare-advantage-notes.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/medicare-advantage-notes.md).
+
+### Deferred from this draft
+- Optional supplemental packages (riders): a name, a premium, and the benefits that apply only when a member buys the package.
+- Population-specific cost sharing, such as Extra Help replacing the Part D amounts for members who qualify.
+
+### Not changed
+- `schema/v1.0.0` and `schema/v1.1.0` are frozen. The eight SBC examples are not edited and validate against v1.1.0 and the draft with the same result.
 
 ## [1.1.0] — 2026‑05‑21
 
