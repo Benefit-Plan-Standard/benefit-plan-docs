@@ -35,35 +35,25 @@ Foundational release: the core JSON schema for medical benefit plans, the field-
 
 ---
 
-# 🧭 In Planning
+# 🧭 In Draft
 
-## v1.2.0 — Formulary & Drug-Level Coverage (Targeted)
+## v1.2.0 — CARIN alignment and Medicare Advantage (draft)
 
-**Status:** In planning · **Target:** next minor release
+**Status:** Draft, tagged `v1.2.0-draft.1` on September 20, 2026 · Backward-compatible with v1.0.0 and v1.1.0 · Needs two independent adopter validations to release
 
-v1.1.0 established pharmacy *foundations* (the `benefit_type` discriminator and pharmacy cost-sharing structures). v1.2.0 builds the **formulary layer** on top of that foundation — moving from "this plan has a pharmacy benefit" to "this drug is covered at this tier under these conditions." Specialty-drug economics, and **GLP-1 coverage** in particular, are the driving use case: plans increasingly differentiate on which drugs sit on which tier and under what utilization-management rules, and that detail cannot be expressed today.
+The v1.2.0 draft grew in two steps, and neither is the formulary layer that an earlier version of this page described. The formulary layer is being built as the [pharmacy module](/docs/specification/modules) and is tracked there.
 
-### 🧩 Formulary Module
+- **CARIN Digital Insurance Card alignment (July 2026).** Three `InsurancePlan` changes were merged into the HL7 CARIN Digital Insurance Card IG on June 25, 2026: multi-tier cost sharing, deductible applicability, and structured benefit limitation. The draft reconciles them: `tier_class`, `parent_tier_id` and `provider_set` on network tiers, and `raw_text` on limits. Two of the three were already expressible since v1.0.0 and are covered by mapping notes.
+- **Medicare Advantage (September 2026).** Two 2026 CMS Summary of Benefits documents (SCAN Classic HMO, Los Angeles County; Humana Gold Plus H1036-025 HMO) were read end to end and mapped against the schema. Fourteen constructs had no home; twelve are added: regulator plan identifiers, service area, premium, a Part D accumulator set, day-range copays, caps and ranges on cost shares, coverage basis (Medicare-covered versus supplemental), either/or benefit groups, allowance carryover, limit scope and shared limits, and per-benefit source references. Twelve vocabulary categories cover the benefit areas the Summary of Benefits prices and the SBC does not, including hearing, dental, vision, transportation, over-the-counter allowances, meals and in-home support. Two worked examples, keyed by hand and page-cited, validate against the draft.
+- **Deferred to a later version:** optional supplemental packages (riders) and population-specific cost sharing such as Extra Help.
 
-- **Drug-to-tier mapping** — associate individual drugs (or drug groups) with the formulary tiers already modeled in the pharmacy structures.
-- **Formulary references** — link a plan to a specific formulary so multiple plans can share one published drug list, and a plan can be re-pointed as formularies are revised.
+See the [changelog](/docs/changelog) for the field list and the schema repository for the [full record with page evidence](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md).
 
-### 🔗 Drug Identification
+### What would make it a release
 
-- **NDC and RxNorm code references** — standardized drug identifiers (National Drug Code and RxNorm RxCUI) so drug-to-tier mappings resolve unambiguously across data sources.
-
-### 📥 Formulary Data Integration
-
-- **CMS formulary data** — ingest Medicare Part D formulary files so Part D and MA-PD plans can be populated from the authoritative public source.
-- **Carrier-published formulary files** — support the formulary file formats carriers publish directly, for commercial and Medicare lines alike.
-
-### 🔧 Drug-Level Coverage Conditions
-
-Extend the existing coverage-condition model so that step therapy, prior authorization, and quantity limits can be expressed **at the individual drug level** — not just at the benefit-category level — which is where specialty and GLP-1 utilization management actually lives.
-
-### 🎯 Driving Use Case — GLP-1 & Specialty Drugs
-
-GLP-1s and other high-cost specialty drugs are reshaping plan design. v1.2.0 is scoped so that "is drug X covered, on what tier, and under what prior-authorization / step-therapy / quantity rules" is answerable directly from a normalized plan document.
+- Validation by two independent adopters, per the [versioning and release policy](/docs/governance/versioning-release-policy).
+- More Medicare Advantage plans and plan types worked through, beyond the first two.
+- The reference implementation producing v1.2.0 output for the existing SBC corpus with no result changes.
 
 ---
 
@@ -71,10 +61,11 @@ GLP-1s and other high-cost specialty drugs are reshaping plan design. v1.2.0 is 
 
 Targeted for releases beyond v1.2.0, in rough priority order:
 
+- **Pharmacy module, formulary layer** — drug-to-tier mapping, formulary references, NDC and RxNorm identifiers, CMS and carrier formulary file ingestion, and drug-level coverage conditions (step therapy, prior authorization, quantity limits). GLP-1 and specialty drugs are the driving use case. In draft as pharmacy module v0.2.x; see [Modules](/docs/specification/modules).
+- **Medicare Advantage, remaining constructs** — riders and population-specific cost sharing, plus Medicaid program documents, which have not been worked through at all.
 - **Behavioral Health Module** — tele-behavioral rules, therapy vs. psychiatry cost-sharing, visit limits, MAT coverage.
-- **Dental & Vision Modules** — annual maximums, preventive/basic/major coverage, orthodontia, waiting periods; exams, frames, lenses, and contact-lens allowances.
+- **Dental & Vision Modules** — annual maximums, preventive/basic/major coverage, orthodontia, waiting periods; exams, frames, lenses, and contact-lens allowances. The v1.2.0 draft already carries the Medicare Advantage allowances and per-ear limits; a full module would add the commercial dental and vision plan structures.
 - **Telehealth Module** — virtual PCP and urgent care, remote patient monitoring, virtual behavioral health.
-- **Supplemental Benefits Module** — OTC allowances, transportation, meal delivery, fitness, hearing aids.
 - **Crosswalk expansion** — additional carriers (Kaiser, Molina, Oscar, Ambetter, regional MA plans) to improve ingestion accuracy.
 - **Reference-implementation alignment** — keep HealthPlanAPI and reference parsers in step with the published schema.
 - **Refreshed FHIR alignment** — update the mapping once the HL7 R6 `InsurancePlan` ballot stabilizes.
