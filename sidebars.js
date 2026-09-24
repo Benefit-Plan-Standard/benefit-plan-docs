@@ -23,6 +23,7 @@ module.exports = {
         'specification/crosswalk',
         'specification/modules',
         'specification/examples',
+        'specification/fhir-insuranceplan',
         'specification/roadmap',
       ],
     },
