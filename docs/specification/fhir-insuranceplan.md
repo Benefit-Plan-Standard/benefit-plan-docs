@@ -62,7 +62,7 @@ The `bps-*` extensions and the BPS canonical benefits code system are draft, and
 - `https://benefitplanstandard.org/fhir/StructureDefinition/<name>.json`, for `bps-source-reference`, `bps-plan-metadata`, `bps-identifier-source`, `bps-benefit`, `bps-condition`, `bps-cost-share`, `bps-accumulator` and `bps-unmapped-benefit`
 - [`https://benefitplanstandard.org/fhir/CodeSystem/canonical-benefits.json`](https://benefitplanstandard.org/fhir/CodeSystem/canonical-benefits.json)
 
-Their canonical URLs (`https://benefitplanstandard.org/fhir/StructureDefinition/<name>`, without `.json`) are identifiers. They do not resolve to the file. To validate against them, load the definitions locally, as shown below.
+Their canonical URLs (`https://benefitplanstandard.org/fhir/StructureDefinition/<name>` and `https://benefitplanstandard.org/fhir/CodeSystem/canonical-benefits`, without `.json`) redirect a browser to the `.json` file. The validator does not fetch them from this site: it loads the CARIN definitions from the `hl7.fhir.us.insurance-card#2.0.0-ballot` package and the BPS definitions from `fhir/definitions` in the schema repository, as shown below.
 
 ## Running the converter locally
 
