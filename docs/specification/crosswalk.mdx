@@ -8,7 +8,7 @@ sidebar_position: 4
 # Carrier Crosswalk
 
 The Benefit Plan Standard maintains a **carrier crosswalk** that maps each issuer’s vocabulary, structure, and terminology into the normalized schema fields.  
-This ensures that different carriers’ representations of benefits—often inconsistent in naming, structure, and granularity—can be interpreted in a unified, machine-readable way.
+This ensures that different carriers’ representations of benefits (often inconsistent in naming, structure, and granularity) can be interpreted in a unified, machine-readable way.
 
 Because carriers vary widely in how they describe deductibles, copays, limits, and categories, the crosswalk is a foundational component of the standard.
 
@@ -33,94 +33,92 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <th>Humana</th>
       <th>Ambetter</th>
       <th>Kaiser</th>
-      <th>Molina (future)</th>
-      <th>Oscar (future)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>plan_id</td>
-      <td>Contract Number</td>
-      <td>Plan ID</td>
-      <td>H Number</td>
-      <td>SBC ID</td>
-      <td>Plan Number</td>
-      <td>Policy Number</td>
-      <td>Contract ID</td>
-      <td>Not shown on SBC</td>
-      <td>Not shown on SBC</td>
-      <td></td>
-      <td></td>
+      <td>FLBLUE_BLUEOPTIONS_505</td>
+      <td>GATORCARE_PRIME_EPO</td>
+      <td>SCAN_CLASSIC_HMO_LOS_ANGELES</td>
+      <td>AETNA_PPO_1500_80_50</td>
+      <td>UHC_CHOICE_PLUS_HSA_GOLD_1700</td>
+      <td>CIGNA_OAP_BOWDOIN</td>
+      <td>HUMANA_GOLD_PLUS_H1036_025_HMO</td>
+      <td>AMBETTER_CA_SILVER_94_HMO</td>
+      <td>KAISER_CA_GOLD_80_HMO</td>
+    </tr>
+    <tr>
+      <td>plan_identifiers</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>cms_contract_plan_segment: H5425-006-0; cms_contract_id: H5425; cms_pbp_id: 006</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>cms_contract_plan_segment: H1036-025-000; cms_contract_id: H1036; cms_pbp_id: 025</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
     <tr>
       <td>carrier</td>
-      <td>Florida Blue</td>
-      <td>UF Health / GatorCare</td>
+      <td>FloridaBlue</td>
+      <td>GatorCare</td>
       <td>SCAN Health Plan</td>
       <td>Aetna</td>
       <td>UnitedHealthcare</td>
       <td>Cigna</td>
       <td>Humana</td>
-      <td>Health Net of CA (Ambetter product brand)</td>
-      <td>KAISER PERMANENTE (registered mark in header)</td>
-      <td></td>
-      <td></td>
+      <td>Ambetter</td>
+      <td>Kaiser</td>
     </tr>
     <tr>
       <td>plan_name</td>
-      <td>BlueOptions 505 PPO</td>
-      <td>Prime EPO Plan (document titled &quot;Florida Blue BlueOptions 03768&quot;, administrator branding)</td>
-      <td>Classic</td>
-      <td>PPO 1500 80/50</td>
-      <td>Header plan name (e.g. UHC Choice Plus HSA Gold 1700-4)</td>
-      <td>Preferred Plan</td>
-      <td>Gold Plus</td>
-      <td>Silver 94 Ambetter HMO</td>
-      <td>Gold 80 HMO</td>
-      <td></td>
-      <td></td>
+      <td>Florida Blue BlueOptions 505</td>
+      <td>Florida Blue BlueOptions 03768 - Prime EPO Plan</td>
+      <td>SCAN Classic (HMO)</td>
+      <td>Aetna FL PPO 1500 80/50 CY V25</td>
+      <td>UnitedHealthcare® UHC Choice Plus HSA Gold 1700-4</td>
+      <td>Bowdoin College: Open Access Plus</td>
+      <td>Humana Gold Plus H1036-025 (HMO)</td>
+      <td>Health Net of CA: Silver 94 Ambetter HMO</td>
+      <td>KAISER PERMANENTE® : Gold 80 HMO</td>
     </tr>
     <tr>
       <td>plan_type</td>
       <td>PPO</td>
-      <td>EPO (SBC header prints PPO)</td>
-      <td>HMO / MA</td>
+      <td>EPO</td>
+      <td>HMO</td>
       <td>PPO</td>
-      <td>POS / HMO / PPO / MA</td>
-      <td>PPO / HMO</td>
-      <td>HMO / MA</td>
+      <td>POS</td>
+      <td>OAP</td>
       <td>HMO</td>
       <td>HMO</td>
-      <td></td>
-      <td></td>
+      <td>HMO</td>
     </tr>
     <tr>
-      <td>year</td>
-      <td>Coverage Year</td>
-      <td>Plan Year</td>
-      <td>Plan Year</td>
-      <td>SBC Year</td>
-      <td>Plan Year</td>
-      <td>Calendar Year</td>
-      <td>Calendar Year</td>
-      <td>Beginning on or after MM/DD/YYYY (single date, no end date)</td>
-      <td>Coverage Period: Beginning on or after MM/DD/YYYY (single date, no end date)</td>
-      <td></td>
-      <td></td>
+      <td>plan_year</td>
+      <td>2023</td>
+      <td>2026</td>
+      <td>2026</td>
+      <td>2026</td>
+      <td>2026</td>
+      <td>2026</td>
+      <td>2026</td>
+      <td>2026</td>
+      <td>2026</td>
     </tr>
     <tr>
       <td>market</td>
-      <td>Group or Individual</td>
-      <td>Self-funded employer group, administered by Florida Blue</td>
-      <td>Medicare Advantage</td>
-      <td>Commercial</td>
-      <td>Small group / Commercial / MA</td>
-      <td>Commercial</td>
-      <td>Medicare Advantage</td>
-      <td>Individual (Coverage for: All Covered Members)</td>
-      <td>Individual/Family</td>
-      <td></td>
-      <td></td>
+      <td>individual</td>
+      <td>self_funded</td>
+      <td>medicare_advantage</td>
+      <td>large_group</td>
+      <td>small_group</td>
+      <td>large_group</td>
+      <td>medicare_advantage</td>
+      <td>individual</td>
+      <td>individual</td>
     </tr>
   </tbody>
 </table>
@@ -143,8 +141,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <th>Humana</th>
       <th>Ambetter</th>
       <th>Kaiser</th>
-      <th>Molina (future)</th>
-      <th>Oscar (future)</th>
     </tr>
   </thead>
   <tbody>
@@ -152,29 +148,25 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>tier_id</td>
       <td>IN / OUT</td>
       <td>IN / OUT</td>
-      <td>IN</td>
+      <td>IN / OUT / PHARMACY_RETAIL_STANDARD</td>
       <td>IN / OUT</td>
       <td>IN / OUT</td>
       <td>IN / OUT</td>
-      <td>IN</td>
+      <td>IN / OUT / SITE_PCP_OFFICE / SITE_SPECIALIST_OFFICE / SITE_TELEHEALTH / SITE_URGENT_CARE_CENTER / SITE_OUTPATIENT_HOSPITAL / SITE_AMBULATORY_SURGERY_CENTER / SITE_FREESTANDING_RADIOLOGY / SITE_FREESTANDING_LAB / SITE_MEMBERS_HOME / SITE_COMPREHENSIVE_OUTPATIENT_REHAB / SITE_PHARMACY / SITE_NETWORK_RETAIL_PHARMACY / SITE_DME_PROVIDER / SITE_DIABETIC_SUPPLIER / SITE_MEDICAL_SUPPLIER / SITE_PROSTHETICS_PROVIDER / SITE_PART_D_RETAIL / DESIG_PREFERRED_DIABETIC_SUPPLIER</td>
       <td>IN / OUT</td>
-      <td>IN (single tier)</td>
-      <td></td>
-      <td></td>
+      <td>IN / OUT</td>
     </tr>
     <tr>
       <td>name</td>
-      <td>In / Out of Network</td>
-      <td>GatorCare Tier 1 / BlueOptions Tier 2 / BlueOptions Tier 3 (OON)</td>
-      <td>In Network</td>
-      <td>In / Out of Network</td>
-      <td>Designated Network / Network / Out-of-Network</td>
-      <td>In / Out Network</td>
-      <td>In Network</td>
-      <td>In Network / Out-of-Network Provider</td>
-      <td>Plan Provider</td>
-      <td></td>
-      <td></td>
+      <td>In Network / Out of Network</td>
+      <td>GatorCare Tier 1 In-Network / BlueOptions Tier 3 Out-Of-Network</td>
+      <td>In network / Out of network / Retail, Standard</td>
+      <td>In Network / Out of Network</td>
+      <td>In-Network / Out-of-Network</td>
+      <td>In Network / Out of Network</td>
+      <td>In network / Out of network / PCP&#039;s office / Specialist&#039;s office / Telehealth / Urgent care center / Outpatient hospital / Ambulatory surgery center / Freestanding radiological facility / Freestanding laboratory / Member&#039;s home / Comprehensive outpatient rehab facility / Pharmacy / Network retail pharmacy / DME provider / Diabetic supplier / Medical supplier / Prosthetics provider / Retail Cost-Sharing / Preferred diabetic supplier</td>
+      <td>In Network / Out of Network</td>
+      <td>Plan Provider / Non-Plan Provider</td>
     </tr>
     <tr>
       <td>description</td>
@@ -187,8 +179,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>Plan Network</td>
       <td>OON cells read Not covered on most rows</td>
       <td>Non-plan providers not covered</td>
-      <td></td>
-      <td></td>
     </tr>
   </tbody>
 </table>
@@ -211,122 +201,128 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <th>Humana</th>
       <th>Ambetter</th>
       <th>Kaiser</th>
-      <th>Molina (future)</th>
-      <th>Oscar (future)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>individual_deductible</td>
-      <td>Individual Deductible</td>
-      <td>Individual Deductible (stated per tier in one cell: GatorCare Tier 1 / BlueOptions Tier 2)</td>
-      <td>Usually none</td>
-      <td>Individual Deductible</td>
-      <td>Deductible IN/OUT (three networks in one cell: Designated Network and Network / out-of-Network)</td>
-      <td>Individual Deductible</td>
-      <td>Mostly none</td>
-      <td>Not stated in SBC answer block</td>
-      <td>Overall deductible ($0 on Gold 80)</td>
-      <td></td>
-      <td></td>
+      <td>$3,500</td>
+      <td>$350</td>
+      <td>$0</td>
+      <td>$1,500</td>
+      <td>$1,700</td>
+      <td>$1,000</td>
+      <td>$0</td>
+      <td>not in example</td>
+      <td>$0</td>
     </tr>
     <tr>
       <td>family_deductible</td>
-      <td>Family Deductible</td>
-      <td>Family Deductible</td>
-      <td>None</td>
-      <td>Family Deductible</td>
-      <td>Family Deductible</td>
-      <td>Family Deductible</td>
-      <td>Not used</td>
-      <td>Not stated</td>
-      <td>Not stated separately</td>
-      <td></td>
-      <td></td>
+      <td>$10,500</td>
+      <td>$700</td>
+      <td>not in example</td>
+      <td>$3,000</td>
+      <td>$3,400</td>
+      <td>$2,000</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
     <tr>
       <td>individual_oop_max</td>
-      <td>Individual OOP Max</td>
-      <td>OOP Max (Ind., stated per tier in one cell)</td>
-      <td>MOOP</td>
-      <td>OOP Max (Ind.)</td>
-      <td>MOOP Ind</td>
-      <td>OOP Max</td>
-      <td>MOOP</td>
-      <td>$1,400 member per calendar year</td>
-      <td>$9,200 Individual</td>
-      <td></td>
-      <td></td>
+      <td>$3,500</td>
+      <td>$2,700</td>
+      <td>$199</td>
+      <td>$5,500</td>
+      <td>$4,500</td>
+      <td>$3,500</td>
+      <td>$2,000</td>
+      <td>$1,400</td>
+      <td>$9,200</td>
     </tr>
     <tr>
       <td>family_oop_max</td>
-      <td>Family OOP Max</td>
-      <td>OOP Max (Family)</td>
-      <td>None</td>
-      <td>OOP Max (Family)</td>
-      <td>MOOP Fam</td>
-      <td>Family OOP Max</td>
-      <td>Not used</td>
-      <td>$2,800 family per calendar year</td>
-      <td>$18,400 Family</td>
-      <td></td>
-      <td></td>
+      <td>$10,500</td>
+      <td>$5,400</td>
+      <td>not in example</td>
+      <td>$11,000</td>
+      <td>$9,000</td>
+      <td>$7,000</td>
+      <td>not in example</td>
+      <td>$2,800</td>
+      <td>$18,400</td>
     </tr>
     <tr>
       <td>oon_individual_deductible</td>
-      <td>OON Individual Deductible</td>
-      <td>OON Individual Deductible</td>
-      <td>N/A</td>
-      <td>OON Individual Deductible</td>
-      <td>Deductible OUT</td>
-      <td>OON Individual Deductible</td>
-      <td>N/A</td>
-      <td>N/A (OON not covered)</td>
-      <td>N/A (single-tier HMO)</td>
-      <td></td>
-      <td></td>
+      <td>$5,500</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>$3,000</td>
+      <td>$5,000</td>
+      <td>$1,000</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
     <tr>
       <td>oon_family_deductible</td>
-      <td>OON Family Deductible</td>
-      <td>OON Family Deductible</td>
-      <td>N/A</td>
-      <td>OON Family Deductible</td>
-      <td>Family Deductible OUT</td>
-      <td>OON Family Deductible</td>
-      <td>N/A</td>
-      <td>N/A</td>
-      <td>N/A</td>
-      <td></td>
-      <td></td>
+      <td>$11,000</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>$9,000</td>
+      <td>$10,000</td>
+      <td>$2,000</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
     <tr>
       <td>oon_individual_oop_max</td>
-      <td>OON Individual OOP Max</td>
-      <td>OON OOP Max (Ind.)</td>
-      <td>N/A</td>
-      <td>OON OOP Max (Ind.)</td>
-      <td>MOOP OUT Ind</td>
-      <td>OON OOP Max</td>
-      <td>N/A</td>
-      <td>N/A</td>
-      <td>N/A</td>
-      <td></td>
-      <td></td>
+      <td>$8,500</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>$13,000</td>
+      <td>$10,000</td>
+      <td>$3,500</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
     <tr>
       <td>oon_family_oop_max</td>
-      <td>OON Family OOP Max</td>
-      <td>OON OOP Max (Family)</td>
-      <td>N/A</td>
-      <td>OON OOP Max (Family)</td>
-      <td>MOOP OUT Fam</td>
-      <td>OON Family OOP Max</td>
-      <td>N/A</td>
-      <td>N/A</td>
-      <td>N/A</td>
-      <td></td>
-      <td></td>
+      <td>$17,000</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>$39,000</td>
+      <td>$20,000</td>
+      <td>$7,000</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+    </tr>
+    <tr>
+      <td>pharmacy.deductible</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>$250 (applies_to_tiers: Tier 3, Tier 4, Tier 5)</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>$615 (applies_to_tiers: Tier 4, Tier 5)</td>
+      <td>not in example</td>
+      <td>not in example</td>
+    </tr>
+    <tr>
+      <td>pharmacy.out_of_pocket_max</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>$2,100</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>$2,100</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
   </tbody>
 </table>
@@ -349,8 +345,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <th>Humana</th>
       <th>Ambetter</th>
       <th>Kaiser</th>
-      <th>Molina (future)</th>
-      <th>Oscar (future)</th>
     </tr>
   </thead>
   <tbody>
@@ -365,22 +359,18 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>Category</td>
       <td>Common Medical Event</td>
       <td>Common Medical Event</td>
-      <td></td>
-      <td></td>
     </tr>
     <tr>
       <td>service_name</td>
-      <td>PCP Visit</td>
-      <td>Primary Care Provider</td>
-      <td>PCP Visit</td>
-      <td>Primary Care Visit</td>
-      <td>PCP Office Visit</td>
-      <td>PCP Visit</td>
-      <td>Primary Care Physician</td>
       <td>Primary care visit to treat an injury or illness</td>
       <td>Primary care visit to treat an injury or illness</td>
-      <td></td>
-      <td></td>
+      <td>Primary Care</td>
+      <td>Primary care visit to treat an injury or illness</td>
+      <td>Primary care visit to treat an injury or illness</td>
+      <td>Primary care visit to treat an injury or illness</td>
+      <td>Primary Care Provider (PCP)</td>
+      <td>Primary care visit to treat an injury or illness</td>
+      <td>Primary care visit to treat an injury or illness</td>
     </tr>
     <tr>
       <td>place_of_service</td>
@@ -393,22 +383,18 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>Office / Telehealth</td>
       <td>Office</td>
       <td>Office</td>
-      <td></td>
-      <td></td>
     </tr>
     <tr>
       <td>deductible</td>
       <td>Deductible Applies?</td>
       <td>Deductible does not apply / $X Per Visit Deductible + Deductible</td>
       <td>Deductible Waived?</td>
-      <td>Subject to Deductible</td>
+      <td>Does not apply (applies_to_deductible: false)</td>
       <td>Applies / Waived</td>
-      <td>Applies</td>
+      <td>Does not apply (applies_to_deductible: false)</td>
       <td>Usually Waived</td>
       <td>Standard SBC wording</td>
       <td>Standard SBC wording</td>
-      <td></td>
-      <td></td>
     </tr>
     <tr>
       <td>copay</td>
@@ -421,8 +407,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>Copay</td>
       <td>$X copay/visit</td>
       <td>$X copay/visit</td>
-      <td></td>
-      <td></td>
     </tr>
     <tr>
       <td>coinsurance</td>
@@ -435,8 +419,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>Coinsurance</td>
       <td>X% coinsurance; OON column reads Not covered</td>
       <td>X% coinsurance (may carry per-prescription cap, e.g. up to $250/prescription)</td>
-      <td></td>
-      <td></td>
     </tr>
   </tbody>
 </table>
@@ -459,28 +441,24 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <th>Humana</th>
       <th>Ambetter</th>
       <th>Kaiser</th>
-      <th>Molina (future)</th>
-      <th>Oscar (future)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>type</td>
-      <td>Visits / Days</td>
+      <td>visits</td>
       <td>Visits</td>
       <td>Days</td>
       <td>Visits</td>
       <td>Days / Units</td>
       <td>Visits</td>
-      <td>Frequency</td>
+      <td>visits / hearing_aids / dollars / pairs_of_eyeglasses / days / one_way_trips / meals / occurrences / hours</td>
       <td>Visits</td>
       <td>Visits / Days</td>
-      <td></td>
-      <td></td>
     </tr>
     <tr>
       <td>value</td>
-      <td>Visit Limit / Day Limit</td>
+      <td>25 (Chiropractic care)</td>
       <td>Visit Limit (compound: e.g. 75 visits including 26 manipulations)</td>
       <td>Day Limit</td>
       <td>Visit Limit</td>
@@ -489,8 +467,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>Allowance</td>
       <td>Visit Limit</td>
       <td>Visit Limit</td>
-      <td></td>
-      <td></td>
     </tr>
     <tr>
       <td>period</td>
@@ -503,8 +479,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>Annual</td>
       <td>Per Year</td>
       <td>Per Year</td>
-      <td></td>
-      <td></td>
     </tr>
   </tbody>
 </table>
@@ -527,8 +501,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <th>Humana</th>
       <th>Ambetter</th>
       <th>Kaiser</th>
-      <th>Molina (future)</th>
-      <th>Oscar (future)</th>
     </tr>
   </thead>
   <tbody>
@@ -543,8 +515,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>Prior Auth</td>
       <td>Prior Auth</td>
       <td>Prior Auth</td>
-      <td></td>
-      <td></td>
     </tr>
     <tr>
       <td>referral_required</td>
@@ -557,8 +527,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>Referral Required</td>
       <td>Referral Required</td>
       <td>Referral Required</td>
-      <td></td>
-      <td></td>
     </tr>
     <tr>
       <td>notes</td>
@@ -571,8 +539,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>Plan Notes</td>
       <td>Limitations and Exceptions column</td>
       <td>Limitations and Exceptions column</td>
-      <td></td>
-      <td></td>
     </tr>
   </tbody>
 </table>
@@ -595,8 +561,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <th>Humana</th>
       <th>Ambetter</th>
       <th>Kaiser</th>
-      <th>Molina (future)</th>
-      <th>Oscar (future)</th>
     </tr>
   </thead>
   <tbody>
@@ -604,15 +568,13 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>page</td>
       <td>SBC Page</td>
       <td>SBC Page</td>
+      <td>Summary of Benefits Page</td>
       <td>SBC Page</td>
       <td>SBC Page</td>
-      <td>SBC / EOC Page</td>
       <td>SBC Page</td>
-      <td>SBC/EOC Page</td>
+      <td>Summary of Benefits Page</td>
       <td>SBC Page</td>
       <td>SBC Page</td>
-      <td></td>
-      <td></td>
     </tr>
     <tr>
       <td>excerpt</td>
@@ -625,8 +587,6 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <td>Snippet</td>
       <td>Text Snippet</td>
       <td>Text Snippet</td>
-      <td></td>
-      <td></td>
     </tr>
   </tbody>
 </table>
@@ -663,17 +623,17 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
     <tr>
       <td>plan_type</td>
       <td>string</td>
-      <td>HMO / PPO / EPO / MA</td>
+      <td>Free-form string, no enum in schema v1.1.0. Recommended codes are in vocabularies/plan-types.json, for example HMO, PPO, EPO, POS.</td>
     </tr>
     <tr>
-      <td>year</td>
+      <td>plan_year</td>
       <td>integer</td>
       <td>Coverage year</td>
     </tr>
     <tr>
       <td>market</td>
       <td>string</td>
-      <td>Commercial, MA, Group, etc.</td>
+      <td>Free-form string, no enum in schema v1.1.0. Recommended codes are in vocabularies/markets.json, for example individual, small_group, large_group, self_funded, medicare_advantage.</td>
     </tr>
     <tr>
       <td>individual_deductible</td>
@@ -707,37 +667,34 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <th>Humana</th>
       <th>Ambetter</th>
       <th>Kaiser</th>
-      <th>Molina (future)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Primary Care Visit</td>
       <td>PCP Visit</td>
-      <td>PCP Office Visit</td>
-      <td>Primary Care Provider</td>
-      <td>PCP Visit</td>
-      <td>Primary Care Visit</td>
-      <td>PCP Visit</td>
-      <td>PCP</td>
-      <td></td>
       <td>Primary care visit to treat an injury or illness</td>
       <td>Primary care visit to treat an injury or illness</td>
-      <td></td>
+      <td>Primary Care</td>
+      <td>Primary care visit to treat an injury or illness</td>
+      <td>Primary care visit to treat an injury or illness</td>
+      <td>Primary care visit to treat an injury or illness</td>
+      <td>Primary Care Provider (PCP)</td>
+      <td>Primary care visit to treat an injury or illness</td>
+      <td>Primary care visit to treat an injury or illness</td>
     </tr>
     <tr>
       <td>Specialist Visit</td>
       <td>Specialist Visit</td>
-      <td>Specialist Visit</td>
-      <td>Specialist</td>
-      <td>Specialist Visit</td>
-      <td>Spec Visit</td>
-      <td>Specialist</td>
-      <td>Specialist</td>
-      <td></td>
       <td>Specialist visit</td>
       <td>Specialist visit</td>
-      <td></td>
+      <td>Specialists</td>
+      <td>Specialist visit</td>
+      <td>Specialist visit</td>
+      <td>Specialist visit</td>
+      <td>Specialist</td>
+      <td>Specialist visit</td>
+      <td>Specialist visit</td>
     </tr>
   </tbody>
 </table>
@@ -758,63 +715,58 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <th>UHC</th>
       <th>Cigna</th>
       <th>Humana</th>
-      <th>Kaiser (future)</th>
-      <th>Molina (future)</th>
-      <th>Oscar (future)</th>
+      <th>Ambetter</th>
+      <th>Kaiser</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>tier_id</td>
-      <td>generic_drugs__preventive; generic_drugs__condition_care_rx; generic_drugs; preferred_brand_drugs__condition_care_rx; preferred_brand_drugs; nonpreferred_brand_drugs; specialty_drugs (Florida Blue, public 2025 SBC)</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>generic_drugs; preferred_brand_drugs; nonpreferred_brand_drugs; specialty_drugs (UHC Choice Plus HSA Gold 1700-4, verified 2026 SBC)</td>
-      <td></td>
-      <td>T1; T2; T3; T4; T5 (Humana, illustrative)</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
     <tr>
       <td>name</td>
-      <td>Generic Drugs (Preventive; Condition Care Rx; All Other) … Specialty Drugs (Florida Blue, public 2025 SBC)</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Tier 1 - Your Lowest-Cost Option; Tier 2 - Your Midrange-Cost Option; Tier 3 - Your Midrange-Cost Option; Tier 4 - Additional High-Cost Option (UHC Essential PDL, verified 2026 SBC)</td>
-      <td></td>
-      <td>Tier 1 Preferred Generic … Tier 5 Specialty (Humana, illustrative)</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>Generic drugs; Preferred brand drugs; Non-preferred brand drugs; Specialty drugs</td>
+      <td>Generic drugs; Preferred brand drugs; Non-preferred brand drugs; Specialty drugs</td>
+      <td>Tier 1 (Preferred Generic); Tier 2 (Generic); Tier 3 (Preferred Brand) Insulin; Tier 3 (Preferred Brand) Other Drugs; Tier 4 (Non-Preferred Drug); Tier 5 (Specialty Tier)</td>
+      <td>Preferred generic drugs; Preferred brand drugs; Specialty drugs</td>
+      <td>Tier 1 - Your Lowest- Cost Option; Tier 2 - Your Midrange-Cost Option; Tier 3 - Your Midrange-Cost Option; Tier 4 - Additional High-Cost Options</td>
+      <td>Generic drugs (Tier 1); Preferred brand drugs (Tier 2); Non-preferred brand drugs (Tier 3)</td>
+      <td>Tier 1: Preferred Generic; Tier 2: Generic; Tier 3: Preferred Brand; Tier 4: Non-Preferred Drug; Tier 5: Specialty Tier</td>
+      <td>Generic drugs (Tier 1); Preferred brand drugs (Tier 2); Non-preferred brand drugs (Tier 3); Specialty drugs (Tier 4)</td>
+      <td>Generic drugs (Tier 1); Preferred brand drugs (Tier 2); Non-preferred brand drugs (Tier 2); Specialty drugs (Tier 4)</td>
     </tr>
     <tr>
       <td>drug_class</td>
-      <td>Preventive; Condition Care Rx; All Other Generic; All Other Preferred Brand; Non-preferred brand drugs; Specialty drugs (Florida Blue, public 2025 SBC)</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>generic; preferred_brand; nonpreferred_brand; specialty (normalized from Essential PDL tier labels, verified 2026 SBC)</td>
-      <td></td>
-      <td>preferred_generic; generic; preferred_brand; nonpreferred_brand; specialty (Humana, illustrative)</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
     <tr>
       <td>tier_code</td>
-      <td>zero-cost-share-preventive; generic; preferred-brand; non-preferred-brand; specialty (FHIR DrugTierVS)</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>generic; preferred-brand; non-preferred-brand; specialty (FHIR DrugTierVS)</td>
-      <td></td>
-      <td>preferred-generic; generic; preferred-brand; non-preferred-brand; specialty (FHIR DrugTierVS)</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
   </tbody>
 </table>
@@ -835,63 +787,58 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <th>UHC</th>
       <th>Cigna</th>
       <th>Humana</th>
-      <th>Kaiser (future)</th>
-      <th>Molina (future)</th>
-      <th>Oscar (future)</th>
+      <th>Ambetter</th>
+      <th>Kaiser</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>network_id</td>
-      <td>retail; mail_order (Florida Blue, public 2025 SBC)</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>PREF_RETAIL; STD_RETAIL; MAIL_ORDER (Humana, illustrative)</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
     <tr>
       <td>name</td>
-      <td>Retail; Mail Order (Florida Blue, public 2025 SBC)</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Preferred Retail; Standard Retail; Mail Order (Humana, illustrative)</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
     <tr>
       <td>network_type</td>
-      <td>standard_retail; mail_order (Florida Blue, public 2025 SBC)</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>preferred_retail; standard_retail; mail_order (Humana, illustrative)</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
     <tr>
       <td>default_day_supply</td>
-      <td>30 retail; 90 mail order (Florida Blue, public 2025 SBC)</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>30 retail; 90 mail order (Humana, illustrative)</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
   </tbody>
 </table>
@@ -912,50 +859,46 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
       <th>UHC</th>
       <th>Cigna</th>
       <th>Humana</th>
-      <th>Kaiser (future)</th>
-      <th>Molina (future)</th>
-      <th>Oscar (future)</th>
+      <th>Ambetter</th>
+      <th>Kaiser</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>stage_id</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>DEDUCTIBLE; INITIAL; CATASTROPHIC (Humana, illustrative)</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>DEDUCTIBLE; INITIAL; CATASTROPHIC</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>DEDUCTIBLE; INITIAL; CATASTROPHIC</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
     <tr>
       <td>name</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Deductible; Initial Coverage; Catastrophic Coverage (Humana, illustrative)</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>Part D Deductible; Initial Coverage Stage; Catastrophic Coverage Stage</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>DEDUCTIBLE; INITIAL COVERAGE; CATASTROPHIC COVERAGE</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
     <tr>
       <td>stage_type</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>deductible; initial; catastrophic (Humana, illustrative)</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>deductible; initial; catastrophic</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>not in example</td>
+      <td>deductible; initial; catastrophic</td>
+      <td>not in example</td>
+      <td>not in example</td>
     </tr>
   </tbody>
 </table>
@@ -1008,7 +951,7 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
 
 <!-- AUTO-GENERATED-CROSSWALK:END -->
 
-Kaiser and Ambetter were populated in August 2026 from verified extractions of public 2026 SBCs. Molina and Oscar keep placeholder columns for expansion.
+Each carrier column is read from that carrier's example file in the schema repo's `examples/` directory. The Aetna column uses `aetna_example.json`, one of the two Aetna examples.
 
 ## Purpose
 
@@ -1078,29 +1021,33 @@ Mappings for:
 - visit/day limits  
 - period definitions (annual, per stay, lifetime, etc.)  
 
+In the matrix, the Limits cells describe how each source document lays out its limits. Among the ten examples, the two Summary of Benefits files carry structured `limits[]` (on 17 benefits for Humana and 18 for SCAN), one SBC file (`bluecross_example.json`) carries a single visit limit, and the other seven carry none.
+
 ### **Conditions**
 Mappings for:
 - prior authorization  
 - referral requirements  
 - contextual notes  
 
+In the matrix, the Conditions cells describe how each source document lays out its conditions. Among the ten examples, only the two Summary of Benefits files carry structured `conditions[]`.
+
 ### **Source Reference**
 Extracts and page references used for ingestion traceability.
 
 ### **Pharmacy Module (draft v0.2.0)**
 
-:::caution Draft — non-normative
-The pharmacy crosswalk tabs render the **BPS pharmacy module v0.2.0**, a **draft** module that is **not yet wired into the core schema** (it targets core **v1.2.0**). Like the medical tabs, the pharmacy tabs are sourced from a **versioned repo file** (`docs/specification/pharmacy-crosswalk-data.json`) and validated against the module's JSON Schema. Carrier data is accuracy-first: the Blue Cross column is populated from a verified extraction of a public 2025 Florida Blue ACA SBC (Coverage Stages remain blank for commercial plans, which have no Part D stages); the Humana column is illustrative (from the public module example); other carriers are intentionally blank pending verified public sources.
+:::caution Draft, non-normative
+The pharmacy crosswalk tabs render the **BPS pharmacy module**, a **draft** module that is **not yet wired into the core schema** (it targets core **v1.2.0**). The module schemas are served at their `$id` addresses, https://benefitplanstandard.org/modules/pharmacy/v0.2.0/pharmacy.schema.json and https://benefitplanstandard.org/modules/pharmacy/v0.2.1/pharmacy.schema.json. Like the medical tabs, the pharmacy tabs are sourced from a **versioned repo file** (`docs/specification/pharmacy-crosswalk-data.json`), and each carrier column is read from that carrier's example file in the schema repo's `examples/` directory. Pharmacy Tiers shows the drug tier labels each example file records. Coverage Stages is filled only for Humana and SCAN, the two Summary of Benefits examples, because only they carry `pharmacy.coverage_stages`. A cell that reads "not in example" is a value the example file does not carry.
 :::
 
 The pharmacy module adds crosswalk coverage for the pharmacy concepts that appear in carrier **SBCs/EOCs**. Because the crosswalk is a *carrier-SBC-vocabulary* map, only those concepts get carrier-matrix tabs:
 
-- **Pharmacy Tiers** — formulary tier structure (`tier_id`, `name`, `drug_class`, `tier_code`). Maps how each carrier labels its drug tiers (e.g., Tier 1 Preferred Generic … Tier 5 Specialty).
-- **Pharmacy Networks** — pharmacy network structure (`network_id`, `name`, `network_type`, `default_day_supply`). Distinct from the medical **Network Tiers** tab; covers preferred retail / standard retail / mail order / specialty pharmacy.
-- **Coverage Stages** — Medicare Part D coverage phases (`stage_id`, `name`, `stage_type`). Post-2025 (IRA redesign): Deductible / Initial Coverage / Catastrophic Coverage. (The pre-2025 Coverage Gap is retained only for historical plan years.)
-- **Pharmacy Tier Codes** — a **reference** table (not a carrier matrix) mapping the module's `drug_class` values to the canonical **FHIR DrugTierVS** `tier_code` (e.g., `preferred_brand` → `preferred-brand`, `preferred_specialty` → `specialty`, `preventive` → `zero-cost-share-preventive`).
+- **Pharmacy Tiers**: formulary tier structure (`tier_id`, `name`, `drug_class`, `tier_code`). Maps how each carrier labels its drug tiers (e.g., Tier 1 Preferred Generic … Tier 5 Specialty).
+- **Pharmacy Networks**: pharmacy network structure (`network_id`, `name`, `network_type`, `default_day_supply`). Distinct from the medical **Network Tiers** tab; covers preferred retail / standard retail / mail order / specialty pharmacy.
+- **Coverage Stages**: Medicare Part D coverage phases (`stage_id`, `name`, `stage_type`). Post-2025 (IRA redesign): Deductible / Initial Coverage / Catastrophic Coverage. (The pre-2025 Coverage Gap is retained only for historical plan years.)
+- **Pharmacy Tier Codes**: a **reference** table (not a carrier matrix) mapping the module's `drug_class` values to the canonical **FHIR DrugTierVS** `tier_code` (e.g., `preferred_brand` → `preferred-brand`, `preferred_specialty` → `specialty`, `preventive` → `zero-cost-share-preventive`).
 
-**Not in the crosswalk:** the module's *drug-level* formulary data — individual drugs (`rxcui`, `drug_name`, `ndc`), utilization-management flags, and indication-dependent `coverage_exceptions[]`. That data comes from **formulary files** (CMS QHP / Medicare Part D / FHIR DaVinci US Drug Formulary), **not** from SBCs/EOCs, so it is documented in the module schema as a field reference rather than mapped here as carrier vocabulary.
+**Not in the crosswalk:** the module's *drug-level* formulary data: individual drugs (`rxcui`, `drug_name`, `ndc`), utilization-management flags, and indication-dependent `coverage_exceptions[]`. That data comes from **formulary files** (CMS QHP / Medicare Part D / FHIR DaVinci US Drug Formulary), **not** from SBCs/EOCs, so it is documented in the module schema as a field reference rather than mapped here as carrier vocabulary.
 
 ---
 
@@ -1150,9 +1097,9 @@ add a row or column to the versioned crosswalk data files in `docs/specification
 The versioned repo data files (`docs/specification/medical-crosswalk-data.json` and `docs/specification/pharmacy-crosswalk-data.json`) are the **canonical source of truth** for carrier mappings; changes ship as normal pull requests. The original Google Sheet is retained as a historical reference and is no longer load-bearing.  
 Updates follow these principles:
 
-- **Accuracy first** — No changes without verification against the SBC/EOC.  
-- **Non-breaking additions** — New carriers and vocabulary should not break prior mappings.  
-- **Schema alignment** — Crosswalk rows correspond exactly to the normalized fields.  
+- **Accuracy first**: No changes without verification against the SBC/EOC.  
+- **Non-breaking additions**: New carriers and vocabulary should not break prior mappings.  
+- **Schema alignment**: Crosswalk rows correspond exactly to the normalized fields.  
 
 For contributors assisting with ingestion logic or analysis, changes are proposed as pull requests against the data files.
 
@@ -1167,4 +1114,4 @@ The Carrier Crosswalk is essential for:
 - Maintaining consistency across carriers  
 - Supporting extension as new carriers and plan types are analyzed  
 
-The live version ensures that the standard remains current, accurate, and interoperable across all benefit plan formats and carriers.
+The matrix is regenerated from the data files on every site build. The schemas it maps to are served at their `$id` addresses, for example https://benefitplanstandard.org/schema/v1.2.0/benefit-plan.schema.json.

@@ -11,7 +11,7 @@ For a detailed, chronological record of all technical changes, see the **Changel
 
 ---
 
-# v1.1.0 — Production-Driven Refinement
+# v1.1.0: Production-Driven Refinement
 
 **Release Date:** May 21, 2026  
 **Status:** Stable (backward-compatible with v1.0.0)
@@ -31,16 +31,16 @@ Three concrete gaps surfaced in production:
 ### Plan identity
 - `plan_year` (integer)
 - `coverage_period` (`start_date`, `end_date`)
-- `market` (string) — now formally in the schema, not just the docs
+- `market` (string), now formally in the schema, not just the docs
 
 ### Accumulators
 - 4 new out-of-network slots: `oon_individual_deductible`, `oon_family_deductible`, `oon_individual_oop_max`, `oon_family_oop_max`
 - New per-slot fields: `period`, `network_tier`, `embedded`, `applies_to` (now on OOP max too)
 
 ### Benefits
-- `benefit_type` discriminator (default `medical`) — enables future modules without restructuring
-- `canonical_key` — machine-readable canonical identifier
-- `raw_label` — verbatim source-document label for traceability
+- `benefit_type` discriminator (default `medical`): enables future modules without restructuring
+- `canonical_key`: machine-readable canonical identifier
+- `raw_label`: verbatim source-document label for traceability
 
 ### Cost shares
 - `notes` field added to `cost_shares[]` items
@@ -60,19 +60,22 @@ These are **non-normative**: the schema treats the corresponding fields as free-
 
 ## 📦 Expanded Examples
 
-All 7 carrier example plans now cover 25–30 benefits each (198 total):
+The schema repo holds ten example plans in [`examples/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples), each paired with the published document it comes from. Eight are SBC examples, taken from a Summary of Benefits and Coverage. Two are Summary of Benefits examples.
 
-| Carrier | Plan type | Benefits |
-|---------|-----------|----------|
-| Aetna | PPO | 30 |
-| Blue Cross | PPO | 30 |
-| Cigna | PPO (OAP) | 30 |
-| GatorCare | PPO | 30 |
-| Humana | MA-PD HMO | 28 |
-| SCAN | MA-PD HMO | 25 |
-| UnitedHealthcare | MA-PD HMO | 25 |
+| Example file | Carrier | Market | Plan type | Plan year | Schema | Source document | Benefits | Plan-level source references | Benefits with their own source references |
+|---|---|---|---|---|---|---|---|---|---|
+| `aetna_example.json` | Aetna | `large_group` | PPO | 2026 | 1.1.0 | SBC | 27 | 19 | 0 |
+| `aetna_ppo5000_example.json` | Aetna | `large_group` | PPO | 2026 | 1.1.0 | SBC | 27 | 18 | 0 |
+| `ambetter_example.json` | Ambetter | `individual` | HMO | 2026 | 1.1.0 | SBC | 30 | 23 | 0 |
+| `bluecross_example.json` | FloridaBlue | `individual` | PPO | 2023 | 1.1.0 | SBC | 31 | 26 | 0 |
+| `cigna_example.json` | Cigna | `large_group` | OAP | 2026 | 1.1.0 | SBC | 30 | 24 | 0 |
+| `gatorcare_example.json` | GatorCare | `self_funded` | EPO | 2026 | 1.1.0 | SBC | 29 | 22 | 0 |
+| `kaiser_example.json` | Kaiser | `individual` | HMO | 2026 | 1.1.0 | SBC | 31 | 23 | 0 |
+| `united_example.json` | UnitedHealthcare | `small_group` | POS | 2026 | 1.1.0 | SBC | 29 | 22 | 0 |
+| `humana_example.json` | Humana | `medicare_advantage` | HMO | 2026 | 1.2.0 | Summary of Benefits | 72 | 19 | 72 |
+| `scan_example.json` | SCAN Health Plan | `medicare_advantage` | HMO | 2026 | 1.2.0 | Summary of Benefits | 71 | 14 | 71 |
 
-Generation is deterministic — see `scripts/build_examples.py` in the schema repo.
+The eight SBC examples validate against v1.1.0 and, unchanged, against the v1.2.0 draft. The two Summary of Benefits examples use fields added in the v1.2.0 draft, so they validate against that draft only.
 
 ## 🩹 FHIR Alignment
 
@@ -104,7 +107,7 @@ The published schema itself was already correct.
 
 ---
 
-# v1.0.0 — Foundational Release (Draft)
+# v1.0.0: Foundational Release (Draft)
 
 **Release Date:** June 2025  
 **Status:** Draft (public preview)

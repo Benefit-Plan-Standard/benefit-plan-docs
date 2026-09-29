@@ -1,5 +1,5 @@
 {
-  "_comment": "Phase 2 of the crosswalk pipeline (Operations/research/crosswalk-pipeline/crosswalk-pipeline-design.md): the medical crosswalk tabs are sourced from THIS versioned repo file, not the Google Sheet. Snapshot taken from the Sheet 2026-08-29, then updated with the verified 2026 eight-plan corpus (Kaiser and Ambetter columns added, GatorCare and UHC corrected against their SBCs). scripts/generateCrosswalk.js reads these 2D-array rows (header + data rows) and renders them into the AUTO-GENERATED block of crosswalk.mdx. Edit this file via PR; the Google Sheet is no longer load-bearing.",
+  "_comment": "The medical crosswalk tabs are sourced from this versioned repo file (design: Operations/research/crosswalk-pipeline/crosswalk-pipeline-design.md). scripts/generateCrosswalk.js reads these 2D-array rows (header + data rows) and renders them into the AUTO-GENERATED block of crosswalk.mdx. Plan Metadata, Network Tiers (tier_id, name), Accumulators, Source Reference (page) and Carrier Vocabulary are read from the example files in benefit-plan-schema/examples/, one file per column; the Aetna column uses aetna_example.json. \"not in example\" marks a value the example file does not carry. Edit this file via PR.",
   "tabs": {
     "Plan Metadata": [
       [
@@ -12,93 +12,91 @@
         "Cigna",
         "Humana",
         "Ambetter",
-        "Kaiser",
-        "Molina (future)",
-        "Oscar (future)"
+        "Kaiser"
       ],
       [
         "plan_id",
-        "Contract Number",
-        "Plan ID",
-        "H Number",
-        "SBC ID",
-        "Plan Number",
-        "Policy Number",
-        "Contract ID",
-        "Not shown on SBC",
-        "Not shown on SBC",
-        "",
-        ""
+        "FLBLUE_BLUEOPTIONS_505",
+        "GATORCARE_PRIME_EPO",
+        "SCAN_CLASSIC_HMO_LOS_ANGELES",
+        "AETNA_PPO_1500_80_50",
+        "UHC_CHOICE_PLUS_HSA_GOLD_1700",
+        "CIGNA_OAP_BOWDOIN",
+        "HUMANA_GOLD_PLUS_H1036_025_HMO",
+        "AMBETTER_CA_SILVER_94_HMO",
+        "KAISER_CA_GOLD_80_HMO"
+      ],
+      [
+        "plan_identifiers",
+        "not in example",
+        "not in example",
+        "cms_contract_plan_segment: H5425-006-0; cms_contract_id: H5425; cms_pbp_id: 006",
+        "not in example",
+        "not in example",
+        "not in example",
+        "cms_contract_plan_segment: H1036-025-000; cms_contract_id: H1036; cms_pbp_id: 025",
+        "not in example",
+        "not in example"
       ],
       [
         "carrier",
-        "Florida Blue",
-        "UF Health / GatorCare",
+        "FloridaBlue",
+        "GatorCare",
         "SCAN Health Plan",
         "Aetna",
         "UnitedHealthcare",
         "Cigna",
         "Humana",
-        "Health Net of CA (Ambetter product brand)",
-        "KAISER PERMANENTE (registered mark in header)",
-        "",
-        ""
+        "Ambetter",
+        "Kaiser"
       ],
       [
         "plan_name",
-        "BlueOptions 505 PPO",
-        "Prime EPO Plan (document titled \"Florida Blue BlueOptions 03768\", administrator branding)",
-        "Classic",
-        "PPO 1500 80/50",
-        "Header plan name (e.g. UHC Choice Plus HSA Gold 1700-4)",
-        "Preferred Plan",
-        "Gold Plus",
-        "Silver 94 Ambetter HMO",
-        "Gold 80 HMO",
-        "",
-        ""
+        "Florida Blue BlueOptions 505",
+        "Florida Blue BlueOptions 03768 - Prime EPO Plan",
+        "SCAN Classic (HMO)",
+        "Aetna FL PPO 1500 80/50 CY V25",
+        "UnitedHealthcare® UHC Choice Plus HSA Gold 1700-4",
+        "Bowdoin College: Open Access Plus",
+        "Humana Gold Plus H1036-025 (HMO)",
+        "Health Net of CA: Silver 94 Ambetter HMO",
+        "KAISER PERMANENTE® : Gold 80 HMO"
       ],
       [
         "plan_type",
         "PPO",
-        "EPO (SBC header prints PPO)",
-        "HMO / MA",
+        "EPO",
+        "HMO",
         "PPO",
-        "POS / HMO / PPO / MA",
-        "PPO / HMO",
-        "HMO / MA",
+        "POS",
+        "OAP",
         "HMO",
         "HMO",
-        "",
-        ""
+        "HMO"
       ],
       [
-        "year",
-        "Coverage Year",
-        "Plan Year",
-        "Plan Year",
-        "SBC Year",
-        "Plan Year",
-        "Calendar Year",
-        "Calendar Year",
-        "Beginning on or after MM/DD/YYYY (single date, no end date)",
-        "Coverage Period: Beginning on or after MM/DD/YYYY (single date, no end date)",
-        "",
-        ""
+        "plan_year",
+        "2023",
+        "2026",
+        "2026",
+        "2026",
+        "2026",
+        "2026",
+        "2026",
+        "2026",
+        "2026"
       ],
       [
         "market",
-        "Group or Individual",
-        "Self-funded employer group, administered by Florida Blue",
-        "Medicare Advantage",
-        "Commercial",
-        "Small group / Commercial / MA",
-        "Commercial",
-        "Medicare Advantage",
-        "Individual (Coverage for: All Covered Members)",
-        "Individual/Family",
-        "",
-        ""
+        "individual",
+        "self_funded",
+        "medicare_advantage",
+        "large_group",
+        "small_group",
+        "large_group",
+        "medicare_advantage",
+        "individual",
+        "individual"
       ]
     ],
     "Network Tiers": [
@@ -112,37 +110,31 @@
         "Cigna",
         "Humana",
         "Ambetter",
-        "Kaiser",
-        "Molina (future)",
-        "Oscar (future)"
+        "Kaiser"
       ],
       [
         "tier_id",
         "IN / OUT",
         "IN / OUT",
-        "IN",
+        "IN / OUT / PHARMACY_RETAIL_STANDARD",
         "IN / OUT",
         "IN / OUT",
         "IN / OUT",
-        "IN",
+        "IN / OUT / SITE_PCP_OFFICE / SITE_SPECIALIST_OFFICE / SITE_TELEHEALTH / SITE_URGENT_CARE_CENTER / SITE_OUTPATIENT_HOSPITAL / SITE_AMBULATORY_SURGERY_CENTER / SITE_FREESTANDING_RADIOLOGY / SITE_FREESTANDING_LAB / SITE_MEMBERS_HOME / SITE_COMPREHENSIVE_OUTPATIENT_REHAB / SITE_PHARMACY / SITE_NETWORK_RETAIL_PHARMACY / SITE_DME_PROVIDER / SITE_DIABETIC_SUPPLIER / SITE_MEDICAL_SUPPLIER / SITE_PROSTHETICS_PROVIDER / SITE_PART_D_RETAIL / DESIG_PREFERRED_DIABETIC_SUPPLIER",
         "IN / OUT",
-        "IN (single tier)",
-        "",
-        ""
+        "IN / OUT"
       ],
       [
         "name",
-        "In / Out of Network",
-        "GatorCare Tier 1 / BlueOptions Tier 2 / BlueOptions Tier 3 (OON)",
-        "In Network",
-        "In / Out of Network",
-        "Designated Network / Network / Out-of-Network",
-        "In / Out Network",
-        "In Network",
-        "In Network / Out-of-Network Provider",
-        "Plan Provider",
-        "",
-        ""
+        "In Network / Out of Network",
+        "GatorCare Tier 1 In-Network / BlueOptions Tier 3 Out-Of-Network",
+        "In network / Out of network / Retail, Standard",
+        "In Network / Out of Network",
+        "In-Network / Out-of-Network",
+        "In Network / Out of Network",
+        "In network / Out of network / PCP's office / Specialist's office / Telehealth / Urgent care center / Outpatient hospital / Ambulatory surgery center / Freestanding radiological facility / Freestanding laboratory / Member's home / Comprehensive outpatient rehab facility / Pharmacy / Network retail pharmacy / DME provider / Diabetic supplier / Medical supplier / Prosthetics provider / Retail Cost-Sharing / Preferred diabetic supplier",
+        "In Network / Out of Network",
+        "Plan Provider / Non-Plan Provider"
       ],
       [
         "description",
@@ -154,9 +146,7 @@
         "Network Tier",
         "Plan Network",
         "OON cells read Not covered on most rows",
-        "Non-plan providers not covered",
-        "",
-        ""
+        "Non-plan providers not covered"
       ]
     ],
     "Accumulators": [
@@ -170,121 +160,127 @@
         "Cigna",
         "Humana",
         "Ambetter",
-        "Kaiser",
-        "Molina (future)",
-        "Oscar (future)"
+        "Kaiser"
       ],
       [
         "individual_deductible",
-        "Individual Deductible",
-        "Individual Deductible (stated per tier in one cell: GatorCare Tier 1 / BlueOptions Tier 2)",
-        "Usually none",
-        "Individual Deductible",
-        "Deductible IN/OUT (three networks in one cell: Designated Network and Network / out-of-Network)",
-        "Individual Deductible",
-        "Mostly none",
-        "Not stated in SBC answer block",
-        "Overall deductible ($0 on Gold 80)",
-        "",
-        ""
+        "$3,500",
+        "$350",
+        "$0",
+        "$1,500",
+        "$1,700",
+        "$1,000",
+        "$0",
+        "not in example",
+        "$0"
       ],
       [
         "family_deductible",
-        "Family Deductible",
-        "Family Deductible",
-        "None",
-        "Family Deductible",
-        "Family Deductible",
-        "Family Deductible",
-        "Not used",
-        "Not stated",
-        "Not stated separately",
-        "",
-        ""
+        "$10,500",
+        "$700",
+        "not in example",
+        "$3,000",
+        "$3,400",
+        "$2,000",
+        "not in example",
+        "not in example",
+        "not in example"
       ],
       [
         "individual_oop_max",
-        "Individual OOP Max",
-        "OOP Max (Ind., stated per tier in one cell)",
-        "MOOP",
-        "OOP Max (Ind.)",
-        "MOOP Ind",
-        "OOP Max",
-        "MOOP",
-        "$1,400 member per calendar year",
-        "$9,200 Individual",
-        "",
-        ""
+        "$3,500",
+        "$2,700",
+        "$199",
+        "$5,500",
+        "$4,500",
+        "$3,500",
+        "$2,000",
+        "$1,400",
+        "$9,200"
       ],
       [
         "family_oop_max",
-        "Family OOP Max",
-        "OOP Max (Family)",
-        "None",
-        "OOP Max (Family)",
-        "MOOP Fam",
-        "Family OOP Max",
-        "Not used",
-        "$2,800 family per calendar year",
-        "$18,400 Family",
-        "",
-        ""
+        "$10,500",
+        "$5,400",
+        "not in example",
+        "$11,000",
+        "$9,000",
+        "$7,000",
+        "not in example",
+        "$2,800",
+        "$18,400"
       ],
       [
         "oon_individual_deductible",
-        "OON Individual Deductible",
-        "OON Individual Deductible",
-        "N/A",
-        "OON Individual Deductible",
-        "Deductible OUT",
-        "OON Individual Deductible",
-        "N/A",
-        "N/A (OON not covered)",
-        "N/A (single-tier HMO)",
-        "",
-        ""
+        "$5,500",
+        "not in example",
+        "not in example",
+        "$3,000",
+        "$5,000",
+        "$1,000",
+        "not in example",
+        "not in example",
+        "not in example"
       ],
       [
         "oon_family_deductible",
-        "OON Family Deductible",
-        "OON Family Deductible",
-        "N/A",
-        "OON Family Deductible",
-        "Family Deductible OUT",
-        "OON Family Deductible",
-        "N/A",
-        "N/A",
-        "N/A",
-        "",
-        ""
+        "$11,000",
+        "not in example",
+        "not in example",
+        "$9,000",
+        "$10,000",
+        "$2,000",
+        "not in example",
+        "not in example",
+        "not in example"
       ],
       [
         "oon_individual_oop_max",
-        "OON Individual OOP Max",
-        "OON OOP Max (Ind.)",
-        "N/A",
-        "OON OOP Max (Ind.)",
-        "MOOP OUT Ind",
-        "OON OOP Max",
-        "N/A",
-        "N/A",
-        "N/A",
-        "",
-        ""
+        "$8,500",
+        "not in example",
+        "not in example",
+        "$13,000",
+        "$10,000",
+        "$3,500",
+        "not in example",
+        "not in example",
+        "not in example"
       ],
       [
         "oon_family_oop_max",
-        "OON Family OOP Max",
-        "OON OOP Max (Family)",
-        "N/A",
-        "OON OOP Max (Family)",
-        "MOOP OUT Fam",
-        "OON Family OOP Max",
-        "N/A",
-        "N/A",
-        "N/A",
-        "",
-        ""
+        "$17,000",
+        "not in example",
+        "not in example",
+        "$39,000",
+        "$20,000",
+        "$7,000",
+        "not in example",
+        "not in example",
+        "not in example"
+      ],
+      [
+        "pharmacy.deductible",
+        "not in example",
+        "not in example",
+        "$250 (applies_to_tiers: Tier 3, Tier 4, Tier 5)",
+        "not in example",
+        "not in example",
+        "not in example",
+        "$615 (applies_to_tiers: Tier 4, Tier 5)",
+        "not in example",
+        "not in example"
+      ],
+      [
+        "pharmacy.out_of_pocket_max",
+        "not in example",
+        "not in example",
+        "$2,100",
+        "not in example",
+        "not in example",
+        "not in example",
+        "$2,100",
+        "not in example",
+        "not in example"
       ]
     ],
     "Benefits": [
@@ -298,9 +294,7 @@
         "Cigna",
         "Humana",
         "Ambetter",
-        "Kaiser",
-        "Molina (future)",
-        "Oscar (future)"
+        "Kaiser"
       ],
       [
         "category",
@@ -312,23 +306,19 @@
         "Benefit Category",
         "Category",
         "Common Medical Event",
-        "Common Medical Event",
-        "",
-        ""
+        "Common Medical Event"
       ],
       [
         "service_name",
-        "PCP Visit",
-        "Primary Care Provider",
-        "PCP Visit",
-        "Primary Care Visit",
-        "PCP Office Visit",
-        "PCP Visit",
-        "Primary Care Physician",
         "Primary care visit to treat an injury or illness",
         "Primary care visit to treat an injury or illness",
-        "",
-        ""
+        "Primary Care",
+        "Primary care visit to treat an injury or illness",
+        "Primary care visit to treat an injury or illness",
+        "Primary care visit to treat an injury or illness",
+        "Primary Care Provider (PCP)",
+        "Primary care visit to treat an injury or illness",
+        "Primary care visit to treat an injury or illness"
       ],
       [
         "place_of_service",
@@ -340,23 +330,19 @@
         "Office",
         "Office / Telehealth",
         "Office",
-        "Office",
-        "",
-        ""
+        "Office"
       ],
       [
         "deductible",
         "Deductible Applies?",
         "Deductible does not apply / $X Per Visit Deductible + Deductible",
         "Deductible Waived?",
-        "Subject to Deductible",
+        "Does not apply (applies_to_deductible: false)",
         "Applies / Waived",
-        "Applies",
+        "Does not apply (applies_to_deductible: false)",
         "Usually Waived",
         "Standard SBC wording",
-        "Standard SBC wording",
-        "",
-        ""
+        "Standard SBC wording"
       ],
       [
         "copay",
@@ -368,9 +354,7 @@
         "Copay",
         "Copay",
         "$X copay/visit",
-        "$X copay/visit",
-        "",
-        ""
+        "$X copay/visit"
       ],
       [
         "coinsurance",
@@ -382,9 +366,7 @@
         "Coinsurance",
         "Coinsurance",
         "X% coinsurance; OON column reads Not covered",
-        "X% coinsurance (may carry per-prescription cap, e.g. up to $250/prescription)",
-        "",
-        ""
+        "X% coinsurance (may carry per-prescription cap, e.g. up to $250/prescription)"
       ]
     ],
     "Limits": [
@@ -398,27 +380,23 @@
         "Cigna",
         "Humana",
         "Ambetter",
-        "Kaiser",
-        "Molina (future)",
-        "Oscar (future)"
+        "Kaiser"
       ],
       [
         "type",
-        "Visits / Days",
+        "visits",
         "Visits",
         "Days",
         "Visits",
         "Days / Units",
         "Visits",
-        "Frequency",
+        "visits / hearing_aids / dollars / pairs_of_eyeglasses / days / one_way_trips / meals / occurrences / hours",
         "Visits",
-        "Visits / Days",
-        "",
-        ""
+        "Visits / Days"
       ],
       [
         "value",
-        "Visit Limit / Day Limit",
+        "25 (Chiropractic care)",
         "Visit Limit (compound: e.g. 75 visits including 26 manipulations)",
         "Day Limit",
         "Visit Limit",
@@ -426,9 +404,7 @@
         "Visit Limit",
         "Allowance",
         "Visit Limit",
-        "Visit Limit",
-        "",
-        ""
+        "Visit Limit"
       ],
       [
         "period",
@@ -440,9 +416,7 @@
         "Per Year",
         "Annual",
         "Per Year",
-        "Per Year",
-        "",
-        ""
+        "Per Year"
       ]
     ],
     "Conditions": [
@@ -456,9 +430,7 @@
         "Cigna",
         "Humana",
         "Ambetter",
-        "Kaiser",
-        "Molina (future)",
-        "Oscar (future)"
+        "Kaiser"
       ],
       [
         "prior_authorization",
@@ -470,9 +442,7 @@
         "Prior Auth",
         "Prior Auth",
         "Prior Auth",
-        "Prior Auth",
-        "",
-        ""
+        "Prior Auth"
       ],
       [
         "referral_required",
@@ -484,9 +454,7 @@
         "Referral Required",
         "Referral Required",
         "Referral Required",
-        "Referral Required",
-        "",
-        ""
+        "Referral Required"
       ],
       [
         "notes",
@@ -498,9 +466,7 @@
         "Notes",
         "Plan Notes",
         "Limitations and Exceptions column",
-        "Limitations and Exceptions column",
-        "",
-        ""
+        "Limitations and Exceptions column"
       ]
     ],
     "Source Reference": [
@@ -514,23 +480,19 @@
         "Cigna",
         "Humana",
         "Ambetter",
-        "Kaiser",
-        "Molina (future)",
-        "Oscar (future)"
+        "Kaiser"
       ],
       [
         "page",
         "SBC Page",
         "SBC Page",
+        "Summary of Benefits Page",
         "SBC Page",
         "SBC Page",
-        "SBC / EOC Page",
         "SBC Page",
-        "SBC/EOC Page",
+        "Summary of Benefits Page",
         "SBC Page",
-        "SBC Page",
-        "",
-        ""
+        "SBC Page"
       ],
       [
         "excerpt",
@@ -542,9 +504,7 @@
         "Snippet",
         "Snippet",
         "Text Snippet",
-        "Text Snippet",
-        "",
-        ""
+        "Text Snippet"
       ]
     ],
     "Field Definitions": [
@@ -571,17 +531,17 @@
       [
         "plan_type",
         "string",
-        "HMO / PPO / EPO / MA"
+        "Free-form string, no enum in schema v1.1.0. Recommended codes are in vocabularies/plan-types.json, for example HMO, PPO, EPO, POS."
       ],
       [
-        "year",
+        "plan_year",
         "integer",
         "Coverage year"
       ],
       [
         "market",
         "string",
-        "Commercial, MA, Group, etc."
+        "Free-form string, no enum in schema v1.1.0. Recommended codes are in vocabularies/markets.json, for example individual, small_group, large_group, self_funded, medicare_advantage."
       ],
       [
         "individual_deductible",
@@ -606,36 +566,33 @@
         "Cigna",
         "Humana",
         "Ambetter",
-        "Kaiser",
-        "Molina (future)"
+        "Kaiser"
       ],
       [
         "Primary Care Visit",
         "PCP Visit",
-        "PCP Office Visit",
-        "Primary Care Provider",
-        "PCP Visit",
-        "Primary Care Visit",
-        "PCP Visit",
-        "PCP",
-        "",
         "Primary care visit to treat an injury or illness",
         "Primary care visit to treat an injury or illness",
-        ""
+        "Primary Care",
+        "Primary care visit to treat an injury or illness",
+        "Primary care visit to treat an injury or illness",
+        "Primary care visit to treat an injury or illness",
+        "Primary Care Provider (PCP)",
+        "Primary care visit to treat an injury or illness",
+        "Primary care visit to treat an injury or illness"
       ],
       [
         "Specialist Visit",
         "Specialist Visit",
-        "Specialist Visit",
-        "Specialist",
-        "Specialist Visit",
-        "Spec Visit",
-        "Specialist",
-        "Specialist",
-        "",
         "Specialist visit",
         "Specialist visit",
-        ""
+        "Specialists",
+        "Specialist visit",
+        "Specialist visit",
+        "Specialist visit",
+        "Specialist",
+        "Specialist visit",
+        "Specialist visit"
       ]
     ]
   }
