@@ -24,6 +24,7 @@ module.exports = {
         'specification/modules',
         'specification/examples',
         'specification/fhir-insuranceplan',
+        'specification/marketplace-public-files',
         'specification/roadmap',
       ],
     },

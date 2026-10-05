@@ -8,9 +8,17 @@ sidebar_position: 5
 
 This changelog lists all notable changes to the Benefit Plan Standard.  For a high‑level overview of changes in each release, see the [release notes](/docs/release-notes).  The format is based on [Keep a Changelog](https://keepachangelog.com/) and adheres to Semantic Versioning.
 
+## Tooling and examples (2026-10-05)
+
+No schema change.
+
+- **Importer.** `scripts/from-marketplace-puf.js` reads the CMS Health Insurance Exchange public use files (Plan Attributes PUF and Benefits and Cost Sharing PUF) and writes 1 BPS v1.1.0 document per plan; the FHIR converter reads that output unchanged. 3 examples, `examples/*.puf.json`. See [CMS Marketplace public files](/docs/specification/marketplace-public-files).
+- **Second in-network tier.** The converter maps a second in-network tier (`IN2`) to `in-network` with a cost-tier qualifier: `value-choice` only when the tier name says "Value Choice", otherwise text only.
+- **Examples: limits and deductible flags from the source PDFs.** Each value is read from the example's source PDF in `examples/sources/`. The 8 FHIR Bundles in `examples/fhir/` are regenerated and re-validated.
+
 ## [Unreleased]: v1.2.0 draft
 
-**Status:** draft, tagged [`v1.2.0-draft.1`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.2.0-draft.1) on 2026-09-20. Not a release. Every v1.0.0 and v1.1.0 document validates against it unchanged; every addition is optional. A final v1.2.0 release needs validation by two independent adopters, per the [governance policy](/docs/governance/versioning-release-policy). Full field-by-field detail with page evidence: [docs/changelog.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md) in the schema repository.
+**Status:** draft, tagged [`v1.2.0-draft.1`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.2.0-draft.1) on 2026-09-20. Not a release. Every v1.0.0 and v1.1.0 document validates against it unchanged; every addition is optional. A final v1.2.0 release needs validation by two independent adopters, per the [governance policy](/docs/governance/versioning-release-policy). Full field-by-field detail with page evidence: [the changelog in the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md).
 
 The draft carries two additive blocks.
 

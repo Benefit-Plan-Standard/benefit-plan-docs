@@ -6,7 +6,7 @@ sidebar_label: FHIR InsurancePlan
 
 # FHIR InsurancePlan Files
 
-Every Benefit Plan Standard example is also published as a FHIR R4 `InsurancePlan`. The FHIR files are produced by a converter in the schema repository (`scripts/to-insuranceplan.js`), which anyone can run locally.
+Each of the 10 Benefit Plan Standard examples read from a published plan document is also published as a FHIR R4 `InsurancePlan`. (The 3 examples imported from the [CMS Marketplace public files](./marketplace-public-files.md) are converted too, but not published here.) The FHIR files are produced by a converter in the schema repository (`scripts/to-insuranceplan.js`), which anyone can run locally.
 
 **These are static JSON files, not a FHIR API.** There is no FHIR server, endpoint, search, `_format` parameter or other REST behavior. You download a file the same way you would download any other file from this site. Inside each file, the `Bundle.entry.fullUrl` values are `urn:uuid:` identifiers, not addresses.
 
@@ -55,6 +55,10 @@ Each file is a FHIR `Bundle` of type `collection` with two entries: the `Insuran
 - **Page references.** The eight SBC files carry page references for the plan document as a whole, on the `InsurancePlan`, in `bps-source-reference` extensions. They are not per-benefit citations. The two Medicare Advantage files also carry page references on each placed benefit.
 - **Everything else from BPS** (network tier ids, cost-share basis, out-of-pocket applicability, accumulator period, conditions, market, schema version) is carried in `bps-*` extensions.
 
+**Note, limits and conditions (October 5, 2026).** The 8 SBC files were regenerated on October 5, 2026 from examples corrected against their PDFs. They now carry the limits and conditions printed in the SBC Limitations column: structured limits as `BenefitLimitation` extensions on `coverage.benefit`, and the condition text, including limit wording that a structured limit cannot hold, in `coverage.benefit.requirement`. Limits on benefits outside the SBC codes, such as home health care and chiropractic care, are not carried.
+
+**Note, a second in-network tier.** The converter now maps a second in-network tier (`IN2`, as written by the [CMS Marketplace public files importer](./marketplace-public-files.md)) to `in-network` with a cost-tier qualifier: the code `value-choice` when the tier name says "Value Choice", and text only otherwise. Tier 1 entries carry no qualifier. None of the 10 files here has a second in-network tier.
+
 ## BPS extension definitions
 
 The `bps-*` extensions and the BPS canonical benefits code system are draft, and are published as static files:
@@ -78,7 +82,7 @@ node scripts/to-insuranceplan.js examples/aetna_example.json > aetna.fhir.json
 node --test scripts/to-insuranceplan.test.js
 ```
 
-The converter makes no network calls and keeps no state. It checks the input against the BPS schema version the document declares, and exits with an error rather than guessing when a document has something it cannot map, such as a network tier other than `IN` or `OUT`. The mapping is specified in [`docs/specs/insuranceplan-converter.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/specs/insuranceplan-converter.md).
+The converter makes no network calls and keeps no state. It checks the input against the BPS schema version the document declares, and exits with an error rather than guessing when a document has something it cannot map, such as a network tier it does not recognize. The mapping is specified in [`docs/specs/insuranceplan-converter.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/specs/insuranceplan-converter.md).
 
 ## Validating
 
@@ -91,4 +95,4 @@ java -jar validator_cli.jar -version 4.0.1 \
   examples/fhir/*.json
 ```
 
-All ten files validate with zero errors. The warnings, all of them expected, are listed and explained in [`examples/fhir/VALIDATION.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/VALIDATION.md).
+All 10 files validate with 0 errors and 75 warnings (last run October 5, 2026). The warnings, all of them expected, are listed and explained in [`examples/fhir/VALIDATION.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/VALIDATION.md).
