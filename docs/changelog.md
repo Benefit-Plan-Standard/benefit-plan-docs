@@ -14,6 +14,7 @@ No schema change.
 
 - **Importer.** `scripts/from-marketplace-puf.js` reads the CMS Health Insurance Exchange public use files (Plan Attributes PUF and Benefits and Cost Sharing PUF) and writes 1 BPS v1.1.0 document per plan; the FHIR converter reads that output unchanged. 3 examples, `examples/*.puf.json`. See [CMS Marketplace public files](/docs/specification/marketplace-public-files).
 - **Second in-network tier.** The converter maps a second in-network tier (`IN2`) to `in-network` with a cost-tier qualifier: `value-choice` only when the tier name says "Value Choice", otherwise text only.
+- **Examples: deductible flags on silent cells.** A cost share whose SBC cell says nothing about the deductible is read from the issuer's annotation convention: `false` where the chart marks the cells where the deductible applies ("Deductible +", "after Deductible"; GatorCare, Florida Blue), `true` where it marks only "Deductible does not apply" (Aetna, Cigna), and otherwise from the SBC template footnote and the page 1 "services covered before you meet your deductible" answer (United). 35 flags corrected (United 25, Aetna PPO 1500 4, Aetna PPO 5000 4, GatorCare 2); the 4 Bundles are republished, 0 errors, 75 warnings unchanged. The rule is written out in `examples/README.md`.
 - **Examples: limits and deductible flags from the source PDFs.** Each value is read from the example's source PDF in `examples/sources/`. The 8 FHIR Bundles in `examples/fhir/` are regenerated and re-validated.
 
 ## [Unreleased]: v1.2.0 draft

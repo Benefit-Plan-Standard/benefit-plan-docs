@@ -32,7 +32,7 @@ https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples
 
 "Benefits" is the number of entries in `benefits[]`.
 
-- **The 8 SBC examples** are generated from the source Summary of Benefits and Coverage and verified value by value against it. On October 5, 2026 the 8 were corrected against their PDFs for limits and deductible flags. They validate against v1.1.0 and, unchanged, against the v1.2.0 draft.
+- **The 8 SBC examples** are generated from the source Summary of Benefits and Coverage and verified value by value against it. On October 5, 2026 the 8 were corrected against their PDFs for limits and deductible flags. Where a cell says nothing about the deductible, the flag follows the issuer's annotation convention (`false` where the chart marks the cells where the deductible applies, as GatorCare and Florida Blue do; `true` where it marks only "Deductible does not apply", as Aetna and Cigna do) and otherwise the SBC template footnote and the page 1 "services covered before you meet your deductible" answer (United). Ambetter and Kaiser have no deductible. They validate against v1.1.0 and, unchanged, against the v1.2.0 draft.
 - **The 2 Medicare Advantage examples** are keyed by hand from the CMS Summary of Benefits and verified value by value against the cited pages. They use fields added in the v1.2.0 draft, so they validate against that draft only.
 
 ### From the CMS Marketplace public use files
