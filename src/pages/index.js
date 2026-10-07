@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import ActivityGraph from '@site/src/components/ActivityGraph';
 import styles from './index.module.css';
 
 /* SVG Icon Components (clean, modern, dark-theme compatible) */
@@ -130,7 +131,7 @@ export default function Home() {
               <Feature
                 Icon={IconInteroperability}
                 title="Enable Interoperability"
-                description="Use a common language to compare plans, build analytics and integrate systems—from brokers and TPAs to digital health platforms."
+                description="Use a common language to compare plans, build analytics and integrate systems, from brokers and TPAs to digital health platforms."
               />
 
               <Feature
@@ -139,6 +140,14 @@ export default function Home() {
                 description="Extend the core schema with modules for pharmacy, behavioral health, dental, vision and more. Grow without breaking your integrations."
               />
             </div>
+          </div>
+        </section>
+
+        {/* Commit activity across the organization's public repositories */}
+        <section className={styles.activitySection}>
+          <div className="container">
+            <h2 className={styles.sectionTitle}>Activity</h2>
+            <ActivityGraph />
           </div>
         </section>
 

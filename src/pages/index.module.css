@@ -110,6 +110,11 @@
   font-weight: 700;
 }
 
+.activitySection {
+  padding: var(--homepage-section-padding);
+  background-color: var(--ifm-background-color);
+}
+
 .whySection {
   padding: var(--homepage-section-padding);
   background-color: var(--ifm-color-emphasis-100);
