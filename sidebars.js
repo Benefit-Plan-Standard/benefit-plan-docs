@@ -25,6 +25,7 @@ module.exports = {
         'specification/examples',
         'specification/fhir-insuranceplan',
         'specification/marketplace-public-files',
+        'specification/medicare-advantage-pbp',
         'specification/roadmap',
       ],
     },

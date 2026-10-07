@@ -8,6 +8,16 @@ sidebar_position: 5
 
 This changelog lists all notable changes to the Benefit Plan Standard.  For a high‑level overview of changes in each release, see the [release notes](/docs/release-notes).  The format is based on [Keep a Changelog](https://keepachangelog.com/) and adheres to Semantic Versioning.
 
+## Tooling and examples (2026-10-06)
+
+No schema change. One addition to a non-normative vocabulary, below.
+
+- **Importer.** `scripts/from-pbp.js` reads the CMS Medicare Advantage Plan Benefit Package (PBP) Benefits files for contract year 2027 and writes 1 BPS v1.2.0 document per plan. It builds all 6,872 HMO, HMO-POS, local PPO and regional PPO plans in the file with 0 errors, reading 30 benefits through `fhir/pbp-crosswalk.json`; the FHIR converter reads its output unchanged. See [CMS Medicare Advantage PBP files](/docs/specification/medicare-advantage-pbp).
+- **Examples.** 5 examples, `examples/*.pbp.json`: UnitedHealthcare H2406-013, Humana H1036-068, Aetna H1609-028 (HMO-POS), UPMC for Life H5533-019 and SCAN H5425-140. 2 of them, H2406-013 and H1609-028, are checked against the carrier's 2027 Summary of Benefits with `scripts/pbp-sob-check.js`, 0 differences.
+- **Bundles.** The 5 examples are converted into `examples/fhir/` and validated with the HL7 FHIR validator 7.0.0: 0 errors, 15 warnings. They are not published on this site; the 10 published Bundles are unchanged.
+- **Converter: point-of-service tier.** `scripts/to-insuranceplan.js` maps the `POS` tier of an HMO-POS plan to `out-of-network` with the text-only qualifier `Point-of-service option`. Before, it refused the tier. The reading is confirmed on the Aetna H1609-028 Summary of Benefits and CMS Medicare Plan Finder.
+- **Vocabulary.** `HMO_POS` is added to `vocabularies/plan-types.json` (non-normative).
+
 ## Tooling and examples (2026-10-05)
 
 No schema change.
@@ -37,7 +47,7 @@ What a CMS Summary of Benefits for a Medicare Advantage plan carries and an ACA 
 - **Benefits:** `coverage_basis` (`medicare_covered`, `supplemental_mandatory`, `supplemental_optional`); `alternative_group` for either/or benefits; benefit-level `source_references[]`; an explicit null `moop_applicability` now means "not stated."
 - **Limits:** `carryover` (`none`, `next_period`, `within_year`) for allowances; `scope` and `shared_limit_id` for per-ear limits and one count spread across several benefits; `per_12_months` as a rolling period.
 - **Vocabulary (non-normative):** twelve category codes for areas the Summary of Benefits prices and the SBC does not (`HEARING`, `DENTAL`, `VISION`, `PART_B_DRUGS`, `PODIATRY`, `TRANSPORTATION`, `OVER_THE_COUNTER`, `MEALS`, `IN_HOME_SUPPORT`, `FITNESS`, `PERSONAL_EMERGENCY_RESPONSE`, `MEMBER_SUPPORT`), and a new `benefit-types.json`.
-- **Examples:** `scan_example.json` and `humana_example.json`, keyed by hand from their Summary of Benefits, verified value by value against the cited pages, with both source PDFs alongside. They validate against the v1.2.0 draft only. Analysis and verification record: [docs/medicare-advantage-notes.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/medicare-advantage-notes.md).
+- **Examples:** `scan_example.json` and `humana_example.json`, read from their Summary of Benefits, verified value by value against the cited pages, with both source PDFs alongside. They validate against the v1.2.0 draft only. Analysis and verification record: [docs/medicare-advantage-notes.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/medicare-advantage-notes.md).
 
 ### Deferred from this draft
 - Optional supplemental packages (riders): a name, a premium, and the benefits that apply only when a member buys the package.

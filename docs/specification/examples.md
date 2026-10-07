@@ -6,7 +6,7 @@ sidebar_label: Examples
 
 # Example JSON Plans
 
-Below are real-world example benefit plans structured using the **Benefit Plan Standard**. 10 were read from a published plan document and verified value by value against it; the source PDFs ship alongside the examples in `examples/sources/`. 3 more were imported from the CMS Marketplace public use files.
+Below are real-world example benefit plans structured using the **Benefit Plan Standard**. 10 were read from a published plan document and verified value by value against it; the source PDFs ship alongside the examples in `examples/sources/`. 3 more were imported from the CMS Marketplace public use files, and 5 from the CMS Medicare Advantage Plan Benefit Package (PBP) files.
 
 These examples help developers, carriers, and vendors understand how to implement the schema correctly.
 
@@ -33,7 +33,7 @@ https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples
 "Benefits" is the number of entries in `benefits[]`.
 
 - **The 8 SBC examples** are generated from the source Summary of Benefits and Coverage and verified value by value against it. On October 5, 2026 the 8 were corrected against their PDFs for limits and deductible flags. Where a cell says nothing about the deductible, the flag follows the issuer's annotation convention (`false` where the chart marks the cells where the deductible applies, as GatorCare and Florida Blue do; `true` where it marks only "Deductible does not apply", as Aetna and Cigna do) and otherwise the SBC template footnote and the page 1 "services covered before you meet your deductible" answer (United). Ambetter and Kaiser have no deductible. They validate against v1.1.0 and, unchanged, against the v1.2.0 draft.
-- **The 2 Medicare Advantage examples** are keyed by hand from the CMS Summary of Benefits and verified value by value against the cited pages. They use fields added in the v1.2.0 draft, so they validate against that draft only.
+- **The 2 Medicare Advantage examples** are read from the CMS Summary of Benefits and verified value by value against the cited pages. They use fields added in the v1.2.0 draft, so they validate against that draft only.
 
 ### From the CMS Marketplace public use files
 
@@ -45,10 +45,23 @@ https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples
 
 These 3 are produced by the importer, `scripts/from-marketplace-puf.js`, from 2 CMS files for the plan year: the Plan Attributes PUF and the Benefits and Cost Sharing PUF. No PDF is read, and the same files always give the same output. "Benefits placed" counts the plan's public-file rows that map to a canonical benefit key; the rest are listed by name in `source_references[]`. Florida Blue Gold 1505 has a second in-network tier (`IN2`). How the importer works, and what the public files cannot carry, is on [CMS Marketplace public files](./marketplace-public-files.md).
 
+### From the CMS Medicare Advantage PBP files
+
+| File | Plan | State | Market | Plan type | Contract year | Schema | Benefits placed |
+|---|---|---|---|---|---|---|---|
+| `unitedhealthcare-aarp-medicare-advantage-from-uhc-fl-0021.pbp.json` | UnitedHealthcare, AARP Medicare Advantage from UHC FL-0021 (PPO), H2406-013-000 | FL | Medicare Advantage | PPO | 2027 | v1.2.0 | 27 of 30 |
+| `humana-humana-gold-plus-h1036-068.pbp.json` | Humana, Humana Gold Plus H1036-068 (HMO), H1036-068-000 | FL | Medicare Advantage | HMO | 2027 | v1.2.0 | 27 of 30 |
+| `aetna-medicare-aetna-medicare-select-extra.pbp.json` | Aetna Medicare, Aetna Medicare Select Extra (HMO-POS), H1609-028-000 | FL | Medicare Advantage | HMO-POS | 2027 | v1.2.0 | 27 of 30 |
+| `upmc-for-life-upmc-for-life-ppo-rx-choice.pbp.json` | UPMC for Life, UPMC for Life PPO Rx Choice (PPO), H5533-019-000 | PA | Medicare Advantage | PPO | 2027 | v1.2.0 | 27 of 30 |
+| `scan-health-plan-scan-costco-medicare-advantage.pbp.json` | SCAN Health Plan, SCAN Costco Medicare Advantage (HMO), H5425-140-000 | CA | Medicare Advantage | HMO | 2027 | v1.2.0 | 27 of 30 |
+
+These 5 are produced by the importer, `scripts/from-pbp.js`, from the CMS PBP Benefits files for contract year 2027. No PDF is read, and the same files always give the same output. "Benefits placed" counts the entries in `benefits[]` out of the 30 service categories in the importer's crosswalk; the other 3 are the hearing aid rows for a single aid type, written only when a plan chooses that type. Two of the 5, UnitedHealthcare H2406-013 and Aetna H1609-028, were checked against the carrier's 2027 Summary of Benefits with 0 differences. How the importer works, and what the PBP files cannot carry, is on [CMS Medicare Advantage PBP files](./medicare-advantage-pbp.md).
+
 ### FHIR Bundles
 
 - **The 10 document-derived examples** are converted to FHIR R4 Bundles in [`examples/fhir/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/fhir) and published on this site. See [FHIR InsurancePlan](./fhir-insuranceplan.md).
 - **The 3 public-file examples** are converted by the same converter into [`examples/fhir-puf/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/fhir-puf). They show the chain from the public files to FHIR and are not published on this site.
+- **The 5 Medicare Advantage PBP examples** are converted by the same converter into [`examples/fhir/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/fhir), beside the 10 document-derived Bundles. They are not published on this site.
 
 Home health care and chiropractic care are in the BPS files but outside the 29 benefit category codes of the CARIN SBC InsurancePlan profile, so the Bundles list them by name only, without their limits and conditions.
 
@@ -66,6 +79,6 @@ Row text that is not a cost share or a structured limit goes in `benefits[].cond
 | `penalty` | A penalty for missing precertification |
 | `authorization` | A precertification or preauthorization requirement or threshold |
 
-The public-file examples use `exclusion` and `explanation`, 1 per free-text column of the Benefits and Cost Sharing PUF. The Medicare Advantage examples use their own types (for example `authorization`, `network`, `eligibility`).
+The Marketplace public-file examples use `exclusion` and `explanation`, 1 per free-text column of the Benefits and Cost Sharing PUF. The 2 Medicare Advantage examples read from the Summary of Benefits use their own types (for example `authorization`, `network`, `eligibility`). The 5 PBP examples use `authorization` and `referral`, written where the file answers Yes.
 
 The full notes, including source references and the things to know about each plan, are in [`examples/README.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/README.md).

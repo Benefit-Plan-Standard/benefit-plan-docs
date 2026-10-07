@@ -6,7 +6,7 @@ sidebar_position: 2
 
 # Examples
 
-This page showcases example normalized plan files and explains how to interpret them.  Every example is a real plan. 8 are read from the Summary of Benefits and Coverage the carrier published and verified value by value against it; 2 Medicare Advantage plans are read from the CMS Summary of Benefits; 3 are imported from the CMS Marketplace public use files with no PDF involved. All 13 live in the [`examples/` directory of the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples), with the source PDF beside each one in [`examples/sources/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/sources):
+This page showcases example normalized plan files and explains how to interpret them.  Every example is a real plan. 8 are read from the Summary of Benefits and Coverage the carrier published and verified value by value against it; 2 Medicare Advantage plans are read from the CMS Summary of Benefits; 3 are imported from the CMS Marketplace public use files and 5 Medicare Advantage plans from the CMS Plan Benefit Package (PBP) files, with no PDF involved. All 18 live in the [`examples/` directory of the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples), with the source PDF beside each one in [`examples/sources/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/sources):
 
 | File | Plan | Type | Market |
 |---|---|---|---|
@@ -23,10 +23,15 @@ This page showcases example normalized plan files and explains how to interpret 
 | `blue-cross-and-blue-shield-of-louisiana-blue-max-copay-50-50.puf.json` | Blue Cross and Blue Shield of Louisiana Blue Max Copay 50/50, from the public files | PPO | Individual |
 | `florida-blue-blueoptions-gold-1505.puf.json` | Florida Blue BlueOptions Gold 1505, from the public files | EPO | Individual |
 | `unitedhealthcare-uhc-gold-standard.puf.json` | UnitedHealthcare UHC Gold Standard, from the public files | HMO | Individual |
+| `unitedhealthcare-aarp-medicare-advantage-from-uhc-fl-0021.pbp.json` | AARP Medicare Advantage from UHC FL-0021, from the PBP files | PPO | Medicare Advantage |
+| `humana-humana-gold-plus-h1036-068.pbp.json` | Humana Gold Plus H1036-068, from the PBP files | HMO | Medicare Advantage |
+| `aetna-medicare-aetna-medicare-select-extra.pbp.json` | Aetna Medicare Select Extra, from the PBP files | HMO-POS | Medicare Advantage |
+| `upmc-for-life-upmc-for-life-ppo-rx-choice.pbp.json` | UPMC for Life PPO Rx Choice, from the PBP files | PPO | Medicare Advantage |
+| `scan-health-plan-scan-costco-medicare-advantage.pbp.json` | SCAN Costco Medicare Advantage, from the PBP files | HMO | Medicare Advantage |
 
-The full table, with plan years, schema versions and benefit counts, is on the [Examples](/docs/specification/examples) page under Specification; the public-file examples are explained on [CMS Marketplace public files](/docs/specification/marketplace-public-files).
+The full table, with plan years, schema versions and benefit counts, is on the [Examples](/docs/specification/examples) page under Specification; the public-file examples are explained on [CMS Marketplace public files](/docs/specification/marketplace-public-files) and [CMS Medicare Advantage PBP files](/docs/specification/medicare-advantage-pbp).
 
-All 8 are commercial and marketplace plans built from the SBC. Medicare Advantage plans use a different document, the CMS Summary of Benefits, and worked examples for that document are in progress. Medicaid is not part of this set yet.
+The first 8 are commercial and marketplace plans built from the SBC. The 7 Medicare Advantage plans come from other CMS documents: 2 from the Summary of Benefits and 5 from the PBP files. Medicaid is not part of this set yet.
 
 ## Example: Blue Cross PPO
 

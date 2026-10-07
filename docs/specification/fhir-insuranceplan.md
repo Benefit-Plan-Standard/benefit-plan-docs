@@ -6,7 +6,7 @@ sidebar_label: FHIR InsurancePlan
 
 # FHIR InsurancePlan Files
 
-Each of the 10 Benefit Plan Standard examples read from a published plan document is also published as a FHIR R4 `InsurancePlan`. (The 3 examples imported from the [CMS Marketplace public files](./marketplace-public-files.md) are converted too, but not published here.) The FHIR files are produced by a converter in the schema repository (`scripts/to-insuranceplan.js`), which anyone can run locally.
+Each of the 10 Benefit Plan Standard examples read from a published plan document is also published as a FHIR R4 `InsurancePlan`. (The 3 examples imported from the [CMS Marketplace public files](./marketplace-public-files.md), which are not published here, and the 5 imported from the [CMS Medicare Advantage PBP files](./medicare-advantage-pbp.md) are converted too.) The FHIR files are produced by a converter in the schema repository (`scripts/to-insuranceplan.js`), which anyone can run locally.
 
 **These are static JSON files, not a FHIR API.** There is no FHIR server, endpoint, search, `_format` parameter or other REST behavior. You download a file the same way you would download any other file from this site. Inside each file, the `Bundle.entry.fullUrl` values are `urn:uuid:` identifiers, not addresses.
 
@@ -18,6 +18,8 @@ That profile is **draft and experimental**. It exists only in the ballot package
 
 ## The files
 
+### The 10 published files
+
 The list is also available as JSON: [`/fhir/index.json`](https://benefitplanstandard.org/fhir/index.json). The index is a plain JSON list, not a FHIR resource.
 
 | File | Plan | BPS schema | Benefits placed | Benefits outside the SBC codes |
@@ -28,12 +30,26 @@ The list is also available as JSON: [`/fhir/index.json`](https://benefitplanstan
 | [`cigna-oap-bowdoin.json`](https://benefitplanstandard.org/fhir/InsurancePlan/cigna-oap-bowdoin.json) | Bowdoin College: Open Access Plus (Cigna) | 1.1.0 | 26 | 4 |
 | [`flblue-blueoptions-505.json`](https://benefitplanstandard.org/fhir/InsurancePlan/flblue-blueoptions-505.json) | Florida Blue BlueOptions 505 | 1.1.0 | 27 | 4 |
 | [`gatorcare-prime-epo.json`](https://benefitplanstandard.org/fhir/InsurancePlan/gatorcare-prime-epo.json) | Florida Blue BlueOptions 03768 - Prime EPO Plan (GatorCare) | 1.1.0 | 25 | 4 |
-| [`humana-gold-plus-h1036-025-hmo.json`](https://benefitplanstandard.org/fhir/InsurancePlan/humana-gold-plus-h1036-025-hmo.json) | Humana Gold Plus H1036-025 (HMO). Medicare Advantage, keyed by hand from the CMS Summary of Benefits, validates against the v1.2.0 draft only. | 1.2.0 | 26 | 46 |
+| [`humana-gold-plus-h1036-025-hmo.json`](https://benefitplanstandard.org/fhir/InsurancePlan/humana-gold-plus-h1036-025-hmo.json) | Humana Gold Plus H1036-025 (HMO). Medicare Advantage, read from the CMS Summary of Benefits, validates against the v1.2.0 draft only. | 1.2.0 | 26 | 46 |
 | [`kaiser-ca-gold-80-hmo.json`](https://benefitplanstandard.org/fhir/InsurancePlan/kaiser-ca-gold-80-hmo.json) | KAISER PERMANENTE®: Gold 80 HMO | 1.1.0 | 28 | 3 |
-| [`scan-classic-hmo-los-angeles.json`](https://benefitplanstandard.org/fhir/InsurancePlan/scan-classic-hmo-los-angeles.json) | SCAN Classic (HMO), Los Angeles County (SCAN Health Plan). Medicare Advantage, keyed by hand from the CMS Summary of Benefits, validates against the v1.2.0 draft only. | 1.2.0 | 22 | 49 |
+| [`scan-classic-hmo-los-angeles.json`](https://benefitplanstandard.org/fhir/InsurancePlan/scan-classic-hmo-los-angeles.json) | SCAN Classic (HMO), Los Angeles County (SCAN Health Plan). Medicare Advantage, read from the CMS Summary of Benefits, validates against the v1.2.0 draft only. | 1.2.0 | 22 | 49 |
 | [`uhc-choice-plus-hsa-gold-1700.json`](https://benefitplanstandard.org/fhir/InsurancePlan/uhc-choice-plus-hsa-gold-1700.json) | UnitedHealthcare® UHC Choice Plus HSA Gold 1700-4 | 1.1.0 | 26 | 3 |
 
 The two Medicare Advantage files come from CMS Summary of Benefits documents, which are not SBCs. They conform structurally to the SBC profile, but most of their benefits (dental, vision, hearing, supplemental benefits, Part B drugs) have no code in the SBC benefit category code system, so those benefits are listed by identity only (see below).
+
+### The 5 Medicare Advantage PBP files
+
+These 5 are produced by the [CMS Medicare Advantage PBP importer](./medicare-advantage-pbp.md) and converted by the same converter. They are in `examples/fhir/` in the schema repository, beside the 10 above, and are not published on this site or in `/fhir/index.json`, so the links go to GitHub.
+
+| File | Plan | BPS schema | Benefits placed | Benefits outside the SBC codes |
+|---|---|---|---|---|
+| [`aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json) | AARP Medicare Advantage from UHC FL-0021 (PPO), H2406-013-000 (UnitedHealthcare) | 1.2.0 | 14 | 13 |
+| [`humana-gold-plus-h1036-068-hmo-h1036-068-000.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/humana-gold-plus-h1036-068-hmo-h1036-068-000.json) | Humana Gold Plus H1036-068 (HMO), H1036-068-000 | 1.2.0 | 14 | 13 |
+| [`aetna-medicare-select-extra-hmo-pos-h1609-028-000.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/aetna-medicare-select-extra-hmo-pos-h1609-028-000.json) | Aetna Medicare Select Extra (HMO-POS), H1609-028-000 | 1.2.0 | 14 | 13 |
+| [`upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json) | UPMC for Life PPO Rx Choice (PPO), H5533-019-000 | 1.2.0 | 14 | 13 |
+| [`scan-costco-medicare-advantage-hmo-h5425-140-000.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/scan-costco-medicare-advantage-hmo-h5425-140-000.json) | SCAN Costco Medicare Advantage (HMO), H5425-140-000 (SCAN Health Plan) | 1.2.0 | 14 | 13 |
+
+Each holds 27 benefits, 14 placed and 13 listed by name only. An HMO-POS plan, such as the Aetna file, also carries a point-of-service tier (see below).
 
 ## Fetching a file
 
@@ -58,6 +74,8 @@ Each file is a FHIR `Bundle` of type `collection` with two entries: the `Insuran
 **Note, limits and conditions (October 5, 2026).** The 8 SBC files were regenerated on October 5, 2026 from examples corrected against their PDFs. They now carry the limits and conditions printed in the SBC Limitations column: structured limits as `BenefitLimitation` extensions on `coverage.benefit`, and the condition text, including limit wording that a structured limit cannot hold, in `coverage.benefit.requirement`. Limits on benefits outside the SBC codes, such as home health care and chiropractic care, are not carried.
 
 **Note, a second in-network tier.** The converter now maps a second in-network tier (`IN2`, as written by the [CMS Marketplace public files importer](./marketplace-public-files.md)) to `in-network` with a cost-tier qualifier: the code `value-choice` when the tier name says "Value Choice", and text only otherwise. Tier 1 entries carry no qualifier. None of the 10 files here has a second in-network tier.
+
+**Note, the point-of-service tier.** The converter maps the `POS` tier of an HMO-POS plan, as written by the [CMS Medicare Advantage PBP importer](./medicare-advantage-pbp.md), to `out-of-network` with the text-only qualifier `Point-of-service option`. Before it did, it refused the tier. The 10 published files are byte-identical before and after.
 
 ## BPS extension definitions
 
@@ -89,10 +107,10 @@ The converter makes no network calls and keeps no state. It checks the input aga
 With the HL7 FHIR validator ([`validator_cli.jar`](https://github.com/hapifhir/org.hl7.fhir.core/releases/latest)), from the schema repository:
 
 ```bash
-java -jar validator_cli.jar -version 4.0.1 \
+java -Dfile.encoding=UTF-8 -jar validator_cli.jar -version 4.0.1 \
   -ig hl7.fhir.us.insurance-card#2.0.0-ballot \
   -ig fhir/definitions \
   examples/fhir/*.json
 ```
 
-All 10 files validate with 0 errors and 75 warnings (last run October 5, 2026). The warnings, all of them expected, are listed and explained in [`examples/fhir/VALIDATION.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/VALIDATION.md).
+The 10 published files validate with 0 errors and 75 warnings (last run October 5, 2026). The 5 Medicare Advantage PBP files validate with 0 errors and 15 warnings (run October 6, 2026, validator 7.0.0; the command above covers all 15 files in the folder). The warnings, all of them expected, are listed and explained in [`examples/fhir/VALIDATION.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/VALIDATION.md).
