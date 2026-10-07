@@ -59,6 +59,8 @@ These 5 are produced by the importer, `scripts/from-pbp.js`, from the CMS PBP Be
 
 ### FHIR Bundles
 
+The route from the CMS files through the importers and the converter, with every command, is on [How the data flows](./data-flow.md).
+
 - **The 10 document-derived examples** are converted to FHIR R4 Bundles in [`examples/fhir/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/fhir) and published on this site. See [FHIR InsurancePlan](./fhir-insuranceplan.md).
 - **The 3 public-file examples** are converted by the same converter into [`examples/fhir-puf/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/fhir-puf). They show the chain from the public files to FHIR and are not published on this site.
 - **The 5 Medicare Advantage PBP examples** are converted by the same converter into [`examples/fhir/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/fhir), beside the 10 document-derived Bundles. They are not published on this site.

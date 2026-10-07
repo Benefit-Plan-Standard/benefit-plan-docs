@@ -1,12 +1,14 @@
 ---
 id: marketplace-public-files
 title: CMS Marketplace public files to the Benefit Plan Standard
-sidebar_label: CMS Marketplace public files
+sidebar_label: Marketplace public files
 ---
 
 # CMS Marketplace public files to the Benefit Plan Standard
 
 The schema repository includes an importer, `scripts/from-marketplace-puf.js`, that reads 2 public files published by CMS and writes 1 Benefit Plan Standard (BPS) document per plan. It is the first importer for the standard. Anyone can run it locally; it needs Node.js, the `ajv` and `ajv-formats` packages that the validator also uses, and the 2 files.
+
+Where this importer sits beside the Medicare Advantage importer and the FHIR converter, with every command, is on [How the data flows](./data-flow.md).
 
 ## The 2 public files
 

@@ -1,12 +1,14 @@
 ---
 id: medicare-advantage-pbp
 title: CMS Medicare Advantage PBP files to the Benefit Plan Standard
-sidebar_label: CMS Medicare Advantage PBP files
+sidebar_label: Medicare Advantage PBP files
 ---
 
 # CMS Medicare Advantage PBP files to the Benefit Plan Standard
 
 The schema repository includes an importer, `scripts/from-pbp.js`, that reads the Plan Benefit Package (PBP) Benefits files published by CMS and writes 1 Benefit Plan Standard (BPS) document per Medicare Advantage plan. It is the second importer for the standard, after the [Marketplace importer](./marketplace-public-files.md). Anyone can run it locally; it needs Node.js, the `ajv` and `ajv-formats` packages that the validator also uses, and the PBP files.
+
+Where this importer sits beside the Marketplace importer and the FHIR converter, with every command, is on [How the data flows](./data-flow.md).
 
 ## The CMS file
 

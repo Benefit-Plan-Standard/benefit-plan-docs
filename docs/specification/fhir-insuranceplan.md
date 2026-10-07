@@ -8,6 +8,8 @@ sidebar_label: FHIR InsurancePlan
 
 Each of the 10 Benefit Plan Standard examples read from a published plan document is also published as a FHIR R4 `InsurancePlan`. (The 3 examples imported from the [CMS Marketplace public files](./marketplace-public-files.md), which are not published here, and the 5 imported from the [CMS Medicare Advantage PBP files](./medicare-advantage-pbp.md) are converted too.) The FHIR files are produced by a converter in the schema repository (`scripts/to-insuranceplan.js`), which anyone can run locally.
 
+How the CMS files reach the converter through the two importers, with every command, is on [How the data flows](./data-flow.md).
+
 **These are static JSON files, not a FHIR API.** There is no FHIR server, endpoint, search, `_format` parameter or other REST behavior. You download a file the same way you would download any other file from this site. Inside each file, the `Bundle.entry.fullUrl` values are `urn:uuid:` identifiers, not addresses.
 
 ## Profile status

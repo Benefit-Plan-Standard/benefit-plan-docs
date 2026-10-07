@@ -18,6 +18,7 @@ module.exports = {
       collapsible: true,
       collapsed: false,
       items: [
+        'specification/data-flow',
         'specification/overview',
         'specification/field-definitions',
         'specification/crosswalk',
