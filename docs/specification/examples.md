@@ -45,7 +45,7 @@ https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples
 | `unitedhealthcare-uhc-bronze-essential.puf.json` | UnitedHealthcare, UHC Bronze Essential ($0 Virtual Urgent Care) | FL | Individual | Bronze | 2026 | v1.1.0 | 52 of 68 |
 | `unitedhealthcare-uhc-gold-standard.puf.json` | UnitedHealthcare, UHC Gold Standard | TX | Individual | Gold | 2026 | v1.1.0 | 52 of 68 |
 
-These 5 are produced by the importer, `scripts/from-marketplace-puf.js`, from 2 CMS files for the plan year: the Plan Attributes PUF and the Benefits and Cost Sharing PUF. No PDF is read, and the same files always give the same output. "Benefits placed" counts the plan's public-file rows that map to a canonical benefit key; the rest are listed by name in `source_references[]`. Florida Blue Gold 1505 has a second in-network tier (`IN2`). How the importer works, and what the public files cannot carry, is on [CMS Marketplace public files](./marketplace-public-files.md).
+These 5 are produced by the importer, `scripts/from-marketplace-puf.js`, from 2 CMS files for the plan year: the Plan Attributes PUF and the Benefits and Cost Sharing PUF. No PDF is read, and the same files always give the same output. "Benefits placed" counts the plan's public-file rows that map to a canonical benefit key; the rest are listed by name in `source_references[]`. AvMed Entrust Gold 125 and Florida Blue Gold 1505 have a second in-network tier (`IN2`). How the importer works, and what the public files cannot carry, is on [CMS Marketplace public files](./marketplace-public-files.md).
 
 ### From the CMS Medicare Advantage PBP files
 

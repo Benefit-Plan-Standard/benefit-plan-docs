@@ -6,7 +6,7 @@ sidebar_position: 2
 
 # Examples
 
-This page showcases example normalized plan files and explains how to interpret them.  Every example is a real plan. 8 are read from the Summary of Benefits and Coverage the carrier published and verified value by value against it; 2 Medicare Advantage plans are read from the CMS Summary of Benefits; 5 are imported from the CMS Marketplace public use files and 5 Medicare Advantage plans from the CMS Plan Benefit Package (PBP) files, with no PDF involved. All 20 live in the [`examples/` directory of the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples), with the source PDF beside each one in [`examples/sources/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/sources):
+This page showcases example normalized plan files and explains how to interpret them.  Every example is a real plan. 8 are read from the Summary of Benefits and Coverage the carrier published and verified value by value against it; 2 Medicare Advantage plans are read from the CMS Summary of Benefits; 5 are imported from the CMS Marketplace public use files and 5 Medicare Advantage plans from the CMS Plan Benefit Package (PBP) files, with no PDF involved. All 20 live in the [`examples/` directory of the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples), and the 10 read from a document have their source PDFs in [`examples/sources/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/sources):
 
 | File | Plan | Type | Market |
 |---|---|---|---|

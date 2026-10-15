@@ -62,9 +62,9 @@ An import takes about 7 seconds for plan year 2026, because it streams both file
 
 Each benefit row in the Benefits and Cost Sharing PUF has a `BenefitName`. The crosswalk, [`fhir/marketplace-puf-crosswalk.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/fhir/marketplace-puf-crosswalk.json), maps every distinct name in the plan year 2026 file to a BPS canonical benefit key, or to nothing.
 
-**273 names: 71 mapped, 202 unmapped.** 51 of the unmapped names are adult or pediatric dental rows; most of the rest are state-specific benefits with no canonical key.
+**273 names: 84 mapped, 189 unmapped.** 48 of the unmapped names are adult or pediatric dental rows; most of the rest are state-specific benefits with no canonical key.
 
-A name maps only when the public-file benefit clearly is the canonical service. There is no nearest fit, because a nearest fit would attach a cost share to a service it does not describe. "Prenatal and Postnatal Care" is 1 row in the file and 2 keys in the standard; "Rehabilitative Occupational and Rehabilitative Physical Therapy" is likewise 2 keys; "Infusion Therapy" does not say whether it is at a center or at home, and the standard keeps those apart. Mapping any of them to 1 key would put the wrong price on the other service. An unmapped row is listed by name, with "Covered" or "Not Covered", in the document's `source_references[]`; its cost shares are not carried.
+A name maps only when the public-file benefit clearly is the canonical service. There is no nearest fit, because a nearest fit would attach a cost share to a service it does not describe. "Prenatal and Postnatal Care" is 1 row in the file and 2 keys in the standard; "Infusion Therapy" does not say whether it is at a center or at home, and the standard keeps those apart. Mapping any of them to 1 key would put the wrong price on the other service. An unmapped row is listed by name, with "Covered" or "Not Covered", in the document's `source_references[]`; its cost shares are not carried.
 
 A name from another plan year that is not in the crosswalk is imported as unmapped and marked "not in the crosswalk".
 

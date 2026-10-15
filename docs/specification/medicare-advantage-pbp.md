@@ -27,7 +27,7 @@ The files are not in the repository. You download them into `data/pbp/<year>/`, 
 
 1 plan in, 1 BPS v1.2.0 document out. The document is checked against the v1.2.0 schema before it is written; a document that fails is not written. v1.2.0 is the draft in the repository, not v1.1.0, because the PBP data needs fields that only the draft has: the contract, plan and segment identifiers (`plan_identifiers`), the service area, copay and coinsurance ranges, inpatient day intervals, per-ear hearing aid limits and a coverage basis for supplemental benefits.
 
-The importer reads the MVP benefit set, 30 benefits: primary care, specialist, inpatient hospital, outpatient hospital, observation, ambulatory surgery center, emergency and urgent care, ambulance, diagnostic tests, lab, radiology, therapy, chiropractic, podiatry, acupuncture, and hearing and eye exams and hearing aids. Other service categories, such as dental, eyewear, over-the-counter items, meals and Part B drugs, are not imported yet.
+The importer reads the MVP benefit set, 40 benefits: primary care, specialist, inpatient hospital, skilled nursing facility, home health, outpatient hospital, observation, ambulatory surgery center, emergency and urgent care, ambulance, transportation, diagnostic tests, lab, radiology, therapy, mental health individual sessions, chiropractic, podiatry, acupuncture, hearing and eye exams, hearing aids, eyeglasses, dental cleaning and fillings, over-the-counter items, meals and fitness. Other service categories, such as Part B drugs, cardiac rehabilitation, other dental services, contact lenses and the other defined supplemental benefits, are not imported yet.
 
 What it carries over:
 
@@ -41,7 +41,7 @@ The importer never adds a value the files do not contain. A Medicare-defined amo
 
 **The importer never produces FHIR.** The FHIR converter, `scripts/to-insuranceplan.js`, does that, from the importer's output, unchanged. It is the same converter that produces the [FHIR InsurancePlan files](./fhir-insuranceplan.md) for the other examples.
 
-Over the whole 2027 file, the importer builds all 6,872 plans with 0 errors and 0 schema failures. It raises 117 warnings, all of 1 kind: the 117 Part B-only plans leave their inpatient hospital cost share blank, so that benefit is not written.
+Over the whole 2027 file, the importer builds all 6,872 plans with 0 errors and 0 schema failures. It raises 234 warnings, all of 1 kind: the 117 Part B-only plans leave their inpatient hospital and skilled nursing facility cost shares blank, so those 2 benefits are not written for them.
 
 ## From the file to a FHIR Bundle
 
@@ -85,7 +85,7 @@ An import takes about 5 seconds, most of it reading the 172 MB service area file
 
 Each PBP service category has its own columns, and their names differ from category to category (`pbp_b7a_copay_amt_mc_min`, `pbp_b7b_copay_mc_amt_min`, `pbp_b18a_copay_amt`). The crosswalk, [`fhir/pbp-crosswalk.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/fhir/pbp-crosswalk.json), has 1 row per benefit the importer writes. Each row names the PBP category, the file, every column read, and the BPS canonical benefit key, or nothing.
 
-**30 benefits: 19 mapped, 11 unmapped.** The 11 unmapped are still written, carried by name and by the dictionary's label, with no canonical key. They are the combined physical therapy and speech-language pathology row, podiatry and routine foot care (2), hearing exams (2), eye exams (2), and the prescription hearing aids (4 rows), because the canonical vocabulary has no key for them.
+**40 benefits: 33 mapped, 7 unmapped.** An unmapped row is written like a mapped one, carried by name and by the dictionary's label, with no canonical key. The 7 are the combined physical therapy and speech-language pathology row, the Medicare-covered podiatry, hearing exam and eye exam rows, and the 3 prescription hearing aid rows for a single aid type (inner ear, outer ear, over the ear), because the canonical vocabulary has no key for them. Routine foot care, routine hearing and eye exams, and hearing aids of all types have keys and are mapped.
 
 A category maps only when it clearly is the canonical service. There is no nearest fit, because a nearest fit would attach a cost share to a service it does not describe. Physical therapy and speech-language pathology is 1 category in the PBP file and 2 services in the standard, so mapping it to either key would put the wrong price on the other.
 
@@ -142,8 +142,8 @@ Two plans are checked, each to 0 differences:
 
 | Plan | Summary of Benefits | Checks | Match | Reading | Difference |
 |---|---|---|---|---|---|
-| H2406-013-000, UnitedHealthcare PPO | 2027, document ID `Y0066_SB_H2406_013_000_2027_M` | 61 | 53 | 8 | 0 |
-| H1609-028-000, Aetna HMO-POS | 2027, document ID `Y0001_H1609_028_HP32_SB2027_M` | 33 | 23 | 10 | 0 |
+| H2406-013-000, UnitedHealthcare PPO | 2027, document ID `Y0066_SB_H2406_013_000_2027_M` | 78 | 68 | 10 | 0 |
+| H1609-028-000, Aetna HMO-POS | 2027, document ID `Y0001_H1609_028_HP32_SB2027_M` | 59 | 43 | 16 | 0 |
 
 Reading the PDFs and writing the expectations files is done by hand; the script does the comparison. The check has limits. Some readings are confirmed on 1 plan only, and the spec lists what is still to confirm: the out-of-network deductible rule for PPOs (UnitedHealthcare only), the $0 cost share for a service answered "No" to both copay and coinsurance (no Summary of Benefits checked yet), and the out-of-network maximum of HMO-POS plans.
 
