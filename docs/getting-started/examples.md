@@ -6,7 +6,7 @@ sidebar_position: 2
 
 # Examples
 
-This page showcases example normalized plan files and explains how to interpret them.  Every example is a real plan. 8 are read from the Summary of Benefits and Coverage the carrier published and verified value by value against it; 2 Medicare Advantage plans are read from the CMS Summary of Benefits; 3 are imported from the CMS Marketplace public use files and 5 Medicare Advantage plans from the CMS Plan Benefit Package (PBP) files, with no PDF involved. All 18 live in the [`examples/` directory of the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples), with the source PDF beside each one in [`examples/sources/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/sources):
+This page showcases example normalized plan files and explains how to interpret them.  Every example is a real plan. 8 are read from the Summary of Benefits and Coverage the carrier published and verified value by value against it; 2 Medicare Advantage plans are read from the CMS Summary of Benefits; 5 are imported from the CMS Marketplace public use files and 5 Medicare Advantage plans from the CMS Plan Benefit Package (PBP) files, with no PDF involved. All 20 live in the [`examples/` directory of the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples), with the source PDF beside each one in [`examples/sources/`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples/sources):
 
 | File | Plan | Type | Market |
 |---|---|---|---|
@@ -20,8 +20,10 @@ This page showcases example normalized plan files and explains how to interpret 
 | `united_example.json` | UHC Choice Plus HSA Gold 1700-4 | POS | Small group |
 | `humana_example.json` | Humana Gold Plus H1036-025 | HMO | Medicare Advantage |
 | `scan_example.json` | SCAN Classic, Los Angeles County | HMO | Medicare Advantage |
+| `avmed-avmed-entrust-gold-125.puf.json` | AvMed Entrust Gold 125, from the public files | HMO | Individual |
 | `blue-cross-and-blue-shield-of-louisiana-blue-max-copay-50-50.puf.json` | Blue Cross and Blue Shield of Louisiana Blue Max Copay 50/50, from the public files | PPO | Individual |
 | `florida-blue-blueoptions-gold-1505.puf.json` | Florida Blue BlueOptions Gold 1505, from the public files | EPO | Individual |
+| `unitedhealthcare-uhc-bronze-essential.puf.json` | UnitedHealthcare UHC Bronze Essential, from the public files | HMO | Individual |
 | `unitedhealthcare-uhc-gold-standard.puf.json` | UnitedHealthcare UHC Gold Standard, from the public files | HMO | Individual |
 | `unitedhealthcare-aarp-medicare-advantage-from-uhc-fl-0021.pbp.json` | AARP Medicare Advantage from UHC FL-0021, from the PBP files | PPO | Medicare Advantage |
 | `humana-humana-gold-plus-h1036-068.pbp.json` | Humana Gold Plus H1036-068, from the PBP files | HMO | Medicare Advantage |

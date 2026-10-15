@@ -101,7 +101,7 @@ A category maps only when it clearly is the canonical service. There is no neare
 
 The 5 plans were chosen to cover the cases: the UnitedHealthcare PPO has an out-of-network deductible and copay ranges; the Humana HMO has no deductible; the Aetna plan is an HMO-POS with point-of-service groups; the UPMC plan has inpatient hospital cost tiers; the SCAN plan has hearing aids that share the routine hearing exam maximum.
 
-Each BPS document has 27 of the 30 crosswalk benefits. The 3 not written are the hearing aid rows for a single aid type (inner ear, outer ear, over the ear), which are written only when a plan chooses that type. Each Bundle places 14 of the 27 and lists 13 by name only, because the converter's crosswalk places those keys on none of the 29 benefit category codes of the CARIN SBC InsurancePlan profile. The 5 Bundles are in `examples/fhir/` and are published on this site beside the 10 read from plan documents: see [FHIR InsurancePlan](./fhir-insuranceplan.md).
+Each BPS document has 37 of the 40 crosswalk benefits. The 3 not written are the hearing aid rows for a single aid type (inner ear, outer ear, over the ear), which are written only when a plan chooses that type. Each Bundle places 15 of the 37 and lists 22 by name only, because the converter's crosswalk places those keys on none of the 29 benefit category codes of the CARIN SBC InsurancePlan profile. The 5 Bundles are in `examples/fhir/` and are published on this site beside the 10 read from plan documents: see [FHIR InsurancePlan](./fhir-insuranceplan.md).
 
 ## What the PBP files do not carry
 
@@ -162,21 +162,21 @@ Where a plan's Section C and Section D disagree on the point-of-service deductib
 
 ## The validator result
 
-The 5 Bundles were validated on October 6, 2026 with the HL7 FHIR validator 7.0.0, FHIR 4.0.1, against `hl7.fhir.us.insurance-card#2.0.0-ballot` and the BPS definitions in `fhir/definitions`. All 5 pass with **0 errors**. 15 warnings:
+The 5 Bundles were validated on October 11, 2026 with the HL7 FHIR validator 7.0.0, FHIR 4.0.1, against `hl7.fhir.us.insurance-card#2.0.0-ballot` and the BPS definitions in `fhir/definitions`. All 5 pass with **0 errors**. 16 warnings:
 
 | Bundle | Errors | Warnings |
 |---|---|---|
 | `aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json` | 0 | 0 |
 | `humana-gold-plus-h1036-068-hmo-h1036-068-000.json` | 0 | 0 |
-| `aetna-medicare-select-extra-hmo-pos-h1609-028-000.json` | 0 | 11 |
+| `aetna-medicare-select-extra-hmo-pos-h1609-028-000.json` | 0 | 12 |
 | `upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json` | 0 | 4 |
 | `scan-costco-medicare-advantage-hmo-h5425-140-000.json` | 0 | 0 |
 
-The 15 warnings are of 2 kinds:
+The 16 warnings are of 2 kinds:
 
-- **14 are text-only cost qualifiers.** The profile's Cost Tier value set has only `value-choice`, `standard` and `virtual`, so the importer's tiers have no code: 10 `Point-of-service option` entries on the Aetna Bundle and 4 hospital cost tier names on the UPMC Bundle. The binding is extensible, so each carries its name as text.
+- **15 are text-only cost qualifiers.** The profile's Cost Tier value set has only `value-choice`, `standard` and `virtual`, so the importer's tiers have no code: 11 `Point-of-service option` entries on the Aetna Bundle and 4 hospital cost tier names on the UPMC Bundle. The binding is extensible, so each carries its name as text.
 - **1 is the Aetna plan type.** The SBC Plan Type value set has no code for HMO-POS, so the converter writes the plan type as text.
 
-The information messages are the extension slicing messages that the 10 SBC Bundles raise too. The full record is the second run in [`examples/fhir/VALIDATION.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/VALIDATION.md).
+The information messages are the extension slicing messages that the 10 SBC Bundles raise too. The full record is the fourth run in [`examples/fhir/VALIDATION.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/VALIDATION.md).
 
 The importer, its decisions and its open questions are in the [importer spec](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/specs/pbp-importer.md), and the table layout is in the [record layout notes](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/specs/pbp-record-layout-notes.md).
