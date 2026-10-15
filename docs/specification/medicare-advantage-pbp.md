@@ -101,7 +101,7 @@ A category maps only when it clearly is the canonical service. There is no neare
 
 The 5 plans were chosen to cover the cases: the UnitedHealthcare PPO has an out-of-network deductible and copay ranges; the Humana HMO has no deductible; the Aetna plan is an HMO-POS with point-of-service groups; the UPMC plan has inpatient hospital cost tiers; the SCAN plan has hearing aids that share the routine hearing exam maximum.
 
-Each BPS document has 27 of the 30 crosswalk benefits. The 3 not written are the hearing aid rows for a single aid type (inner ear, outer ear, over the ear), which are written only when a plan chooses that type. Each Bundle places 14 of the 27 and lists 13 by name only, because the converter's crosswalk places those keys on none of the 29 benefit category codes of the CARIN SBC InsurancePlan profile. The 5 Bundles are in `examples/fhir/`, beside the 10 that are published on this site, and they are not published here: the published Bundles are the 10 on [FHIR InsurancePlan](./fhir-insuranceplan.md).
+Each BPS document has 27 of the 30 crosswalk benefits. The 3 not written are the hearing aid rows for a single aid type (inner ear, outer ear, over the ear), which are written only when a plan chooses that type. Each Bundle places 14 of the 27 and lists 13 by name only, because the converter's crosswalk places those keys on none of the 29 benefit category codes of the CARIN SBC InsurancePlan profile. The 5 Bundles are in `examples/fhir/` and are published on this site beside the 10 read from plan documents: see [FHIR InsurancePlan](./fhir-insuranceplan.md).
 
 ## What the PBP files do not carry
 
@@ -156,7 +156,7 @@ That reading is confirmed on 1 plan, Aetna Medicare Select Extra (H1609-028-000)
 - **Aetna's 2027 Summary of Benefits** prints the point-of-service side under "Your out-of-network costs": no in-network deductible and $500 for certain out-of-network services (page 2), a specialist at $70 after the plan deductible, and an inpatient stay at 50% after the plan deductible (page 3).
 - **CMS Medicare Plan Finder** for the same plan labels the $500 deductible "Out-of-network" and prints the specialist at $0 to $38 in network and $70 out of network.
 
-The converter maps the `POS` tier to out-of-network with a text-only qualifier, "Point-of-service option". Before it did, the converter refused the tier, and no HMO-POS plan reached FHIR. The 10 published Bundles are byte-identical before and after the change.
+The converter maps the `POS` tier to out-of-network with a text-only qualifier, "Point-of-service option". Before it did, the converter refused the tier, and no HMO-POS plan reached FHIR. The 10 Bundles read from plan documents are byte-identical before and after the change.
 
 Where a plan's Section C and Section D disagree on the point-of-service deductible (12 plans), the importer writes Section D and quotes Section C with a note. Also open: a covered service that the plan's point-of-service list leaves out, which the Aetna Summary of Benefits prints as "Not Covered" (4 checked rows). The importer writes no `POS` row for it, and the converter's "Not stated in the BPS document" placeholder shows in its place.
 

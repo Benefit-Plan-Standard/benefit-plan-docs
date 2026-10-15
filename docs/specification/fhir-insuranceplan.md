@@ -6,7 +6,7 @@ sidebar_label: FHIR InsurancePlan
 
 # FHIR InsurancePlan Files
 
-Each of the 10 Benefit Plan Standard examples read from a published plan document is also published as a FHIR R4 `InsurancePlan`. (The 3 examples imported from the [CMS Marketplace public files](./marketplace-public-files.md), which are not published here, and the 5 imported from the [CMS Medicare Advantage PBP files](./medicare-advantage-pbp.md) are converted too.) The FHIR files are produced by a converter in the schema repository (`scripts/to-insuranceplan.js`), which anyone can run locally.
+Each of the 10 Benefit Plan Standard examples read from a published plan document, and each of the 5 imported from the [CMS Medicare Advantage PBP files](./medicare-advantage-pbp.md), is also published as a FHIR R4 `InsurancePlan`. (The 5 examples imported from the [CMS Marketplace public files](./marketplace-public-files.md) are converted too, but are not published here.) The FHIR files are produced by a converter in the schema repository (`scripts/to-insuranceplan.js`), which anyone can run locally.
 
 How the CMS files reach the converter through the two importers, with every command, is on [How the data flows](./data-flow.md).
 
@@ -20,9 +20,11 @@ That profile is **draft and experimental**. It exists only in the ballot package
 
 ## The files
 
-### The 10 published files
+### The 15 published files
 
 The list is also available as JSON: [`/fhir/index.json`](https://benefitplanstandard.org/fhir/index.json). The index is a plain JSON list, not a FHIR resource.
+
+#### The 10 files read from plan documents
 
 | File | Plan | BPS schema | Benefits placed | Benefits outside the SBC codes |
 |---|---|---|---|---|
@@ -39,19 +41,19 @@ The list is also available as JSON: [`/fhir/index.json`](https://benefitplanstan
 
 The two Medicare Advantage files come from CMS Summary of Benefits documents, which are not SBCs. They conform structurally to the SBC profile, but most of their benefits (dental, vision, hearing, supplemental benefits, Part B drugs) have no code in the SBC benefit category code system, so those benefits are listed by identity only (see below).
 
-### The 5 Medicare Advantage PBP files
+#### The 5 Medicare Advantage PBP files
 
-These 5 are produced by the [CMS Medicare Advantage PBP importer](./medicare-advantage-pbp.md) and converted by the same converter. They are in `examples/fhir/` in the schema repository, beside the 10 above, and are not published on this site or in `/fhir/index.json`, so the links go to GitHub.
+These 5 are produced by the [CMS Medicare Advantage PBP importer](./medicare-advantage-pbp.md) and converted by the same converter. In `/fhir/index.json` each carries the label "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against the v1.2.0 draft only."
 
 | File | Plan | BPS schema | Benefits placed | Benefits outside the SBC codes |
 |---|---|---|---|---|
-| [`aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json) | AARP Medicare Advantage from UHC FL-0021 (PPO), H2406-013-000 (UnitedHealthcare) | 1.2.0 | 14 | 13 |
-| [`humana-gold-plus-h1036-068-hmo-h1036-068-000.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/humana-gold-plus-h1036-068-hmo-h1036-068-000.json) | Humana Gold Plus H1036-068 (HMO), H1036-068-000 | 1.2.0 | 14 | 13 |
-| [`aetna-medicare-select-extra-hmo-pos-h1609-028-000.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/aetna-medicare-select-extra-hmo-pos-h1609-028-000.json) | Aetna Medicare Select Extra (HMO-POS), H1609-028-000 | 1.2.0 | 14 | 13 |
-| [`upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json) | UPMC for Life PPO Rx Choice (PPO), H5533-019-000 | 1.2.0 | 14 | 13 |
-| [`scan-costco-medicare-advantage-hmo-h5425-140-000.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/scan-costco-medicare-advantage-hmo-h5425-140-000.json) | SCAN Costco Medicare Advantage (HMO), H5425-140-000 (SCAN Health Plan) | 1.2.0 | 14 | 13 |
+| [`aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json) | AARP Medicare Advantage from UHC FL-0021 (PPO), H2406-013-000 (UnitedHealthcare) | 1.2.0 | 15 | 22 |
+| [`humana-gold-plus-h1036-068-hmo-h1036-068-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/humana-gold-plus-h1036-068-hmo-h1036-068-000.json) | Humana Gold Plus H1036-068 (HMO), H1036-068-000 | 1.2.0 | 15 | 22 |
+| [`aetna-medicare-select-extra-hmo-pos-h1609-028-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/aetna-medicare-select-extra-hmo-pos-h1609-028-000.json) | Aetna Medicare Select Extra (HMO-POS), H1609-028-000 | 1.2.0 | 15 | 22 |
+| [`upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json) | UPMC for Life PPO Rx Choice (PPO), H5533-019-000 | 1.2.0 | 15 | 22 |
+| [`scan-costco-medicare-advantage-hmo-h5425-140-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/scan-costco-medicare-advantage-hmo-h5425-140-000.json) | SCAN Costco Medicare Advantage (HMO), H5425-140-000 (SCAN Health Plan) | 1.2.0 | 15 | 22 |
 
-Each holds 27 benefits, 14 placed and 13 listed by name only. An HMO-POS plan, such as the Aetna file, also carries a point-of-service tier (see below).
+Each holds 37 benefits, 15 placed and 22 listed by name only. An HMO-POS plan, such as the Aetna file, also carries a point-of-service tier (see below).
 
 ## Fetching a file
 
@@ -65,19 +67,19 @@ Each file is a FHIR `Bundle` of type `collection` with two entries: the `Insuran
 ## Reading a file
 
 - **Benefits.** A benefit appears in both `InsurancePlan.coverage[].benefit[]` and `InsurancePlan.plan[0].specificCost[].benefit[]`. Its `type` carries an SBC benefit category code, followed by the BPS canonical benefit key as a second coding.
-- **Benefits outside the SBC codes.** The profile requires every benefit type to come from a 29-code SBC benefit category code system. A BPS benefit with no code there, such as chiropractic care, acupuncture or bariatric surgery, is not placed in `coverage` or `specificCost`. It is listed in a `bps-unmapped-benefit` extension on the `InsurancePlan`, which identifies the benefit but does not carry its cost sharing. Home health care is in this group for the eight SBC plans and for SCAN, because the code system has no general home health code. (The Humana file has no home health benefit.)
+- **Benefits outside the SBC codes.** The profile requires every benefit type to come from a 29-code SBC benefit category code system. A BPS benefit with no code there, such as chiropractic care, acupuncture or bariatric surgery, is not placed in `coverage` or `specificCost`. It is listed in a `bps-unmapped-benefit` extension on the `InsurancePlan`, which identifies the benefit but does not carry its cost sharing. Home health care is in this group for the eight SBC plans, for SCAN and for the 5 PBP files, because the code system has no general home health code. (The Humana Summary of Benefits file has no home health benefit.)
 - **Not covered.** A cost entry with type text `Not covered` has no amount; its `value` carries a `data-absent-reason` of `not-applicable`. It is not a $0 cost.
 - **`Not stated in the BPS document`.** The profile requires at least two cost entries per benefit. When the BPS document gives only one (for example, a benefit the BPS file prices only in network), a second entry is added for the missing network with this text and a `data-absent-reason` of `unknown`. It does not mean the benefit is covered or not covered there.
 - **`Covered; amount not stated in the BPS document`.** The BPS document marks the benefit as covered in that network but records no amount.
 - **Contact.** BPS documents carry no plan contact details. The required `contact` is present with a `data-absent-reason` of `unknown` and no phone number or URL.
-- **Page references.** The eight SBC files carry page references for the plan document as a whole, on the `InsurancePlan`, in `bps-source-reference` extensions. They are not per-benefit citations. The two Medicare Advantage files also carry page references on each placed benefit.
+- **Page references.** The eight SBC files carry page references for the plan document as a whole, on the `InsurancePlan`, in `bps-source-reference` extensions. They are not per-benefit citations. The two Summary of Benefits files also carry page references on each placed benefit. The 5 PBP files carry a source reference on each placed benefit too, naming the PBP service category and file, with no page.
 - **Everything else from BPS** (network tier ids, cost-share basis, out-of-pocket applicability, accumulator period, conditions, market, schema version) is carried in `bps-*` extensions.
 
 **Note, limits and conditions (October 5, 2026).** The 8 SBC files were regenerated on October 5, 2026 from examples corrected against their PDFs. They now carry the limits and conditions printed in the SBC Limitations column: structured limits as `BenefitLimitation` extensions on `coverage.benefit`, and the condition text, including limit wording that a structured limit cannot hold, in `coverage.benefit.requirement`. Limits on benefits outside the SBC codes, such as home health care and chiropractic care, are not carried.
 
-**Note, a second in-network tier.** The converter now maps a second in-network tier (`IN2`, as written by the [CMS Marketplace public files importer](./marketplace-public-files.md)) to `in-network` with a cost-tier qualifier: the code `value-choice` when the tier name says "Value Choice", and text only otherwise. Tier 1 entries carry no qualifier. None of the 10 files here has a second in-network tier.
+**Note, a second in-network tier.** The converter now maps a second in-network tier (`IN2`, as written by the [CMS Marketplace public files importer](./marketplace-public-files.md)) to `in-network` with a cost-tier qualifier: the code `value-choice` when the tier name says "Value Choice", and text only otherwise. Tier 1 entries carry no qualifier. None of the 15 files here has a second in-network tier.
 
-**Note, the point-of-service tier.** The converter maps the `POS` tier of an HMO-POS plan, as written by the [CMS Medicare Advantage PBP importer](./medicare-advantage-pbp.md), to `out-of-network` with the text-only qualifier `Point-of-service option`. Before it did, it refused the tier. The 10 published files are byte-identical before and after.
+**Note, the point-of-service tier.** The converter maps the `POS` tier of an HMO-POS plan, as written by the [CMS Medicare Advantage PBP importer](./medicare-advantage-pbp.md), to `out-of-network` with the text-only qualifier `Point-of-service option`. Before it did, it refused the tier. The 10 files read from plan documents are byte-identical before and after.
 
 ## BPS extension definitions
 
@@ -115,4 +117,4 @@ java -Dfile.encoding=UTF-8 -jar validator_cli.jar -version 4.0.1 \
   examples/fhir/*.json
 ```
 
-The 10 published files validate with 0 errors and 75 warnings (last run October 5, 2026). The 5 Medicare Advantage PBP files validate with 0 errors and 15 warnings (run October 6, 2026, validator 7.0.0; the command above covers all 15 files in the folder). The warnings, all of them expected, are listed and explained in [`examples/fhir/VALIDATION.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/VALIDATION.md).
+The 10 files read from plan documents validate with 0 errors and 75 warnings, and the 5 Medicare Advantage PBP files with 0 errors and 16 warnings (last run October 13, 2026, validator 7.0.0; the command above covers all 15 files in the folder). The warnings, all of them expected, are listed and explained in [`examples/fhir/VALIDATION.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/VALIDATION.md).

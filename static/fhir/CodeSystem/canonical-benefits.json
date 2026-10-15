@@ -2,7 +2,7 @@
   "resourceType": "CodeSystem",
   "id": "canonical-benefits",
   "url": "https://benefitplanstandard.org/fhir/CodeSystem/canonical-benefits",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "name": "BPSCanonicalBenefits",
   "title": "BPS Canonical Benefits",
   "status": "draft",
@@ -11,7 +11,7 @@
   "description": "The Benefit Plan Standard canonical benefit identifiers (vocabularies/canonical-benefits.json), as a FHIR CodeSystem. Non-normative and extensible in BPS; generated from the vocabulary file.",
   "caseSensitive": true,
   "content": "complete",
-  "count": 100,
+  "count": 117,
   "concept": [
     {
       "code": "aba_therapy",
@@ -39,6 +39,11 @@
       "definition": "Inpatient mental and behavioral health services."
     },
     {
+      "code": "mental_health_office_visit",
+      "display": "Mental health office visit",
+      "definition": "Office visit with a mental health professional, individual session. Narrower than mental_health_outpatient, which covers all outpatient mental health services."
+    },
+    {
       "code": "mental_health_outpatient",
       "display": "Mental health outpatient",
       "definition": "Outpatient mental and behavioral health services."
@@ -52,6 +57,31 @@
       "code": "substance_use_outpatient",
       "display": "Substance use outpatient",
       "definition": "Outpatient substance use disorder services."
+    },
+    {
+      "code": "dental_basic_adult",
+      "display": "Basic dental care (adult)",
+      "definition": "Basic dental care for adults, as a class of services, not a single service. The CMS Marketplace Benefits and Cost Sharing PUF row \"Basic Dental Care - Adult\"; the issuer defines the class, and in that file it typically contains fillings and simple extractions. The Medicare Advantage restorative services row stays on dental_filling."
+    },
+    {
+      "code": "dental_cleaning",
+      "display": "Dental cleaning",
+      "definition": "Dental cleaning (prophylaxis). In Medicare Advantage, the cleaning row of the supplemental preventive dental benefit."
+    },
+    {
+      "code": "dental_filling",
+      "display": "Dental filling",
+      "definition": "Dental fillings and other restorative dental services. In Medicare Advantage, the restorative services row of the supplemental comprehensive dental benefit."
+    },
+    {
+      "code": "dental_major_adult",
+      "display": "Major dental care (adult)",
+      "definition": "Major dental care for adults, as a class of services, not a single service. The CMS Marketplace Benefits and Cost Sharing PUF row \"Major Dental Care - Adult\"; the issuer defines the class, and in that file it typically contains crowns, root canals and dentures. The Medicare Advantage dental rows stay on dental_cleaning and dental_filling."
+    },
+    {
+      "code": "dental_routine_adult",
+      "display": "Routine dental services (adult)",
+      "definition": "Routine dental services for adults, as a class of services, not a single service. The CMS Marketplace Benefits and Cost Sharing PUF row \"Routine Dental Services (Adult)\"; the issuer defines the class, and in that file it typically contains exams, cleanings and x-rays. The Medicare Advantage cleaning row stays on dental_cleaning."
     },
     {
       "code": "pediatric_dental_checkup",
@@ -224,6 +254,11 @@
       "definition": "Service not covered by the plan."
     },
     {
+      "code": "transportation",
+      "display": "Transportation",
+      "definition": "Non-emergency transportation to health-related locations. Not ambulance services, which are a different benefit."
+    },
+    {
       "code": "urgent_care",
       "display": "Urgent care",
       "definition": "Urgent care center services for non-emergency conditions."
@@ -339,6 +374,11 @@
       "definition": "Professional fees during inpatient hospital stay (e.g., surgeon, hospitalist)."
     },
     {
+      "code": "other_practitioner_office_visit",
+      "display": "Other practitioner office visit",
+      "definition": "Office visit with a practitioner who is not a physician, such as a nurse practitioner or physician assistant. Not primary_care or specialist."
+    },
+    {
       "code": "outpatient_surgery_professional",
       "display": "Outpatient surgery professional",
       "definition": "Professional fees for outpatient surgery (e.g., surgeon)."
@@ -387,6 +427,11 @@
       "code": "occupational_therapy",
       "display": "Occupational therapy",
       "definition": "Occupational therapy services."
+    },
+    {
+      "code": "physical_and_occupational_therapy",
+      "display": "Physical and occupational therapy",
+      "definition": "Rehabilitative physical therapy and occupational therapy as one combined benefit, for sources that state them in one row (the Marketplace Benefits and Cost Sharing PUF row \"Rehabilitative Occupational and Rehabilitative Physical Therapy\"). Where the source states them separately, use physical_therapy and occupational_therapy."
     },
     {
       "code": "physical_therapy",
@@ -464,6 +509,21 @@
       "definition": "Durable medical equipment (DME)."
     },
     {
+      "code": "fitness_benefit",
+      "display": "Fitness benefit",
+      "definition": "Fitness benefit, such as a gym membership, fitness program or fitness kit. In Medicare Advantage, the supplemental fitness benefit."
+    },
+    {
+      "code": "hearing_aids",
+      "display": "Hearing aids",
+      "definition": "Hearing aids. In Medicare Advantage, the supplemental hearing aid benefit."
+    },
+    {
+      "code": "hearing_exam",
+      "display": "Hearing exam",
+      "definition": "Routine hearing exam. Not the Medicare-covered diagnostic hearing exam, which is a different benefit."
+    },
+    {
       "code": "home_infusion_therapy",
       "display": "Home infusion therapy",
       "definition": "Infusion therapy administered in the home."
@@ -484,9 +544,19 @@
       "definition": "Dialysis services for kidney failure."
     },
     {
+      "code": "meals",
+      "display": "Meals",
+      "definition": "Health-related meals for a limited time, such as after a hospital stay or for a chronic illness. In Medicare Advantage, the supplemental meal benefit."
+    },
+    {
       "code": "nutritional_counseling",
       "display": "Nutritional counseling",
       "definition": "Nutrition counseling services."
+    },
+    {
+      "code": "otc_allowance",
+      "display": "Over-the-counter allowance",
+      "definition": "Allowance for over-the-counter health items. In Medicare Advantage, the supplemental over-the-counter (OTC) items benefit."
     },
     {
       "code": "prosthetics",
@@ -499,9 +569,19 @@
       "definition": "Radiation therapy for cancer treatment."
     },
     {
+      "code": "routine_foot_care",
+      "display": "Routine foot care",
+      "definition": "Routine foot care. Not Medicare-covered podiatry services or diabetic routine foot care, which are different benefits."
+    },
+    {
       "code": "surgery_global",
       "display": "Surgery (global)",
       "definition": "Global surgical services including facility and professional components."
+    },
+    {
+      "code": "eyeglasses",
+      "display": "Eyeglasses",
+      "definition": "Eyeglasses (lenses and frames) for adults. Not contact lenses or pediatric glasses, which are different benefits."
     },
     {
       "code": "pediatric_eye_exam",
@@ -512,6 +592,11 @@
       "code": "pediatric_glasses",
       "display": "Pediatric glasses",
       "definition": "Pediatric vision glasses or lenses."
+    },
+    {
+      "code": "routine_eye_exam",
+      "display": "Routine eye exam",
+      "definition": "Routine eye exam for adults. Not the Medicare-covered diagnostic eye exam or the diabetic eye exam, which are different benefits."
     }
   ]
 }
