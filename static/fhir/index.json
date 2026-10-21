@@ -149,7 +149,7 @@
       "bps_example": "examples/aetna-medicare-aetna-medicare-select-extra.pbp.json",
       "path": "InsurancePlan/aetna-medicare-select-extra-hmo-pos-h1609-028-000.json",
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/aetna-medicare-select-extra-hmo-pos-h1609-028-000.json",
-      "benefits_placed": 15,
+      "benefits_placed": 16,
       "benefits_unmapped": 22,
       "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against the v1.2.0 draft only."
     },
@@ -163,7 +163,7 @@
       "bps_example": "examples/humana-humana-gold-plus-h1036-068.pbp.json",
       "path": "InsurancePlan/humana-gold-plus-h1036-068-hmo-h1036-068-000.json",
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/humana-gold-plus-h1036-068-hmo-h1036-068-000.json",
-      "benefits_placed": 15,
+      "benefits_placed": 16,
       "benefits_unmapped": 22,
       "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against the v1.2.0 draft only."
     },
@@ -177,7 +177,7 @@
       "bps_example": "examples/scan-health-plan-scan-costco-medicare-advantage.pbp.json",
       "path": "InsurancePlan/scan-costco-medicare-advantage-hmo-h5425-140-000.json",
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/scan-costco-medicare-advantage-hmo-h5425-140-000.json",
-      "benefits_placed": 15,
+      "benefits_placed": 16,
       "benefits_unmapped": 22,
       "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against the v1.2.0 draft only."
     },
@@ -191,7 +191,7 @@
       "bps_example": "examples/unitedhealthcare-aarp-medicare-advantage-from-uhc-fl-0021.pbp.json",
       "path": "InsurancePlan/aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json",
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json",
-      "benefits_placed": 15,
+      "benefits_placed": 16,
       "benefits_unmapped": 22,
       "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against the v1.2.0 draft only."
     },
@@ -205,7 +205,7 @@
       "bps_example": "examples/upmc-for-life-upmc-for-life-ppo-rx-choice.pbp.json",
       "path": "InsurancePlan/upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json",
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json",
-      "benefits_placed": 15,
+      "benefits_placed": 16,
       "benefits_unmapped": 22,
       "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against the v1.2.0 draft only."
     }
