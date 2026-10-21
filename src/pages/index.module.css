@@ -62,6 +62,13 @@
   text-decoration: none;
 }
 
+/* One-line note under the version badge */
+.heroNote {
+  margin: -0.5rem auto 1.25rem auto;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
 /* Features section */
 .featuresSection {
   background-color: var(--ifm-background-surface-color);

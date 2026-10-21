@@ -74,9 +74,11 @@ export default function Home() {
             <Link to="/docs/release-notes">v1.1.0</Link>&nbsp;(May 2026)
             &nbsp;·&nbsp;
             <Link to="/docs/changelog">v1.2.0 draft</Link>: CARIN alignment and Medicare Advantage
-            &nbsp;·&nbsp;
-            Also here: the <Link to="/docs/specification/medical-mvp">medical MVP technical specification</Link> for the CMS Health Tech Ecosystem Real-Time Benefits workgroup
           </div>
+
+          <p className={styles.heroNote}>
+            Also here: the <Link to="/docs/specification/medical-mvp">medical MVP technical specification</Link> for the CMS Health Tech Ecosystem Real-Time Benefits workgroup.
+          </p>
 
           <p className={styles.heroSubtitle}>
             Open, vendor-neutral schema for health benefit plans. Normalize data,

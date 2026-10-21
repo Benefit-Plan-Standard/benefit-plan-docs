@@ -39,7 +39,7 @@ Foundational release: the core JSON schema for medical benefit plans, the field-
 
 ## v1.2.0 — CARIN alignment and Medicare Advantage (draft)
 
-**Status:** Draft, tagged `v1.2.0-draft.1` on September 20, 2026, and `v1.2.0-draft.2` and `v1.2.0-draft.3` on October 21, 2026 · Backward-compatible with v1.0.0 and v1.1.0 · Needs two independent adopter validations to release
+**Status:** Draft, tagged `v1.2.0-draft.1` on September 20, 2026, and `v1.2.0-draft.2` to `v1.2.0-draft.4` on October 21, 2026 · Backward-compatible with v1.0.0 and v1.1.0 · Needs two independent adopter validations to release
 
 The v1.2.0 draft grew in three steps, and none is the formulary layer that an earlier version of this page described. The formulary layer is being built as the [pharmacy module](/docs/specification/modules) and is tracked there.
 

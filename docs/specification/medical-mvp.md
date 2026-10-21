@@ -6,7 +6,7 @@ sidebar_label: Medical MVP specification
 
 # Medical MVP technical specification
 
-The medical MVP technical specification is the Benefit Plan Standard's technical specification for the medical MVP (minimum viable product) of the CMS Health Tech Ecosystem Real-Time Benefits workgroup. It is a draft for the workgroup, not a workgroup decision: version 0.3.2, dated October 21, 2026.
+The medical MVP technical specification is the Benefit Plan Standard's technical specification for the medical MVP (minimum viable product) of the CMS Health Tech Ecosystem Real-Time Benefits workgroup. It is a draft for the workgroup, not a workgroup decision: version 0.3.3, dated October 21, 2026.
 
 The medical MVP answers questions about plan design: what a plan covers and what the member pays, whether the cost changes with where the member goes, whether a service has a limit, and whether the plan covers an extra benefit such as hearing aids. CMS already publishes these answers for Medicare Advantage and Marketplace plans. The specification says which items a pledgee, an organization that committed to the workgroup to publish MVP data for its plans, makes available, and where each item is, both in the CMS files and in a Benefit Plan Standard document. It covers 2 programs:
 
