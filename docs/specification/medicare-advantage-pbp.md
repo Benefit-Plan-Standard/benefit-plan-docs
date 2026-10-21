@@ -27,7 +27,9 @@ The files are not in the repository. You download them into `data/pbp/<year>/`, 
 
 1 plan in, 1 BPS v1.2.0 document out. The document is checked against the v1.2.0 schema before it is written; a document that fails is not written. v1.2.0 is the draft in the repository, not v1.1.0, because the PBP data needs fields that only the draft has: the contract, plan and segment identifiers (`plan_identifiers`), the service area, copay and coinsurance ranges, inpatient day intervals, per-ear hearing aid limits and a coverage basis for supplemental benefits.
 
-The importer reads the MVP benefit set, 40 benefits: primary care, specialist, inpatient hospital, skilled nursing facility, home health, outpatient hospital, observation, ambulatory surgery center, emergency and urgent care, ambulance, transportation, diagnostic tests, lab, radiology, therapy, mental health individual sessions, chiropractic, podiatry, acupuncture, hearing and eye exams, hearing aids, eyeglasses, dental cleaning and fillings, over-the-counter items, meals and fitness. Other service categories, such as Part B drugs, cardiac rehabilitation, other dental services, contact lenses and the other defined supplemental benefits, are not imported yet.
+The Medicare Advantage importer reads the MVP benefit set, 41 benefits: primary care, specialist, inpatient hospital, skilled nursing facility, home health, outpatient hospital, observation, ambulatory surgery center, emergency and urgent care, ambulance, transportation, diagnostic tests, lab, radiology, therapy, mental health individual sessions, chiropractic, podiatry, acupuncture, hearing and eye exams, hearing aids, eyeglasses, dental cleaning and fillings, over-the-counter items, meals, fitness and, since October 20, 2026, preventive services (category 14a, a $0 copay in network on the plan's attestation). Other service categories, such as Part B drugs, cardiac rehabilitation, other dental services, contact lenses and the other defined supplemental benefits, are not imported yet.
+
+At plan level, the Medicare Advantage importer also reads, since October 20, 2026, the premium and the Part B premium reduction from Section D, and the member services phone, the website and the provider directory link from Section A. It writes them to `premium`, `part_b_premium_reduction`, `contacts` and the in-network tier's `provider_directory_url`, fields of the Benefit Plan Standard schema 1.2.0 draft; `contacts` and `provider_directory_url` were added to the draft that day. A website or directory address is written only when the file gives it as an http or https address with its scheme; an address without one, such as "www.aetna.com/medicare", is quoted in `source_references`, because the Medicare Advantage importer adds no scheme it would have to guess. With preventive services and the key on category 7i (see The benefit crosswalk below), these closed the gaps G1 to G5 of the [medical MVP technical specification](./medical-mvp.md) on October 20, 2026.
 
 What it carries over:
 
@@ -41,7 +43,7 @@ The importer never adds a value the files do not contain. A Medicare-defined amo
 
 **The importer never produces FHIR.** The FHIR converter, `scripts/to-insuranceplan.js`, does that, from the importer's output, unchanged. It is the same converter that produces the [FHIR InsurancePlan files](./fhir-insuranceplan.md) for the other examples.
 
-Over the whole 2027 file, the importer builds all 6,872 plans with 0 errors and 0 schema failures. It raises 234 warnings, all of 1 kind: the 117 Part B-only plans leave their inpatient hospital and skilled nursing facility cost shares blank, so those 2 benefits are not written for them.
+Over the whole 2027 file, in its latest recorded run on October 20, 2026, the Medicare Advantage importer builds all 6,872 plans with 0 errors and 0 schema failures against the Benefit Plan Standard schema 1.2.0 draft, and writes 260,800 benefits. It raises 234 warnings, all of 1 kind: the 117 Part B-only plans leave their inpatient hospital and skilled nursing facility cost shares blank, so those 2 benefits are not written for them. The same run writes the premium on 5,510 plans, the Part B premium reduction on 1,412, the member services phone on 6,872, the website on 457 and the provider directory link on 1,585.
 
 ## From the file to a FHIR Bundle
 
@@ -79,15 +81,17 @@ To find a plan ID, list a contract's plans:
 node scripts/from-pbp.js --year 2027 --contract H2406
 ```
 
-An import takes about 5 seconds, most of it reading the 172 MB service area file. The same files and download date always give byte-identical output.
+An eligibility response (HETS 271) gives a member's contract and plan but not the segment, and in the contract year 2027 files 266 contract and plan pairs have more than 1 segment, each serving different counties. The segment tool, `scripts/pbp-segment.js`, reads `PlanArea.txt` with the Medicare Advantage importer's reader and gives the segment and the full plan key from the county's SSA code (`--county 10150`) or from its name and state. For Duval County, Florida, `node scripts/pbp-segment.js --year 2027 --contract H1609 --plan 028 --county-name "Duval, FL"` prints `county 10150 Duval FL, partial_flag "", eghp_flag "0"`, `segment 000` and `plan key H1609-028-000`, the key that `scripts/from-pbp.js --plan` takes. The steps an app follows from a published `service-areas.json` are in [Identifying the plan](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/specs/rtb-medical-mvp/README.md#identifying-the-plan) in the medical MVP technical specification.
+
+An import with the Medicare Advantage importer takes about 4 seconds, most of it reading the 172 MB service area file. The same files and download date always give byte-identical output.
 
 ## The benefit crosswalk
 
 Each PBP service category has its own columns, and their names differ from category to category (`pbp_b7a_copay_amt_mc_min`, `pbp_b7b_copay_mc_amt_min`, `pbp_b18a_copay_amt`). The crosswalk, [`fhir/pbp-crosswalk.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/fhir/pbp-crosswalk.json), has 1 row per benefit the importer writes. Each row names the PBP category, the file, every column read, and the BPS canonical benefit key, or nothing.
 
-**40 benefits: 33 mapped, 7 unmapped.** An unmapped row is written like a mapped one, carried by name and by the dictionary's label, with no canonical key. The 7 are the combined physical therapy and speech-language pathology row, the Medicare-covered podiatry, hearing exam and eye exam rows, and the 3 prescription hearing aid rows for a single aid type (inner ear, outer ear, over the ear), because the canonical vocabulary has no key for them. Routine foot care, routine hearing and eye exams, and hearing aids of all types have keys and are mapped.
+**41 benefits: 35 mapped, 6 unmapped.** An unmapped row is written like a mapped one, carried by name and by the dictionary's label, with no canonical key. The 6 are the Medicare-covered podiatry, hearing exam and eye exam rows, and the 3 prescription hearing aid rows for a single aid type (inner ear, outer ear, over the ear), because the Benefit Plan Standard canonical benefit vocabulary has no key for them. Routine foot care, routine hearing and eye exams, and hearing aids of all types have keys and are mapped, and since October 20, 2026 so are the combined physical therapy and speech-language pathology row and preventive services (`preventive_care`).
 
-A category maps only when it clearly is the canonical service. There is no nearest fit, because a nearest fit would attach a cost share to a service it does not describe. Physical therapy and speech-language pathology is 1 category in the PBP file and 2 services in the standard, so mapping it to either key would put the wrong price on the other.
+A category maps only when it clearly is the canonical service. There is no nearest fit, because a nearest fit would attach a cost share to a service it does not describe. Physical therapy and speech-language pathology is 1 category in the PBP file, priced once for both therapies, so mapping it to `physical_therapy` or `speech_therapy` would put the wrong price on the other. It has its own key, `physical_and_speech_therapy`, added in version 1.3.0 of the Benefit Plan Standard canonical benefit vocabulary (118 keys) on October 20, 2026.
 
 ## The 5 examples
 
@@ -101,7 +105,7 @@ A category maps only when it clearly is the canonical service. There is no neare
 
 The 5 plans were chosen to cover the cases: the UnitedHealthcare PPO has an out-of-network deductible and copay ranges; the Humana HMO has no deductible; the Aetna plan is an HMO-POS with point-of-service groups; the UPMC plan has inpatient hospital cost tiers; the SCAN plan has hearing aids that share the routine hearing exam maximum.
 
-Each BPS document has 37 of the 40 crosswalk benefits. The 3 not written are the hearing aid rows for a single aid type (inner ear, outer ear, over the ear), which are written only when a plan chooses that type. Each Bundle places 15 of the 37 and lists 22 by name only, because the converter's crosswalk places those keys on none of the 29 benefit category codes of the CARIN SBC InsurancePlan profile. The 5 Bundles are in `examples/fhir/` and are published on this site beside the 10 read from plan documents: see [FHIR InsurancePlan](./fhir-insuranceplan.md).
+Each Benefit Plan Standard document has 38 of the 41 crosswalk benefits. The 3 not written are the hearing aid rows for a single aid type (inner ear, outer ear, over the ear), which are written only when a plan chooses that type. Each Bundle places 16 of the 38 and lists 22 by name only, because the Benefit Plan Standard converter's crosswalk places those benefits on none of the 29 benefit category codes of the CARIN SBC InsurancePlan profile. The 16th placed benefit, since October 20, 2026, is preventive services, under `preventive-care`. The 5 Bundles are in `examples/fhir/` and are published on this site beside the 10 read from plan documents: see [FHIR InsurancePlan](./fhir-insuranceplan.md).
 
 ## What the PBP files do not carry
 
@@ -138,12 +142,14 @@ The PBP file is data that carriers submit; the document a member sees is the Sum
 - `READING`: the document holds a different value on purpose, and the check says why (for example, the file gives a range where the Summary of Benefits prints 1 end of it);
 - `DIFFERENCE`: the document disagrees, and the script exits with an error.
 
-Two plans are checked, each to 0 differences:
+Two plans are checked. On October 20, 2026 the checks gained the values the Medicare Advantage importer now reads where the Summary of Benefits prints them: the premium, preventive services, the member services phone, the website and the provider directory link.
 
 | Plan | Summary of Benefits | Checks | Match | Reading | Difference |
 |---|---|---|---|---|---|
-| H2406-013-000, UnitedHealthcare PPO | 2027, document ID `Y0066_SB_H2406_013_000_2027_M` | 78 | 68 | 10 | 0 |
-| H1609-028-000, Aetna HMO-POS | 2027, document ID `Y0001_H1609_028_HP32_SB2027_M` | 59 | 43 | 16 | 0 |
+| H2406-013-000, UnitedHealthcare PPO | 2027, document ID `Y0066_SB_H2406_013_000_2027_M` | 83 | 71 | 12 | 0 |
+| H1609-028-000, Aetna HMO-POS | 2027, document ID `Y0001_H1609_028_HP32_SB2027_M` | 65 | 47 | 16 | 2 |
+
+Both plans have 0 differences on cost shares. The 2 differences on the Aetna plan are on links: its Summary of Benefits prints `AetnaMedicare.com` as the website and `AetnaMedicare.com/H1609-028` for the provider directories, while the PBP file gives "www.aetna.com/medicare" and "www.aetnamedicare.com/findprovider"; all 4 addresses resolved on October 20, 2026. The Benefit Plan Standard document holds the filing, which has no scheme, so it quotes both addresses and writes neither to a field, and `scripts/pbp-sob-check.js` exits with an error on the Aetna file because of the 2. The 2 new readings on the UnitedHealthcare plan are its website and directory address, filed as `AARPMedicarePlans.com` with no scheme, so quoted and not written.
 
 Reading the PDFs and writing the expectations files is done by hand; the script does the comparison. The check has limits. Some readings are confirmed on 1 plan only, and the spec lists what is still to confirm: the out-of-network deductible rule for PPOs (UnitedHealthcare only), the $0 cost share for a service answered "No" to both copay and coinsurance (no Summary of Benefits checked yet), and the out-of-network maximum of HMO-POS plans.
 
@@ -158,25 +164,25 @@ That reading is confirmed on 1 plan, Aetna Medicare Select Extra (H1609-028-000)
 
 The converter maps the `POS` tier to out-of-network with a text-only qualifier, "Point-of-service option". Before it did, the converter refused the tier, and no HMO-POS plan reached FHIR. The 10 Bundles read from plan documents are byte-identical before and after the change.
 
-Where a plan's Section C and Section D disagree on the point-of-service deductible (12 plans), the importer writes Section D and quotes Section C with a note. Also open: a covered service that the plan's point-of-service list leaves out, which the Aetna Summary of Benefits prints as "Not Covered" (4 checked rows). The importer writes no `POS` row for it, and the converter's "Not stated in the BPS document" placeholder shows in its place.
+Where a plan's Section C and Section D disagree on the point-of-service deductible (12 plans), the importer writes Section D and quotes Section C with a note. Also open: a covered service that the plan's point-of-service list leaves out, which the Aetna Summary of Benefits prints as "Not Covered" (8 checked rows: primary care, the Medicare-covered and routine hearing exams, hearing aids, mental health individual sessions, dental, eyeglasses and fitness). The Medicare Advantage importer writes no `POS` row for it, and the Benefit Plan Standard converter's "Not stated in the BPS document" placeholder shows in its place.
 
 ## The validator result
 
-The 5 Bundles were validated on October 11, 2026 with the HL7 FHIR validator 7.0.0, FHIR 4.0.1, against `hl7.fhir.us.insurance-card#2.0.0-ballot` and the BPS definitions in `fhir/definitions`. All 5 pass with **0 errors**. 16 warnings:
+The 5 Bundles were last validated on October 20, 2026, after the Medicare Advantage importer gained preventive services, the premium, the contacts and the provider directory link, with the HL7 FHIR validator 7.0.0, FHIR 4.0.1, against `hl7.fhir.us.insurance-card#2.0.0-ballot` and the Benefit Plan Standard definitions in `fhir/definitions`. All 5 pass with **0 errors**. 17 warnings:
 
 | Bundle | Errors | Warnings |
 |---|---|---|
 | `aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json` | 0 | 0 |
 | `humana-gold-plus-h1036-068-hmo-h1036-068-000.json` | 0 | 0 |
-| `aetna-medicare-select-extra-hmo-pos-h1609-028-000.json` | 0 | 12 |
+| `aetna-medicare-select-extra-hmo-pos-h1609-028-000.json` | 0 | 13 |
 | `upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json` | 0 | 4 |
 | `scan-costco-medicare-advantage-hmo-h5425-140-000.json` | 0 | 0 |
 
-The 16 warnings are of 2 kinds:
+The 17 warnings are of 2 kinds:
 
-- **15 are text-only cost qualifiers.** The profile's Cost Tier value set has only `value-choice`, `standard` and `virtual`, so the importer's tiers have no code: 11 `Point-of-service option` entries on the Aetna Bundle and 4 hospital cost tier names on the UPMC Bundle. The binding is extensible, so each carries its name as text.
-- **1 is the Aetna plan type.** The SBC Plan Type value set has no code for HMO-POS, so the converter writes the plan type as text.
+- **16 are text-only cost qualifiers.** The profile's Cost Tier value set has only `value-choice`, `standard` and `virtual`, so the tiers the Medicare Advantage importer writes have no code: 12 `Point-of-service option` entries on the Aetna Bundle (the 12th, since October 20, 2026, on the preventive services benefit) and 4 hospital cost tier names on the UPMC Bundle. The binding is extensible, so each carries its name as text.
+- **1 is the Aetna plan type.** The SBC Plan Type value set has no code for HMO-POS, so the Benefit Plan Standard converter writes the plan type as text.
 
-The information messages are the extension slicing messages that the 10 SBC Bundles raise too. The full record is the fourth run in [`examples/fhir/VALIDATION.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/VALIDATION.md).
+The information messages are the extension slicing messages that the 10 SBC Bundles raise too. The full record is the sixth run in [`examples/fhir/VALIDATION.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/VALIDATION.md).
 
 The importer, its decisions and its open questions are in the [importer spec](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/specs/pbp-importer.md), and the table layout is in the [record layout notes](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/specs/pbp-record-layout-notes.md).

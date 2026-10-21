@@ -41,19 +41,21 @@ The list is also available as JSON: [`/fhir/index.json`](https://benefitplanstan
 
 The two Medicare Advantage files come from CMS Summary of Benefits documents, which are not SBCs. They conform structurally to the SBC profile, but most of their benefits (dental, vision, hearing, supplemental benefits, Part B drugs) have no code in the SBC benefit category code system, so those benefits are listed by identity only (see below).
 
+**Note, accumulator tier ids (October 21, 2026).** The Benefit Plan Standard documents behind the Humana H1036-025 and SCAN Classic files declare Benefit Plan Standard schema 1.2.0, and each wrote `in-network` as the `network_tier` of its 2 accumulators. On October 21, 2026 those 4 values became `IN`, the `tier_id` of the in-network tier, which is how the Benefit Plan Standard schema 1.2.0 draft now describes `network_tier` and how the Medicare Advantage importer (`scripts/from-pbp.js`) and the Marketplace importer (`scripts/from-marketplace-puf.js`) write it. The Benefit Plan Standard converter (`scripts/to-insuranceplan.js`) re-converted the 2 files the same day; their benefit counts above and their validation result are unchanged.
+
 #### The 5 Medicare Advantage PBP files
 
 These 5 are produced by the [CMS Medicare Advantage PBP importer](./medicare-advantage-pbp.md) and converted by the same converter. In `/fhir/index.json` each carries the label "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against the v1.2.0 draft only."
 
 | File | Plan | BPS schema | Benefits placed | Benefits outside the SBC codes |
 |---|---|---|---|---|
-| [`aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json) | AARP Medicare Advantage from UHC FL-0021 (PPO), H2406-013-000 (UnitedHealthcare) | 1.2.0 | 15 | 22 |
-| [`humana-gold-plus-h1036-068-hmo-h1036-068-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/humana-gold-plus-h1036-068-hmo-h1036-068-000.json) | Humana Gold Plus H1036-068 (HMO), H1036-068-000 | 1.2.0 | 15 | 22 |
-| [`aetna-medicare-select-extra-hmo-pos-h1609-028-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/aetna-medicare-select-extra-hmo-pos-h1609-028-000.json) | Aetna Medicare Select Extra (HMO-POS), H1609-028-000 | 1.2.0 | 15 | 22 |
-| [`upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json) | UPMC for Life PPO Rx Choice (PPO), H5533-019-000 | 1.2.0 | 15 | 22 |
-| [`scan-costco-medicare-advantage-hmo-h5425-140-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/scan-costco-medicare-advantage-hmo-h5425-140-000.json) | SCAN Costco Medicare Advantage (HMO), H5425-140-000 (SCAN Health Plan) | 1.2.0 | 15 | 22 |
+| [`aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json) | AARP Medicare Advantage from UHC FL-0021 (PPO), H2406-013-000 (UnitedHealthcare) | 1.2.0 | 16 | 22 |
+| [`humana-gold-plus-h1036-068-hmo-h1036-068-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/humana-gold-plus-h1036-068-hmo-h1036-068-000.json) | Humana Gold Plus H1036-068 (HMO), H1036-068-000 | 1.2.0 | 16 | 22 |
+| [`aetna-medicare-select-extra-hmo-pos-h1609-028-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/aetna-medicare-select-extra-hmo-pos-h1609-028-000.json) | Aetna Medicare Select Extra (HMO-POS), H1609-028-000 | 1.2.0 | 16 | 22 |
+| [`upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json) | UPMC for Life PPO Rx Choice (PPO), H5533-019-000 | 1.2.0 | 16 | 22 |
+| [`scan-costco-medicare-advantage-hmo-h5425-140-000.json`](https://benefitplanstandard.org/fhir/InsurancePlan/scan-costco-medicare-advantage-hmo-h5425-140-000.json) | SCAN Costco Medicare Advantage (HMO), H5425-140-000 (SCAN Health Plan) | 1.2.0 | 16 | 22 |
 
-Each holds 37 benefits, 15 placed and 22 listed by name only. An HMO-POS plan, such as the Aetna file, also carries a point-of-service tier (see below).
+Each holds the 38 benefits of its Benefit Plan Standard document, 16 placed and 22 listed by name only. Since October 20, 2026 the Medicare Advantage importer (`scripts/from-pbp.js`) also reads preventive services (PBP category 14a) into a `preventive_care` benefit, which the Benefit Plan Standard converter (`scripts/to-insuranceplan.js`) places under the SBC code `preventive-care`: that is the 16th placed benefit. An HMO-POS plan, such as the Aetna file, also carries a point-of-service tier (see below).
 
 ## Fetching a file
 
@@ -71,7 +73,7 @@ Each file is a FHIR `Bundle` of type `collection` with two entries: the `Insuran
 - **Not covered.** A cost entry with type text `Not covered` has no amount; its `value` carries a `data-absent-reason` of `not-applicable`. It is not a $0 cost.
 - **`Not stated in the BPS document`.** The profile requires at least two cost entries per benefit. When the BPS document gives only one (for example, a benefit the BPS file prices only in network), a second entry is added for the missing network with this text and a `data-absent-reason` of `unknown`. It does not mean the benefit is covered or not covered there.
 - **`Covered; amount not stated in the BPS document`.** The BPS document marks the benefit as covered in that network but records no amount.
-- **Contact.** BPS documents carry no plan contact details. The required `contact` is present with a `data-absent-reason` of `unknown` and no phone number or URL.
+- **Contact.** The Benefit Plan Standard schema 1.2.0 draft gained `contacts` (the member services phone and website) and `network_tiers[].provider_directory_url` on October 20, 2026, and the Medicare Advantage importer (`scripts/from-pbp.js`) fills them in the documents behind the 5 PBP files: the phone in all 5, the website in 1 and the provider directory link in 2, where the CMS file gives a full address. The Benefit Plan Standard converter (`scripts/to-insuranceplan.js`) does not map them yet. In every file the required `contact` is present with a `data-absent-reason` of `unknown` and no phone number or URL, and in the 5 PBP files the phone, website and directory link are carried only as quoted text in `bps-source-reference` extensions.
 - **Page references.** The eight SBC files carry page references for the plan document as a whole, on the `InsurancePlan`, in `bps-source-reference` extensions. They are not per-benefit citations. The two Summary of Benefits files also carry page references on each placed benefit. The 5 PBP files carry a source reference on each placed benefit too, naming the PBP service category and file, with no page.
 - **Everything else from BPS** (network tier ids, cost-share basis, out-of-pocket applicability, accumulator period, conditions, market, schema version) is carried in `bps-*` extensions.
 
@@ -86,7 +88,7 @@ Each file is a FHIR `Bundle` of type `collection` with two entries: the `Insuran
 The `bps-*` extensions and the BPS canonical benefits code system are draft, and are published as static files:
 
 - `https://benefitplanstandard.org/fhir/StructureDefinition/<name>.json`, for `bps-source-reference`, `bps-plan-metadata`, `bps-identifier-source`, `bps-benefit`, `bps-condition`, `bps-cost-share`, `bps-accumulator` and `bps-unmapped-benefit`
-- [`https://benefitplanstandard.org/fhir/CodeSystem/canonical-benefits.json`](https://benefitplanstandard.org/fhir/CodeSystem/canonical-benefits.json)
+- [`https://benefitplanstandard.org/fhir/CodeSystem/canonical-benefits.json`](https://benefitplanstandard.org/fhir/CodeSystem/canonical-benefits.json), version 1.3.0, 118 concepts, built from the Benefit Plan Standard canonical benefit vocabulary 1.3.0
 
 Their canonical URLs (`https://benefitplanstandard.org/fhir/StructureDefinition/<name>` and `https://benefitplanstandard.org/fhir/CodeSystem/canonical-benefits`, without `.json`) redirect a browser to the `.json` file. The validator does not fetch them from this site: it loads the CARIN definitions from the `hl7.fhir.us.insurance-card#2.0.0-ballot` package and the BPS definitions from `fhir/definitions` in the schema repository, as shown below.
 
@@ -117,4 +119,10 @@ java -Dfile.encoding=UTF-8 -jar validator_cli.jar -version 4.0.1 \
   examples/fhir/*.json
 ```
 
-The 10 files read from plan documents validate with 0 errors and 75 warnings, and the 5 Medicare Advantage PBP files with 0 errors and 16 warnings (last run October 13, 2026, validator 7.0.0; the command above covers all 15 files in the folder). The warnings, all of them expected, are listed and explained in [`examples/fhir/VALIDATION.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/VALIDATION.md).
+The command above covers all 15 files in the folder. The current result, per group, all with validator 7.0.0:
+
+- **The 10 files read from plan documents:** 0 errors and 75 warnings. The 8 SBC files were last run on October 13, 2026 (fifth run). The Humana H1036-025 and SCAN Classic files were run on October 21, 2026 (seventh run), after the Benefit Plan Standard converter re-converted them with accumulator tier id `IN`, with the same 42 and 4 warnings as before.
+- **The 5 Medicare Advantage PBP files:** 0 errors and 17 warnings, run on October 20, 2026 (sixth run), after the Medicare Advantage importer (`scripts/from-pbp.js`) gained preventive services, the premium, the contacts and the provider directory link. The 1 new warning is a text-only `Point-of-service option` qualifier on the Aetna file's preventive services benefit.
+- **The 5 Marketplace Bundles** in `examples/fhir-puf/`, which are not published here: 0 errors and 91 warnings, run on October 21, 2026 (seventh run), after the Marketplace importer (`scripts/from-marketplace-puf.js`) moved accumulator tier ids to `IN` and `OUT`.
+
+The warnings, all of them expected, are listed and explained in [`examples/fhir/VALIDATION.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/fhir/VALIDATION.md).

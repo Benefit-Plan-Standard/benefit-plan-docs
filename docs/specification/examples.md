@@ -39,25 +39,35 @@ https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples
 
 | File | Plan | State | Market | Metal level | Plan year | Schema | Benefits placed |
 |---|---|---|---|---|---|---|---|
-| `avmed-avmed-entrust-gold-125.puf.json` | AvMed, AvMed Entrust Gold 125 (2026) | FL | Individual | Gold | 2026 | v1.1.0 | 52 of 73 |
-| `blue-cross-and-blue-shield-of-louisiana-blue-max-copay-50-50.puf.json` | Blue Cross and Blue Shield of Louisiana, Blue Max Copay (PCP) 50/50 $3300 | LA | Individual | Silver | 2026 | v1.1.0 | 52 of 75 |
-| `florida-blue-blueoptions-gold-1505.puf.json` | Florida Blue, BlueOptions Gold 1505 | FL | Individual | Gold | 2023 | v1.1.0 | 52 of 75 |
-| `unitedhealthcare-uhc-bronze-essential.puf.json` | UnitedHealthcare, UHC Bronze Essential ($0 Virtual Urgent Care) | FL | Individual | Bronze | 2026 | v1.1.0 | 52 of 68 |
-| `unitedhealthcare-uhc-gold-standard.puf.json` | UnitedHealthcare, UHC Gold Standard | TX | Individual | Gold | 2026 | v1.1.0 | 52 of 68 |
+| `avmed-avmed-entrust-gold-125.puf.json` | AvMed, AvMed Entrust Gold 125 (2026) | FL | Individual | Gold | 2026 | v1.2.0 draft | 52 of 73 |
+| `blue-cross-and-blue-shield-of-louisiana-blue-max-copay-50-50.puf.json` | Blue Cross and Blue Shield of Louisiana, Blue Max Copay (PCP) 50/50 $3300 | LA | Individual | Silver | 2026 | v1.2.0 draft | 52 of 75 |
+| `florida-blue-blueoptions-gold-1505.puf.json` | Florida Blue, BlueOptions Gold 1505 | FL | Individual | Gold | 2023 | v1.2.0 draft | 52 of 75 |
+| `unitedhealthcare-uhc-bronze-essential.puf.json` | UnitedHealthcare, UHC Bronze Essential ($0 Virtual Urgent Care) | FL | Individual | Bronze | 2026 | v1.2.0 draft | 52 of 68 |
+| `unitedhealthcare-uhc-gold-standard.puf.json` | UnitedHealthcare, UHC Gold Standard | TX | Individual | Gold | 2026 | v1.2.0 draft | 52 of 68 |
 
-These 5 are produced by the importer, `scripts/from-marketplace-puf.js`, from 2 CMS files for the plan year: the Plan Attributes PUF and the Benefits and Cost Sharing PUF. No PDF is read, and the same files always give the same output. "Benefits placed" counts the plan's public-file rows that map to a canonical benefit key; the rest are listed by name in `source_references[]`. AvMed Entrust Gold 125 and Florida Blue Gold 1505 have a second in-network tier (`IN2`). How the importer works, and what the public files cannot carry, is on [CMS Marketplace public files](./marketplace-public-files.md).
+These 5 are produced by the Marketplace importer, `scripts/from-marketplace-puf.js`, from 3 CMS files for the plan year: the Plan Attributes PUF, the Benefits and Cost Sharing PUF and, since October 20, 2026, the Network PUF, which gives the provider directory link. Since that day the Marketplace importer writes Benefit Plan Standard schema 1.2.0 documents (it wrote 1.1.0 before), with the plan's HIOS identifiers in `plan_identifiers`. No PDF is read, and the same files always give the same output. "Benefits placed" counts the plan's public-file rows that map to a canonical benefit key; the rest are listed by name in `source_references[]`. AvMed Entrust Gold 125 and Florida Blue Gold 1505 have a second in-network tier (`IN2`). How the Marketplace importer works, and what the public files cannot carry, is on [CMS Marketplace public files](./marketplace-public-files.md).
 
 ### From the CMS Medicare Advantage PBP files
 
 | File | Plan | State | Market | Plan type | Contract year | Schema | Benefits placed |
 |---|---|---|---|---|---|---|---|
-| `unitedhealthcare-aarp-medicare-advantage-from-uhc-fl-0021.pbp.json` | UnitedHealthcare, AARP Medicare Advantage from UHC FL-0021 (PPO), H2406-013-000 | FL | Medicare Advantage | PPO | 2027 | v1.2.0 | 37 of 40 |
-| `humana-humana-gold-plus-h1036-068.pbp.json` | Humana, Humana Gold Plus H1036-068 (HMO), H1036-068-000 | FL | Medicare Advantage | HMO | 2027 | v1.2.0 | 37 of 40 |
-| `aetna-medicare-aetna-medicare-select-extra.pbp.json` | Aetna Medicare, Aetna Medicare Select Extra (HMO-POS), H1609-028-000 | FL | Medicare Advantage | HMO-POS | 2027 | v1.2.0 | 37 of 40 |
-| `upmc-for-life-upmc-for-life-ppo-rx-choice.pbp.json` | UPMC for Life, UPMC for Life PPO Rx Choice (PPO), H5533-019-000 | PA | Medicare Advantage | PPO | 2027 | v1.2.0 | 37 of 40 |
-| `scan-health-plan-scan-costco-medicare-advantage.pbp.json` | SCAN Health Plan, SCAN Costco Medicare Advantage (HMO), H5425-140-000 | CA | Medicare Advantage | HMO | 2027 | v1.2.0 | 37 of 40 |
+| `unitedhealthcare-aarp-medicare-advantage-from-uhc-fl-0021.pbp.json` | UnitedHealthcare, AARP Medicare Advantage from UHC FL-0021 (PPO), H2406-013-000 | FL | Medicare Advantage | PPO | 2027 | v1.2.0 draft | 38 of 41 |
+| `humana-humana-gold-plus-h1036-068.pbp.json` | Humana, Humana Gold Plus H1036-068 (HMO), H1036-068-000 | FL | Medicare Advantage | HMO | 2027 | v1.2.0 draft | 38 of 41 |
+| `aetna-medicare-aetna-medicare-select-extra.pbp.json` | Aetna Medicare, Aetna Medicare Select Extra (HMO-POS), H1609-028-000 | FL | Medicare Advantage | HMO-POS | 2027 | v1.2.0 draft | 38 of 41 |
+| `upmc-for-life-upmc-for-life-ppo-rx-choice.pbp.json` | UPMC for Life, UPMC for Life PPO Rx Choice (PPO), H5533-019-000 | PA | Medicare Advantage | PPO | 2027 | v1.2.0 draft | 38 of 41 |
+| `scan-health-plan-scan-costco-medicare-advantage.pbp.json` | SCAN Health Plan, SCAN Costco Medicare Advantage (HMO), H5425-140-000 | CA | Medicare Advantage | HMO | 2027 | v1.2.0 draft | 38 of 41 |
 
-These 5 are produced by the importer, `scripts/from-pbp.js`, from the CMS PBP Benefits files for contract year 2027. No PDF is read, and the same files always give the same output. "Benefits placed" counts the entries in `benefits[]` out of the 40 service categories in the importer's crosswalk; the other 3 are the hearing aid rows for a single aid type, written only when a plan chooses that type. Two of the 5, UnitedHealthcare H2406-013 and Aetna H1609-028, were checked against the carrier's 2027 Summary of Benefits with 0 differences. How the importer works, and what the PBP files cannot carry, is on [CMS Medicare Advantage PBP files](./medicare-advantage-pbp.md).
+These 5 are produced by the Medicare Advantage importer, `scripts/from-pbp.js`, from the CMS PBP Benefits files for contract year 2027. No PDF is read, and the same files always give the same output. "Benefits placed" counts the entries in `benefits[]` out of the 41 service categories in the Medicare Advantage importer's crosswalk, preventive services (category 14a) among them since October 20, 2026; the other 3 are the hearing aid rows for a single aid type, written only when a plan chooses that type. Two of the 5, UnitedHealthcare H2406-013 and Aetna H1609-028, were checked against the carrier's 2027 Summary of Benefits: 0 differences on UnitedHealthcare, and on Aetna 0 on cost shares and 2 on web addresses, where the Summary of Benefits and the PBP file give different addresses. How the Medicare Advantage importer works, and what the PBP files cannot carry, is on [CMS Medicare Advantage PBP files](./medicare-advantage-pbp.md).
+
+### Validating the examples
+
+All 20 examples validate against the Benefit Plan Standard schema 1.2.0 draft. From the Benefit Plan Standard schema repository,
+
+```bash
+node scripts/validate.js --schema schema/v1.2.0/benefit-plan.schema.json examples/*.json
+```
+
+prints 20 PASS. Without `--schema`, `scripts/validate.js` checks against Benefit Plan Standard schema 1.1.0, the latest final release, which the 8 SBC examples declare. The other 12 (the 2 read from the Summary of Benefits and the 10 written by the Marketplace importer and the Medicare Advantage importer) declare 1.2.0 and validate against the draft only.
 
 ### FHIR Bundles
 

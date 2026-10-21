@@ -6,16 +6,17 @@ sidebar_label: Marketplace public files
 
 # CMS Marketplace public files to the Benefit Plan Standard
 
-The schema repository includes an importer, `scripts/from-marketplace-puf.js`, that reads 2 public files published by CMS and writes 1 Benefit Plan Standard (BPS) document per plan. It is the first importer for the standard. Anyone can run it locally; it needs Node.js, the `ajv` and `ajv-formats` packages that the validator also uses, and the 2 files.
+The Benefit Plan Standard schema repository includes the Marketplace importer, `scripts/from-marketplace-puf.js`, which reads 3 public files published by CMS and writes 1 Benefit Plan Standard (BPS) document per plan. It is the first importer for the standard. Anyone can run it locally; it needs Node.js, the `ajv` and `ajv-formats` packages that the validator also uses, and the 3 files.
 
 Where this importer sits beside the Medicare Advantage importer and the FHIR converter, with every command, is on [How the data flows](./data-flow.md).
 
-## The 2 public files
+## The 3 public files
 
-CMS publishes the Health Insurance Exchange public use files (PUFs) for each plan year on its [public use files page](https://www.cms.gov/marketplace/resources/data/public-use-files). The importer reads 2 of them:
+CMS publishes the Health Insurance Exchange public use files (PUFs) for each plan year on its [public use files page](https://www.cms.gov/marketplace/resources/data/public-use-files). The Marketplace importer reads 3 of them:
 
 - **Plan Attributes PUF.** 1 row per plan variant: names, issuer, plan type, metal level, market, dates, deductibles and out-of-pocket maximums, in 151 columns.
 - **Benefits and Cost Sharing PUF.** 1 row per plan variant per benefit: whether the benefit is covered, the copay and coinsurance for in-network tier 1, in-network tier 2 and out of network, any quantity limit, and free-text exclusions and explanations.
+- **Network PUF.** 1 row per plan year, state, issuer, network and market, in 10 columns (548 rows in plan year 2026): the network's name and the address of its provider directory. The Marketplace importer reads it since October 20, 2026, and it is required. A plan's row is the one whose `BusinessYear`, `StateCode`, `IssuerId`, `NetworkId` and `MarketCoverage` are the plan's, because a network id alone is not unique (75 network ids of plan year 2026 belong to more than 1 issuer). Every one of the 20,670 medical plan variants of plan year 2026 has its row.
 
 The files cover only the states that use the federal platform for a given plan year: states on the Federally-facilitated Exchange (including those doing their own plan management) and State-based Exchanges that use the federal platform. States that run their own platform, such as California and New York, are not in them. Plan year 2026 covers 30 states: AK, AL, AR, AZ, DE, FL, HI, IA, IN, KS, LA, MI, MO, MS, MT, NC, ND, NE, NH, OH, OK, OR, SC, SD, TN, TX, UT, WI, WV and WY. The list changes from year to year, so check the year's general information document on the CMS page.
 
@@ -23,7 +24,14 @@ The files are not in the repository. You download them into `data/puf/<year>/`, 
 
 ## What the importer produces
 
-1 plan variant in, 1 BPS v1.1.0 document out. The document is checked against the v1.1.0 schema before it is written; a document that fails is not written. Medical plans only: a stand-alone dental plan is refused.
+1 plan variant in, 1 Benefit Plan Standard schema 1.2.0 document out (1.1.0 until October 20, 2026). The Marketplace importer checks the document against the Benefit Plan Standard schema 1.2.0 draft before it writes it; a document that fails is not written. Medical plans only: a stand-alone dental plan is refused.
+
+The Benefit Plan Standard schema 1.2.0 draft gives the Marketplace importer fields that 1.1.0 lacks:
+
+- **`plan_identifiers`**, with 2 systems: `hios_plan_id`, the 17-character `PlanId` with its variant (`68398FL0030058-01`), which is the plan key, and `hios_id`, the 14-character `StandardComponentId` (`68398FL0030058`).
+- **`provider_directory_url`** on the in-network tier, from the Network PUF's `NetworkURL`, written when it is a URI with its scheme.
+
+Each accumulator's `network_tier` is the `tier_id` of its tier, `IN` or `OUT`, as the Medicare Advantage importer (`scripts/from-pbp.js`) writes it. The Marketplace importer wrote `in-network` and `out-of-network` until October 21, 2026.
 
 The importer never adds a value the files do not contain. A cost-share string it cannot read stops the import for that plan, with the string quoted, rather than being guessed. A value with no BPS field is kept as text in `source_references[]` or in a tier's `notes`, so nothing is dropped without a trace.
 
@@ -31,14 +39,25 @@ The importer never adds a value the files do not contain. A cost-share string it
 
 ## From the public files to a FHIR Bundle
 
-First, once per plan year, download and unzip the 2 files into `data/puf/<year>/` and record the download date in `data/puf/<year>/download.json` (for example `{"downloaded": "2026-10-05"}`). The [importer spec](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/specs/marketplace-puf-importer.md), section 11, gives the exact steps. Then, from the schema repository:
+First, once per plan year, download and unzip the 3 files into `data/puf/<year>/`. The [Marketplace importer spec](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/specs/marketplace-puf-importer.md), section 11, gives the exact steps:
+
+```bash
+mkdir -p data/puf/2026 && cd data/puf/2026
+curl -O https://download.cms.gov/marketplace-puf/2026/plan-attributes-puf.zip
+curl -O https://download.cms.gov/marketplace-puf/2026/benefits-and-cost-sharing-puf.zip
+curl -O https://download.cms.gov/marketplace-puf/2026/network-puf.zip
+unzip plan-attributes-puf.zip && unzip benefits-and-cost-sharing-puf.zip && unzip network-puf.zip
+cd ../../..
+```
+
+Then record the download dates in `data/puf/<year>/download.json`. `downloaded` is the date of the 3 files, and `downloaded_files` gives 1 file its own date, by zip name, when it was downloaded on another day: the examples were written with `{"downloaded": "2026-10-05", "downloaded_files": {"network-puf.zip": "2026-10-20"}}`. The Marketplace importer writes each file's download date, and the `ImportDate` each file gives (`10/15/2025` in the plan year 2026 Plan Attributes PUF, `2025-10-15` in the other 2), into the document's first `source_references` excerpt. Then, from the Benefit Plan Standard schema repository:
 
 ```bash
 # 1. Import 1 plan variant (here UnitedHealthcare, UHC Gold Standard, Texas, plan year 2026)
 node scripts/from-marketplace-puf.js --year 2026 --plan 40220TX0080024-01 --out plan.json
 
-# 2. Validate the BPS document (v1.1.0 schema and vocabularies)
-node scripts/validate.js plan.json
+# 2. Validate the BPS document (v1.2.0 schema and vocabularies)
+node scripts/validate.js --schema schema/v1.2.0/benefit-plan.schema.json plan.json
 
 # 3. Convert it to a FHIR Bundle; the Bundle is written to stdout
 node scripts/to-insuranceplan.js plan.json > plan.insuranceplan.json
@@ -56,7 +75,9 @@ To find a plan ID, list an issuer's plans in a state:
 node scripts/from-marketplace-puf.js --year 2026 --issuer 40220 --state TX
 ```
 
-An import takes about 7 seconds for plan year 2026, because it streams both files. The same 2 files and download date always give byte-identical output.
+`scripts/validate.js` checks against Benefit Plan Standard schema 1.1.0, the latest final release, unless `--schema` names another version, so a document from the Marketplace importer needs `--schema schema/v1.2.0/benefit-plan.schema.json` since October 20, 2026.
+
+An import with the Marketplace importer takes about 7 seconds for plan year 2026, because it streams the 3 files. The same 3 files and download dates always give byte-identical output.
 
 ## The benefit crosswalk
 
@@ -99,17 +120,18 @@ Some BPS fields have nothing to fill them in the public files:
 - **No page numbers.** The files are tables, not documents, so every source reference is text with no page.
 - No coverage period separate from the plan dates, and no place of service.
 
-Going the other way, the public files carry things BPS v1.1.0 has no field for. The importer keeps each one as text in `source_references[]` (or, for explanations, as a condition):
+Going the other way, the public files carry things the Benefit Plan Standard schema 1.2.0 draft has no field for, or has a field for that the Marketplace importer does not write yet. The Marketplace importer keeps each one as text in `source_references[]` (or, for explanations, as a condition):
 
-- the HIOS plan ID (the v1.2.0 draft adds `plan_identifiers`);
 - metal level, cost-sharing reduction variation and HSA eligibility;
 - tier 2 accumulators, and accumulators combined across in and out of network;
-- a separate drug deductible and out-of-pocket maximum (the v1.2.0 draft adds a `pharmacy` object);
+- a separate drug deductible and out-of-pocket maximum (the Benefit Plan Standard schema 1.2.0 draft has `pharmacy.deductible` and `pharmacy.out_of_pocket_max`, which the Marketplace importer does not write yet);
 - a family per-person amount with no family total;
 - the plan's default coinsurance;
 - benefit-level explanation text (no benefit notes field);
 - network, service area and formulary IDs;
 - "first N visits" cost-share rules and a cap on the number of per-day inpatient copays.
+
+On October 20, 2026, when the Marketplace importer moved to the Benefit Plan Standard schema 1.2.0 draft, the HIOS plan ID left this list for `plan_identifiers`, and the provider directory address, from the Network PUF that the Marketplace importer now reads, is written to the in-network tier's `provider_directory_url`.
 
 The essential health benefit flag is not carried at all. The full list, with each workaround, is in section 9 of the [importer spec](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/specs/marketplace-puf-importer.md#9-schema-gaps-found).
 

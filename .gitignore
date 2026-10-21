@@ -25,3 +25,4 @@ Thumbs.db
 *.swp
 
 generateCrosswalkJson.js
+debug.log

@@ -10,7 +10,7 @@ Two public CMS inputs, each read by its own importer, become one Benefit Plan St
 
 <svg width="100%" viewBox="0 0 1100 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="bps-flow-title bps-flow-desc" style={{maxWidth: '1100px', height: 'auto', display: 'block', margin: '1.5rem 0'}}>
   <title id="bps-flow-title">How the data flows: from CMS files to FHIR</title>
-  <desc id="bps-flow-desc">The CMS Marketplace public use files are read by from-marketplace-puf.js and the CMS Medicare Advantage plan benefit package files are read by from-pbp.js. Both write a Benefit Plan Standard document. to-insuranceplan.js converts the document into an InsurancePlan in the CARIN Digital Insurance Card profile, FHIR R4, one file per plan.</desc>
+  <desc id="bps-flow-desc">The CMS Marketplace public use files are read by from-marketplace-puf.js and the CMS Medicare Advantage plan benefit package files are read by from-pbp.js. Both write a Benefit Plan Standard document on the Benefit Plan Standard schema 1.2.0 draft. to-insuranceplan.js converts the document into an InsurancePlan in the CARIN Digital Insurance Card profile, FHIR R4, one file per plan.</desc>
   <defs>
     <marker id="bps-flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#7dd3fc" />
@@ -19,8 +19,8 @@ Two public CMS inputs, each read by its own importer, become one Benefit Plan St
   <rect x="20" y="40" width="250" height="130" rx="18" fill="#0f172a" stroke="rgba(148,163,184,0.35)" strokeWidth="1.5" />
   <text x="145" y="85" textAnchor="middle" fill="#f9fafb" fontSize="17" fontWeight="600">CMS Marketplace</text>
   <text x="145" y="108" textAnchor="middle" fill="#f9fafb" fontSize="17" fontWeight="600">public use files</text>
-  <text x="145" y="135" textAnchor="middle" fill="#cbd5f5" fontSize="13">Plan Attributes PUF</text>
-  <text x="145" y="153" textAnchor="middle" fill="#cbd5f5" fontSize="13">Benefits and Cost Sharing PUF</text>
+  <text x="145" y="135" textAnchor="middle" fill="#cbd5f5" fontSize="13">Plan Attributes, Benefits and</text>
+  <text x="145" y="153" textAnchor="middle" fill="#cbd5f5" fontSize="13">Cost Sharing, and Network PUFs</text>
   <rect x="20" y="250" width="250" height="130" rx="18" fill="#0f172a" stroke="rgba(148,163,184,0.35)" strokeWidth="1.5" />
   <text x="145" y="295" textAnchor="middle" fill="#f9fafb" fontSize="17" fontWeight="600">CMS Medicare Advantage</text>
   <text x="145" y="318" textAnchor="middle" fill="#f9fafb" fontSize="17" fontWeight="600">plan benefit package files</text>
@@ -38,8 +38,8 @@ Two public CMS inputs, each read by its own importer, become one Benefit Plan St
   <text x="585" y="170" textAnchor="middle" fill="#f9fafb" fontSize="18" fontWeight="600">Benefit Plan Standard</text>
   <text x="585" y="194" textAnchor="middle" fill="#f9fafb" fontSize="18" fontWeight="600">document</text>
   <text x="585" y="224" textAnchor="middle" fill="#cbd5f5" fontSize="13">JSON, one per plan</text>
-  <text x="585" y="250" textAnchor="middle" fill="#cbd5f5" fontSize="13">Schema v1.1.0 (current)</text>
-  <text x="585" y="268" textAnchor="middle" fill="#cbd5f5" fontSize="13">v1.2.0 draft for Medicare Advantage</text>
+  <text x="585" y="250" textAnchor="middle" fill="#cbd5f5" fontSize="13">Schema v1.2.0 draft</text>
+  <text x="585" y="268" textAnchor="middle" fill="#cbd5f5" fontSize="13">v1.1.0: latest final release</text>
   <line x1="702" y1="210" x2="866" y2="210" stroke="#7dd3fc" strokeWidth="2" markerEnd="url(#bps-flow-arrow)" />
   <a href="/docs/specification/fhir-insuranceplan">
     <text x="784" y="198" textAnchor="middle" fill="#38bdf8" fontSize="13" fontFamily="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" textDecoration="underline">to-insuranceplan.js</text>
@@ -65,7 +65,8 @@ npm install ajv ajv-formats     # one time
 mkdir -p data/puf/2026 && cd data/puf/2026
 curl -O https://download.cms.gov/marketplace-puf/2026/plan-attributes-puf.zip
 curl -O https://download.cms.gov/marketplace-puf/2026/benefits-and-cost-sharing-puf.zip
-unzip plan-attributes-puf.zip && unzip benefits-and-cost-sharing-puf.zip
+curl -O https://download.cms.gov/marketplace-puf/2026/network-puf.zip
+unzip plan-attributes-puf.zip && unzip benefits-and-cost-sharing-puf.zip && unzip network-puf.zip
 cd ../../..
 
 # CMS Medicare Advantage PBP Benefits files, once per contract year
@@ -75,11 +76,11 @@ unzip pbp-benefits-2027.zip
 cd ../../..
 ```
 
-Record the download date in `data/puf/2026/download.json` (`{"downloaded": "YYYY-MM-DD"}`) and in `data/pbp/2027/download.json` (`{"downloaded": "YYYY-MM-DD", "release_label": "PBP Benefits-2027"}`). Explained on [CMS Marketplace public files](./marketplace-public-files.md#the-2-public-files) and [CMS Medicare Advantage PBP files](./medicare-advantage-pbp.md#the-cms-file).
+Record the download dates in `data/puf/2026/download.json` (`{"downloaded": "YYYY-MM-DD"}`, with `"downloaded_files": {"network-puf.zip": "YYYY-MM-DD"}` when the Network PUF was downloaded on another day) and in `data/pbp/2027/download.json` (`{"downloaded": "YYYY-MM-DD", "release_label": "PBP Benefits-2027"}`). The Marketplace importer needs all 3 Marketplace files. Explained on [CMS Marketplace public files](./marketplace-public-files.md#the-3-public-files) and [CMS Medicare Advantage PBP files](./medicare-advantage-pbp.md#the-cms-file).
 
 ## Import Marketplace
 
-List an issuer's plans in a state, then import one plan variant into a BPS v1.1.0 document:
+List an issuer's plans in a state, then import one plan variant with the Marketplace importer into a document on the Benefit Plan Standard schema 1.2.0 draft (the Marketplace importer wrote 1.1.0 until October 20, 2026):
 
 ```bash
 node scripts/from-marketplace-puf.js --year 2026 --issuer 40220 --state TX
@@ -112,10 +113,10 @@ Explained on [FHIR InsurancePlan](./fhir-insuranceplan.md#running-the-converter-
 
 ## Validate
 
-Check each BPS document against the schema version it declares, then check the Bundles with the HL7 FHIR validator against the CARIN Digital Insurance Card ballot package:
+Check each document against the Benefit Plan Standard schema 1.2.0 draft, which the Marketplace importer and the Medicare Advantage importer both write (`scripts/validate.js` checks against 1.1.0, the latest final release, unless `--schema` names another version), then check the Bundles with the HL7 FHIR validator against the CARIN Digital Insurance Card ballot package:
 
 ```bash
-node scripts/validate.js plan.json
+node scripts/validate.js --schema schema/v1.2.0/benefit-plan.schema.json plan.json
 node scripts/validate.js --schema schema/v1.2.0/benefit-plan.schema.json h2406.json
 
 java -Dfile.encoding=UTF-8 -jar validator_cli.jar -version 4.0.1 \
