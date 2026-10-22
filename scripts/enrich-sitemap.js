@@ -13,7 +13,11 @@
  * If you add a normal docs page, Docusaurus handles it and you do nothing.
  *
  * This script also stamps <lastmod> on every entry (Google uses it to prioritise
- * recrawling) and raises <priority> on the pages that matter most.
+ * recrawling) and raises <priority> on the pages that matter most. <lastmod> is the
+ * date of the last commit that touched the page's source, read from git, so a page
+ * that did not change keeps its old date across rebuilds; a page whose source cannot
+ * be found (or a shallow checkout with no history) falls back to the build date.
+ * The deploy workflow checks out with fetch-depth 0 for this reason.
  *
  * Runs automatically as part of `npm run build`.
  */
@@ -22,6 +26,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
 
 const SITE_URL = 'https://benefitplanstandard.org';
 const SITEMAP = path.join(__dirname, '..', 'build', 'sitemap.xml');
@@ -54,7 +59,52 @@ if (!fs.existsSync(SITEMAP)) {
 }
 
 const raw = fs.readFileSync(SITEMAP, 'utf8');
-const lastmod = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+const buildDate = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+const ROOT = path.join(__dirname, '..');
+
+// Source files behind each URL path. Docs pages come from the metadata Docusaurus
+// writes during the build (.docusaurus/.../site-docs-*.json: permalink -> source),
+// so a page whose frontmatter sets an id or slug still maps to its file.
+// The home page and the static pages are listed by hand.
+const SOURCES_BY_PATH = {
+  '/': ['src/pages/index.js', 'src/pages/index.module.css', 'src/components'],
+  '/why': ['static/why.html', 'static/why'],
+};
+const DOCS_META_DIR = path.join(ROOT, '.docusaurus', 'docusaurus-plugin-content-docs', 'default');
+if (fs.existsSync(DOCS_META_DIR)) {
+  for (const name of fs.readdirSync(DOCS_META_DIR)) {
+    if (!name.startsWith('site-docs-') || !name.endsWith('.json')) continue;
+    try {
+      const meta = JSON.parse(fs.readFileSync(path.join(DOCS_META_DIR, name), 'utf8'));
+      if (meta.permalink && typeof meta.source === 'string') {
+        SOURCES_BY_PATH[meta.permalink.replace(/\/$/, '') || '/'] = [meta.source.replace(/^@site\//, '')];
+      }
+    } catch (_) { /* a file that is not page metadata */ }
+  }
+}
+
+// Last commit date (YYYY-MM-DD) across the given paths, or null when git has none.
+function gitLastDate(paths) {
+  const existing = paths.filter((p) => fs.existsSync(path.join(ROOT, p)));
+  if (existing.length === 0) return null;
+  try {
+    const out = execFileSync('git', ['log', '-1', '--format=%cs', '--', ...existing], {
+      cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(out) ? out : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+const lastmodCache = new Map();
+function lastmodFor(pathname) {
+  if (lastmodCache.has(pathname)) return lastmodCache.get(pathname);
+  const sources = SOURCES_BY_PATH[pathname];
+  const date = (sources && gitLastDate(sources)) || buildDate;
+  lastmodCache.set(pathname, date);
+  return date;
+}
 
 // Pull every existing <url>…</url> block out of the generated sitemap.
 const blocks = raw.match(/<url>[\s\S]*?<\/url>/g) || [];
@@ -69,7 +119,7 @@ const entries = blocks.map((block) => {
     PRIORITY_OVERRIDES[pathname] ||
     (block.match(/<priority>([^<]*)<\/priority>/) || [])[1] ||
     '0.5';
-  return { loc, changefreq, priority };
+  return { loc, changefreq, priority, lastmod: lastmodFor(pathname) };
 }).filter(Boolean);
 
 const known = new Set(entries.map((e) => e.loc));
@@ -79,7 +129,7 @@ let added = 0;
 for (const extra of EXTRA_PAGES) {
   const loc = `${SITE_URL}${extra.path}`;
   if (known.has(loc)) continue;
-  entries.push({ loc, changefreq: extra.changefreq, priority: extra.priority });
+  entries.push({ loc, changefreq: extra.changefreq, priority: extra.priority, lastmod: lastmodFor(extra.path) });
   known.add(loc);
   added += 1;
 }
@@ -99,7 +149,7 @@ const xml =
       (e) =>
         '  <url>\n' +
         `    <loc>${e.loc}</loc>\n` +
-        `    <lastmod>${lastmod}</lastmod>\n` +
+        `    <lastmod>${e.lastmod}</lastmod>\n` +
         `    <changefreq>${e.changefreq}</changefreq>\n` +
         `    <priority>${e.priority}</priority>\n` +
         '  </url>'
@@ -111,5 +161,6 @@ fs.writeFileSync(SITEMAP, xml, 'utf8');
 
 console.log(
   `[enrich-sitemap] ${entries.length} URLs written ` +
-    `(${added} static page${added === 1 ? '' : 's'} added, lastmod ${lastmod})`
+    `(${added} static page${added === 1 ? '' : 's'} added; lastmod from git, ` +
+    `${entries.filter((e) => e.lastmod !== buildDate).length} dated before today)`
 );
