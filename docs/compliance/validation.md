@@ -92,10 +92,10 @@ The schema deliberately does **not** hard-code the controlled vocabularies as en
 
 Instead, the recommended values live as versioned lists in [`/vocabularies`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/vocabularies):
 
-- `canonical-benefits.json` — 100 canonical benefit keys (`primary_care`, `imaging_advanced`, …)
-- `categories.json` — 25 benefit categories (`PHYSICIAN_SERVICES`, `EMERGENCY_CARE`, …)
-- `markets.json` — market segments
-- `plan-types.json` — plan types
+- `canonical-benefits.json`: 124 canonical benefit keys in version 1.4.0 (`primary_care`, `imaging_advanced`, …)
+- `categories.json`: 25 benefit categories (`PHYSICIAN_SERVICES`, `EMERGENCY_CARE`, …)
+- `markets.json`: market segments
+- `plan-types.json`: plan types
 
 Using these values is what makes plans from different carriers *comparable* rather than merely *parseable*. The included script checks them and reports non-canonical values as warnings. If your documents need a term the vocabulary lacks, that is a pull request, not a fork.
 

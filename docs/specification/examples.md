@@ -6,7 +6,7 @@ sidebar_label: Examples
 
 # Example JSON Plans
 
-Below are real-world example benefit plans structured using the **Benefit Plan Standard**. 10 were read from a published plan document and verified value by value against it; the source PDFs ship alongside the examples in `examples/sources/`. 5 more were imported from the CMS Marketplace public use files, and 5 from the CMS Medicare Advantage Plan Benefit Package (PBP) files.
+Below are real-world example benefit plans structured using the **Benefit Plan Standard**. 10 were read from a published plan document and verified value by value against it; the source PDFs ship alongside the examples in `examples/sources/`. 5 more were imported from the CMS Marketplace public use files, and 7 from the CMS Plan Benefit Package (PBP) files: 5 Medicare Advantage plans and, since October 24, 2026, 2 stand-alone Medicare Part D plans.
 
 These examples help developers, carriers, and vendors understand how to implement the schema correctly.
 
@@ -56,18 +56,20 @@ These 5 are produced by the Marketplace importer, `scripts/from-marketplace-puf.
 | `aetna-medicare-aetna-medicare-select-extra.pbp.json` | Aetna Medicare, Aetna Medicare Select Extra (HMO-POS), H1609-028-000 | FL | Medicare Advantage | HMO-POS | 2027 | v1.2.0 draft | 38 of 41 |
 | `upmc-for-life-upmc-for-life-ppo-rx-choice.pbp.json` | UPMC for Life, UPMC for Life PPO Rx Choice (PPO), H5533-019-000 | PA | Medicare Advantage | PPO | 2027 | v1.2.0 draft | 38 of 41 |
 | `scan-health-plan-scan-costco-medicare-advantage.pbp.json` | SCAN Health Plan, SCAN Costco Medicare Advantage (HMO), H5425-140-000 | CA | Medicare Advantage | HMO | 2027 | v1.2.0 draft | 38 of 41 |
+| `unitedhealthcare-aarp-medicare-rx-preferred-from-uhc.pbp.json` | UnitedHealthcare, AARP Medicare Rx Preferred from UHC (PDP), S5921-383-000 | FL | Medicare Part D | PDP | 2027 | v1.2.0 draft | Part D only |
+| `wellcare-wellcare-value-script.pbp.json` | Wellcare, Wellcare Value Script (PDP), S4802-146-000 | FL | Medicare Part D | PDP | 2027 | v1.2.0 draft | Part D only |
 
-These 5 are produced by the Medicare Advantage importer, `scripts/from-pbp.js`, from the CMS PBP Benefits files for contract year 2027. No PDF is read, and the same files always give the same output. "Benefits placed" counts the entries in `benefits[]` out of the 41 service categories in the Medicare Advantage importer's crosswalk, preventive services (category 14a) among them since October 20, 2026; the other 3 are the hearing aid rows for a single aid type, written only when a plan chooses that type. Two of the 5, UnitedHealthcare H2406-013 and Aetna H1609-028, were checked against the carrier's 2027 Summary of Benefits: 0 differences on UnitedHealthcare, and on Aetna 0 on cost shares and 2 on web addresses, where the Summary of Benefits and the PBP file give different addresses. How the Medicare Advantage importer works, and what the PBP files cannot carry, is on [CMS Medicare Advantage PBP files](./medicare-advantage-pbp.md).
+These 7 are produced by the Medicare Advantage importer, `scripts/from-pbp.js`, from the CMS PBP Benefits files for contract year 2027. No PDF is read, and the same files always give the same output. "Benefits placed" counts the entries in `benefits[]` out of the 41 service categories in the Medicare Advantage importer's crosswalk, preventive services (category 14a) among them since October 20, 2026; the other 3 are the hearing aid rows for a single aid type, written only when a plan chooses that type. Since October 24, 2026 each of the 5 Medicare Advantage examples also carries its Part D benefit (33 to 67 Part D benefits after the 38 medical ones), and the 2 Part D plans carry only theirs (41 and 70). Two of the 5, UnitedHealthcare H2406-013 and Aetna H1609-028, were checked against the carrier's 2027 Summary of Benefits: 0 differences on UnitedHealthcare, and on Aetna 0 on cost shares and 2 on web addresses, where the Summary of Benefits and the PBP file give different addresses. On Part D, Humana H1036-068 and the UnitedHealthcare Part D plan S5921-383 were checked the same way, with 0 differences. How the Medicare Advantage importer works, and what the PBP files cannot carry, is on [CMS Medicare Advantage PBP files](./medicare-advantage-pbp.md).
 
 ### Validating the examples
 
-All 20 examples validate against the Benefit Plan Standard schema 1.2.0 draft. From the Benefit Plan Standard schema repository,
+All 22 examples validate against the Benefit Plan Standard schema 1.2.0 draft. From the Benefit Plan Standard schema repository,
 
 ```bash
 node scripts/validate.js --schema schema/v1.2.0/benefit-plan.schema.json examples/*.json
 ```
 
-prints 20 PASS. Without `--schema`, `scripts/validate.js` checks against Benefit Plan Standard schema 1.1.0, the latest final release, which the 8 SBC examples declare. The other 12 (the 2 read from the Summary of Benefits and the 10 written by the Marketplace importer and the Medicare Advantage importer) declare 1.2.0 and validate against the draft only.
+prints 22 PASS. Without `--schema`, `scripts/validate.js` checks against Benefit Plan Standard schema 1.1.0, the latest final release, which the 8 SBC examples declare. The other 14 (the 2 read from the Summary of Benefits and the 12 written by the Marketplace importer and the Medicare Advantage importer) declare 1.2.0 and validate against the draft only.
 
 ### FHIR Bundles
 
