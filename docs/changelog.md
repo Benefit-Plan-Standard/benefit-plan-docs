@@ -44,9 +44,9 @@ No schema change.
 
 ## [Unreleased]: v1.2.0 draft
 
-**Status:** draft, tagged [`v1.2.0-draft.1`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.2.0-draft.1) on 2026-09-20, and `v1.2.0-draft.2` to `v1.2.0-draft.5` on 2026-10-21. Not a release. Every v1.0.0 and v1.1.0 document validates against it unchanged; every addition is optional. A final v1.2.0 release needs validation by two independent adopters, per the [governance policy](/docs/governance/versioning-release-policy). Full field-by-field detail with page evidence: [the changelog in the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md).
+**Status:** draft, tagged [`v1.2.0-draft.1`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.2.0-draft.1) on 2026-09-20, `v1.2.0-draft.2` to `v1.2.0-draft.5` on 2026-10-21, and `v1.2.0-draft.6` on 2026-10-24, which wires the pharmacy module v0.2.1 into core and adds `moop_ref`. Not a release. Every v1.0.0 and v1.1.0 document validates against it unchanged; every addition is optional. A final v1.2.0 release needs validation by two independent adopters, per the [governance policy](/docs/governance/versioning-release-policy). Full field-by-field detail with page evidence: [the changelog in the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md).
 
-The draft carries three additive blocks.
+The draft carries four additive blocks.
 
 ### Added, 2026-07-02: alignment with the HL7 CARIN Digital Insurance Card IG
 Reconciles the three `InsurancePlan` changes merged into the CARIN IG on June 25, 2026 (FHIR-57525 multi-tier cost sharing, FHIR-57526 deductible applicability, FHIR-57527 structured benefit limitation).
@@ -70,6 +70,13 @@ For the medical MVP technical specification of the CMS Health Tech Ecosystem Rea
 - `network_tiers[].provider_directory_url` (string, format `uri`): a link a member can open to the plan's provider directory for this tier. An address with no scheme is not a URI; it is quoted in `source_references` and not written.
 - Changed on 2026-10-21: the 2 `network_tier` descriptions, on the deductible and the out-of-pocket maximum accumulators, say the value is the `tier_id` of a tier in `network_tiers` (`IN`, `OUT`, `POS` or another tier id the document defines). The type is unchanged.
 - **Vocabulary (non-normative):** `canonical-benefits.json` version 1.3.0, 118 entries, with `physical_and_speech_therapy`.
+
+### Added, 2026-10-24: the pharmacy module v0.2.1 in core, and `moop_ref` (draft 6)
+Every field is optional; the 20 examples validate unchanged.
+- The core `pharmacy` object gains the rest of the module's: `formulary_tiers`, `pharmacy_networks`, `formulary_items`, `formulary_reference` and `mail_order_supply_multiplier`, with the module's shapes copied into the core schema, so a validator needs only the core file.
+- `benefits[]` items gain the module's benefit extension fields for `benefit_type: "pharmacy"`: `formulary_tier_id`, `pharmacy_network_id`, `coverage_stage_id`, `day_supply`, `drug_examples`, `step_therapy_required` and `quantity_limit`. The validator warns, and does not fail, when one is on another benefit type or names an id the plan's `pharmacy` object does not define.
+- `cost_shares[].moop_ref` says which out-of-pocket maximum `applies_to_moop` refers to, as `deductible_ref` does for the deductible: `medical` or `pharmacy` (the Part D threshold); absent means medical. The gap was found by RxCare on October 23, 2026.
+- The first adopter is on record in [ADOPTERS.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md) in the schema repository.
 
 ### Deferred from this draft
 - Optional supplemental packages (riders): a name, a premium, and the benefits that apply only when a member buys the package.
