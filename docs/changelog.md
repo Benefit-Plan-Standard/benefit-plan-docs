@@ -85,7 +85,7 @@ Every field is optional; the 20 examples validate unchanged.
 - The core `pharmacy` object gains the rest of the module's: `formulary_tiers`, `pharmacy_networks`, `formulary_items`, `formulary_reference` and `mail_order_supply_multiplier`, with the module's shapes copied into the core schema, so a validator needs only the core file.
 - `benefits[]` items gain the module's benefit extension fields for `benefit_type: "pharmacy"`: `formulary_tier_id`, `pharmacy_network_id`, `coverage_stage_id`, `day_supply`, `drug_examples`, `step_therapy_required` and `quantity_limit`. The validator warns, and does not fail, when one is on another benefit type or names an id the plan's `pharmacy` object does not define.
 - `cost_shares[].moop_ref` says which out-of-pocket maximum `applies_to_moop` refers to, as `deductible_ref` does for the deductible: `medical` or `pharmacy` (the Part D threshold); absent means medical. The gap was found by RxCare on October 23, 2026.
-- The first adopter is on record in [ADOPTERS.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md) in the schema repository.
+- Two adopters are on record in [ADOPTERS.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md) in the schema repository: [RxCare](https://rxcare.ai) (October 23, 2026) and [MyDigiRecords](https://mydigirecords.com) (October 26, 2026). That meets the release rule's adopter condition.
 
 ### Deferred from this draft
 - Optional supplemental packages (riders): a name, a premium, and the benefits that apply only when a member buys the package.

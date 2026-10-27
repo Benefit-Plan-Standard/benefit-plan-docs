@@ -53,7 +53,7 @@ See the [changelog](/docs/changelog) for the field list and the schema repositor
 
 ### What would make it a release
 
-- Validation by two independent adopters, per the [versioning and release policy](/docs/governance/versioning-release-policy).
+- Validation by two independent adopters, per the [versioning and release policy](/docs/governance/versioning-release-policy). Met: [RxCare](https://rxcare.ai) and [MyDigiRecords](https://mydigirecords.com), recorded in [ADOPTERS.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md).
 - More Medicare Advantage plans and plan types worked through, beyond the first two read from the Summary of Benefits and the 5 imported from the PBP files.
 - The reference implementation producing v1.2.0 output for the existing SBC corpus with no result changes.
 

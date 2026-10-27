@@ -19,7 +19,7 @@ This roadmap outlines planned features and releases for the Benefit Plan Standar
 
 ## Medium Term (2026–2027)
 
-- **Release v1.2.0, and ship the pharmacy module's formulary layer** — Take v1.2.0 from draft to release once two adopters have validated it (adopters are recorded in [ADOPTERS.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md) in the schema repository); complete the schema, field definitions, and crosswalk for drug-level formulary coverage in the pharmacy module.
+- **Release v1.2.0, and ship the pharmacy module's formulary layer** — Take v1.2.0 from draft to release once two adopters have validated it. Two have: [RxCare](https://rxcare.ai) and [MyDigiRecords](https://mydigirecords.com), recorded in [ADOPTERS.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md) in the schema repository; complete the schema, field definitions, and crosswalk for drug-level formulary coverage in the pharmacy module.
 - **Begin Behavioral Health Module** — Define fields for mental health and substance use benefit nuances.
 - **Expand Carrier Crosswalk** — Incorporate additional carriers (Kaiser, Molina, Oscar, Ambetter, etc.) and update mapping guidance.
 - **Build Open Source Ingestion Tools** — Provide reference parsers and transformation scripts for PDFs and DOCX documents.
