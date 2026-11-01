@@ -15,7 +15,7 @@ This page showcases example normalized plan files and explains how to interpret 
 | `ambetter_example.json` | Health Net of CA Silver 94 Ambetter | HMO | Individual |
 | `bluecross_example.json` | Florida Blue BlueOptions 505 | PPO | Individual |
 | `cigna_example.json` | Bowdoin College Open Access Plus | OAP | Large group |
-| `gatorcare_example.json` | Florida Blue BlueOptions 03768 Prime | EPO | Self-funded |
+| `gatorcare_example.json` | Florida Blue BlueOptions 03768 Prime | EPO | Not stated |
 | `kaiser_example.json` | Kaiser Permanente Gold 80 | HMO | Individual |
 | `united_example.json` | UHC Choice Plus HSA Gold 1700-4 | POS | Small group |
 | `humana_example.json` | Humana Gold Plus H1036-025 | HMO | Medicare Advantage |
@@ -54,10 +54,14 @@ All 20 validate against the Benefit Plan Standard schema 1.2.0 draft: from the B
 
 ## Example: GatorCare EPO
 
-[`examples/gatorcare_example.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/gatorcare_example.json) is a self-funded employer plan administered under a carrier's document.
+[`examples/gatorcare_example.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/examples/gatorcare_example.json) is a plan read from 2 documents, a medical SBC and a pharmacy SBC.
 
-- Market is `self_funded`, which is how the standard records a plan the employer funds and a carrier administers
+- No `market`, because neither SBC states it
 - `IN` and `OUT` tiers with a single set of plan-wide accumulators
+- A `pharmacy` object with its own deductible, `amount` 125 and `family_amount` 500, and 6 formulary tiers
+- A coinsurance with a dollar floor and a cap: Tier 1 is 25%, with `min_amount` 10 and `max_amount` 20
+- `covered_under` on a not-covered row, which says where the document points: the medical SBC's drug rows point to `pharmacy`, and insulin pumps on the pharmacy side point to `medical`
+- `document` on every citation, which names the PDF it is in
 
 ## How to Explore Examples
 

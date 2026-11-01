@@ -1,9 +1,9 @@
 {
   "_comment": "The draft pharmacy crosswalk tabs are sourced from this versioned repo file (design: Operations/research/crosswalk-pipeline/crosswalk-pipeline-design.md). scripts/generateCrosswalk.js reads these 2D-array rows (header + data rows, same shape parseCSV yields for Sheet tabs) and renders them into the AUTO-GENERATED block of crosswalk.mdx. Each carrier column is read from its example file in benefit-plan-schema/examples/; the Aetna column uses aetna_example.json. Pharmacy Tiers name is the raw_label of each pharmacy tier benefit. Coverage Stages come from $.pharmacy.coverage_stages, which only the two Summary of Benefits examples carry. \"not in example\" marks a value the example file does not carry. tier_code values in the Pharmacy Tier Codes reference table are canonical FHIR DrugTierVS. Drug-level formulary data is intentionally absent (its source is formulary files, not plan summaries).",
   "module": "pharmacy",
-  "module_version": "0.2.0",
+  "module_version": "0.2.2",
   "status": "draft_non_normative",
-  "source_schema": "benefit-plan-schema/modules/pharmacy/v0.2.0/pharmacy.schema.json",
+  "source_schema": "benefit-plan-schema/modules/pharmacy/v0.2.2/pharmacy.schema.json",
   "carrier_columns": [
     "Blue Cross",
     "GatorCare",
@@ -32,7 +32,7 @@
       [
         "tier_id",
         "not in example",
-        "not in example",
+        "T0; T1; T2; T3; T4; T5",
         "not in example",
         "not in example",
         "not in example",
@@ -44,7 +44,7 @@
       [
         "name",
         "Generic drugs; Preferred brand drugs; Non-preferred brand drugs; Specialty drugs",
-        "Generic drugs; Preferred brand drugs; Non-preferred brand drugs; Specialty drugs",
+        "Tier 0/Value Based; Tier 1/Generic Medications; Tier 2/Preferred Brand Medications; Tier 3/Preferred Specialty Medications; Tier 4/Non-Preferred Brands Medications; Tier 5/Non-Preferred Specialty",
         "Tier 1 (Preferred Generic); Tier 2 (Generic); Tier 3 (Preferred Brand) Insulin; Tier 3 (Preferred Brand) Other Drugs; Tier 4 (Non-Preferred Drug); Tier 5 (Specialty Tier)",
         "Preferred generic drugs; Preferred brand drugs; Specialty drugs",
         "Tier 1 - Your Lowest- Cost Option; Tier 2 - Your Midrange-Cost Option; Tier 3 - Your Midrange-Cost Option; Tier 4 - Additional High-Cost Options",
@@ -56,7 +56,7 @@
       [
         "drug_class",
         "not in example",
-        "not in example",
+        "T1 generic; T2 preferred_brand; T3 preferred_specialty; T4 nonpreferred_brand; T5 nonpreferred_specialty",
         "not in example",
         "not in example",
         "not in example",

@@ -53,9 +53,9 @@ No schema change.
 
 ## [Unreleased]: v1.2.0 draft
 
-**Status:** draft, tagged [`v1.2.0-draft.1`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.2.0-draft.1) on 2026-09-20, `v1.2.0-draft.2` to `v1.2.0-draft.5` on 2026-10-21, and `v1.2.0-draft.6` on 2026-10-24, which wires the pharmacy module v0.2.1 into core and adds `moop_ref`. Not a release. Every v1.0.0 and v1.1.0 document validates against it unchanged; every addition is optional. A final v1.2.0 release needs validation by two independent adopters, per the [governance policy](/docs/governance/versioning-release-policy). Full field-by-field detail with page evidence: [the changelog in the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md).
+**Status:** draft, tagged [`v1.2.0-draft.1`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.2.0-draft.1) on 2026-09-20, `v1.2.0-draft.2` to `v1.2.0-draft.5` on 2026-10-21, `v1.2.0-draft.6` on 2026-10-24, which wires the pharmacy module v0.2.1 into core and adds `moop_ref`, and `v1.2.0-draft.7` on 2026-11-01, which adds 6 optional properties motivated by the GatorCare Prime EPO 2026 pharmacy SBC. Not a release. Every v1.0.0 and v1.1.0 document validates against it unchanged; every addition is optional. A final v1.2.0 release needs validation by two independent adopters, per the [governance policy](/docs/governance/versioning-release-policy). Full field-by-field detail with page evidence: [the changelog in the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md).
 
-The draft carries four additive blocks.
+The draft carries five additive blocks.
 
 ### Added, 2026-07-02: alignment with the HL7 CARIN Digital Insurance Card IG
 Reconciles the three `InsurancePlan` changes merged into the CARIN IG on June 25, 2026 (FHIR-57525 multi-tier cost sharing, FHIR-57526 deductible applicability, FHIR-57527 structured benefit limitation).
@@ -86,6 +86,16 @@ Every field is optional; the 20 examples validate unchanged.
 - `benefits[]` items gain the module's benefit extension fields for `benefit_type: "pharmacy"`: `formulary_tier_id`, `pharmacy_network_id`, `coverage_stage_id`, `day_supply`, `drug_examples`, `step_therapy_required` and `quantity_limit`. The validator warns, and does not fail, when one is on another benefit type or names an id the plan's `pharmacy` object does not define.
 - `cost_shares[].moop_ref` says which out-of-pocket maximum `applies_to_moop` refers to, as `deductible_ref` does for the deductible: `medical` or `pharmacy` (the Part D threshold); absent means medical. The gap was found by RxCare on October 23, 2026.
 - Two adopters are on record in [ADOPTERS.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md) in the schema repository: [RxCare](https://rxcare.ai) (October 23, 2026) and [MyDigiRecords](https://mydigirecords.com) (October 26, 2026). That meets the release rule's adopter condition.
+
+### Added, 2026-11-01: a family pharmacy deductible, a floor under a coinsurance, where a not-covered row points, and which document a citation is in (draft 7)
+Every field is optional. 21 of the 22 examples are untouched and validate against draft 7. The motivating document is the GatorCare Prime EPO 2026 pharmacy SBC.
+- `pharmacy.deductible.family_amount`: the family pharmacy deductible, when the plan prints one beside the individual amount ("$125 Individual/$500 Family Pharmacy Calendar Year Deductible").
+- `cost_shares[].min_amount` and `min_basis`: the dollar floor under a cost-share step, the mirror of `max_amount` and `max_basis` ("25% Coinsurance with $10 Min. to $20 Max.").
+- `network_cost_shares[].covered_under` and `not_covered_reason`: why a row is not covered, and which other benefit the document points to. `covered_under` records where the document sends the member, not a statement that the other benefit pays.
+- `source_references[].document`: which source document a citation is in, when a plan was read from more than 1.
+- The pharmacy module is v0.2.2, with `deductible.family_amount`, in a new folder; v0.2.1 is unchanged and still served at its address. Core copies v0.2.2.
+- `gatorcare_example.json` moves to schema 1.2.0 and gains its pharmacy side, 3 medical rows and verbatim citations that each name their PDF. Its Bundle, `gatorcare-prime-epo.json`, changes at the same address: 36 benefits placed and 11 listed; 0 errors from the HL7 validator on all 20 Bundles. The other 19 are byte-identical.
+- The converter carries the new fields in `bps-cost-share`, `bps-benefit`, `bps-source-reference` and a second `generalCost` entry, and `fhir/carin-sbc-crosswalk.json` has 3 more keys, 41 in all.
 
 ### Deferred from this draft
 - Optional supplemental packages (riders): a name, a premium, and the benefits that apply only when a member buys the package.

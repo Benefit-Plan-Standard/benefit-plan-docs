@@ -78,12 +78,12 @@
       "carrier": "GatorCare",
       "plan_type": "EPO",
       "plan_year": 2026,
-      "bps_schema_version": "1.1.0",
+      "bps_schema_version": "1.2.0",
       "bps_example": "examples/gatorcare_example.json",
       "path": "InsurancePlan/gatorcare-prime-epo.json",
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/gatorcare-prime-epo.json",
-      "benefits_placed": 25,
-      "benefits_unmapped": 4
+      "benefits_placed": 36,
+      "benefits_unmapped": 11
     },
     {
       "id": "humana-gold-plus-h1036-025-hmo",

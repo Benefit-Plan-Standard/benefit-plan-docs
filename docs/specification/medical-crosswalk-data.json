@@ -89,7 +89,7 @@
       [
         "market",
         "individual",
-        "self_funded",
+        "not in example",
         "medicare_advantage",
         "large_group",
         "small_group",
@@ -261,7 +261,7 @@
       [
         "pharmacy.deductible",
         "not in example",
-        "not in example",
+        "$125, family $500 (applies_to_tiers: T2, T3, T4, T5)",
         "$250 (applies_to_tiers: Tier 3, Tier 4, Tier 5)",
         "not in example",
         "not in example",
