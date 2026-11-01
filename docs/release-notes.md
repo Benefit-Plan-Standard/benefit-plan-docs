@@ -69,7 +69,7 @@ The schema repo holds ten example plans in [`examples/`](https://github.com/Bene
 | `ambetter_example.json` | Ambetter | `individual` | HMO | 2026 | 1.1.0 | SBC | 30 | 23 | 0 |
 | `bluecross_example.json` | FloridaBlue | `individual` | PPO | 2023 | 1.1.0 | SBC | 31 | 26 | 0 |
 | `cigna_example.json` | Cigna | `large_group` | OAP | 2026 | 1.1.0 | SBC | 30 | 24 | 0 |
-| `gatorcare_example.json` | GatorCare | `self_funded` | EPO | 2026 | 1.1.0 | SBC | 29 | 22 | 0 |
+| `gatorcare_example.json` | GatorCare | not stated | EPO | 2026 | 1.2.0 | SBC, and the pharmacy SBC | 47 | 33 | 15 |
 | `kaiser_example.json` | Kaiser | `individual` | HMO | 2026 | 1.1.0 | SBC | 31 | 23 | 0 |
 | `united_example.json` | UnitedHealthcare | `small_group` | POS | 2026 | 1.1.0 | SBC | 29 | 22 | 0 |
 | `humana_example.json` | Humana | `medicare_advantage` | HMO | 2026 | 1.2.0 | Summary of Benefits | 72 | 19 | 72 |

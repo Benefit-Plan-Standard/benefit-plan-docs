@@ -111,7 +111,7 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
     <tr>
       <td>market</td>
       <td>individual</td>
-      <td>self_funded</td>
+      <td>not in example</td>
       <td>medicare_advantage</td>
       <td>large_group</td>
       <td>small_group</td>
@@ -303,7 +303,7 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
     <tr>
       <td>pharmacy.deductible</td>
       <td>not in example</td>
-      <td>not in example</td>
+      <td>$125, family $500 (applies_to_tiers: T2, T3, T4, T5)</td>
       <td>$250 (applies_to_tiers: Tier 3, Tier 4, Tier 5)</td>
       <td>not in example</td>
       <td>not in example</td>
@@ -723,7 +723,7 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
     <tr>
       <td>tier_id</td>
       <td>not in example</td>
-      <td>not in example</td>
+      <td>T0; T1; T2; T3; T4; T5</td>
       <td>not in example</td>
       <td>not in example</td>
       <td>not in example</td>
@@ -735,7 +735,7 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
     <tr>
       <td>name</td>
       <td>Generic drugs; Preferred brand drugs; Non-preferred brand drugs; Specialty drugs</td>
-      <td>Generic drugs; Preferred brand drugs; Non-preferred brand drugs; Specialty drugs</td>
+      <td>Tier 0/Value Based; Tier 1/Generic Medications; Tier 2/Preferred Brand Medications; Tier 3/Preferred Specialty Medications; Tier 4/Non-Preferred Brands Medications; Tier 5/Non-Preferred Specialty</td>
       <td>Tier 1 (Preferred Generic); Tier 2 (Generic); Tier 3 (Preferred Brand) Insulin; Tier 3 (Preferred Brand) Other Drugs; Tier 4 (Non-Preferred Drug); Tier 5 (Specialty Tier)</td>
       <td>Preferred generic drugs; Preferred brand drugs; Specialty drugs</td>
       <td>Tier 1 - Your Lowest- Cost Option; Tier 2 - Your Midrange-Cost Option; Tier 3 - Your Midrange-Cost Option; Tier 4 - Additional High-Cost Options</td>
@@ -747,7 +747,7 @@ Because carriers vary widely in how they describe deductibles, copays, limits, a
     <tr>
       <td>drug_class</td>
       <td>not in example</td>
-      <td>not in example</td>
+      <td>T1 generic; T2 preferred_brand; T3 preferred_specialty; T4 nonpreferred_brand; T5 nonpreferred_specialty</td>
       <td>not in example</td>
       <td>not in example</td>
       <td>not in example</td>
@@ -1034,10 +1034,10 @@ In the matrix, the Conditions cells describe how each source document lays out i
 ### **Source Reference**
 Extracts and page references used for ingestion traceability.
 
-### **Pharmacy Module (draft v0.2.0)**
+### **Pharmacy Module (draft v0.2.2)**
 
 :::caution Draft, non-normative
-The pharmacy crosswalk tabs render the **BPS pharmacy module**, a **draft** module whose shapes the core **v1.2.0** draft carries since draft 6. The module schemas are served at their `$id` addresses, https://benefitplanstandard.org/modules/pharmacy/v0.2.0/pharmacy.schema.json and https://benefitplanstandard.org/modules/pharmacy/v0.2.1/pharmacy.schema.json. Like the medical tabs, the pharmacy tabs are sourced from a **versioned repo file** (`docs/specification/pharmacy-crosswalk-data.json`), and each carrier column is read from that carrier's example file in the schema repo's `examples/` directory. Pharmacy Tiers shows the drug tier labels each example file records. Coverage Stages is filled only for Humana and SCAN, the two Summary of Benefits examples, because only they carry `pharmacy.coverage_stages`. A cell that reads "not in example" is a value the example file does not carry.
+The pharmacy crosswalk tabs render the **BPS pharmacy module**, a **draft** module whose shapes the core **v1.2.0** draft carries since draft 6. The module schemas are served at their `$id` addresses, https://benefitplanstandard.org/modules/pharmacy/v0.2.0/pharmacy.schema.json, https://benefitplanstandard.org/modules/pharmacy/v0.2.1/pharmacy.schema.json and https://benefitplanstandard.org/modules/pharmacy/v0.2.2/pharmacy.schema.json. Like the medical tabs, the pharmacy tabs are sourced from a **versioned repo file** (`docs/specification/pharmacy-crosswalk-data.json`), and each carrier column is read from that carrier's example file in the schema repo's `examples/` directory. Pharmacy Tiers shows the drug tier labels each example file records. Coverage Stages is filled only for Humana and SCAN, the two Summary of Benefits examples, because only they carry `pharmacy.coverage_stages`. A cell that reads "not in example" is a value the example file does not carry.
 :::
 
 The pharmacy module adds crosswalk coverage for the pharmacy concepts that appear in carrier **SBCs/EOCs**. Because the crosswalk is a *carrier-SBC-vocabulary* map, only those concepts get carrier-matrix tabs:

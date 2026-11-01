@@ -24,7 +24,7 @@ https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples
 | `ambetter_example.json` | Ambetter Silver 94 HMO (Health Net of CA) | Individual | HMO | 2026 | v1.1.0 | 30 | SBC |
 | `bluecross_example.json` | Florida Blue BlueOptions 505 | Individual | PPO | 2023 | v1.1.0 | 31 | SBC |
 | `cigna_example.json` | Cigna Open Access Plus, Bowdoin College | Large group | OAP | 2026 | v1.1.0 | 30 | SBC |
-| `gatorcare_example.json` | GatorCare Prime EPO (self-funded, administered by Florida Blue) | Self-funded | EPO | 2026 | v1.1.0 | 29 | SBC |
+| `gatorcare_example.json` | GatorCare Prime EPO (administered by Florida Blue) | Not stated | EPO | 2026 | v1.2.0 | 47 | SBC, and the pharmacy SBC |
 | `kaiser_example.json` | Kaiser Permanente Gold 80 HMO | Individual | HMO | 2026 | v1.1.0 | 31 | SBC |
 | `united_example.json` | UnitedHealthcare Choice Plus HSA Gold 1700-4 | Small group | POS | 2026 | v1.1.0 | 29 | SBC |
 | `humana_example.json` | Humana Gold Plus H1036-025 (HMO) | Medicare Advantage | HMO | 2026 | v1.2.0 draft | 72 | CMS Summary of Benefits |
@@ -32,7 +32,7 @@ https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/examples
 
 "Benefits" is the number of entries in `benefits[]`.
 
-- **The 8 SBC examples** are generated from the source Summary of Benefits and Coverage and verified value by value against it. On October 5, 2026 the 8 were corrected against their PDFs for limits and deductible flags. Where a cell says nothing about the deductible, the flag follows the issuer's annotation convention (`false` where the chart marks the cells where the deductible applies, as GatorCare and Florida Blue do; `true` where it marks only "Deductible does not apply", as Aetna and Cigna do) and otherwise the SBC template footnote and the page 1 "services covered before you meet your deductible" answer (United). Ambetter and Kaiser have no deductible. They validate against v1.1.0 and, unchanged, against the v1.2.0 draft.
+- **The 8 SBC examples** are generated from the source Summary of Benefits and Coverage and verified value by value against it. On October 5, 2026 the 8 were corrected against their PDFs for limits and deductible flags. Where a cell says nothing about the deductible, the flag follows the issuer's annotation convention (`false` where the chart marks the cells where the deductible applies, as GatorCare and Florida Blue do; `true` where it marks only "Deductible does not apply", as Aetna and Cigna do) and otherwise the SBC template footnote and the page 1 "services covered before you meet your deductible" answer (United). Ambetter and Kaiser have no deductible. They validate against v1.1.0 and, unchanged, against the v1.2.0 draft, except GatorCare, which gained its pharmacy side on October 31, 2026 with fields of the draft and validates against the draft only.
 - **The 2 Medicare Advantage examples** are read from the CMS Summary of Benefits and verified value by value against the cited pages. They use fields added in the v1.2.0 draft, so they validate against that draft only.
 
 ### From the CMS Marketplace public use files
