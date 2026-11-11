@@ -16,7 +16,7 @@ For a detailed, chronological record of all technical changes, see the **Changel
 **Release Date:** November 13, 2026  
 **Status:** Stable (backward-compatible with v1.1.0 and v1.0.0)
 
-v1.2.0 is final after 9 published drafts, tagged `v1.2.0-draft.1` through `v1.2.0-draft.9`; the release is tagged `v1.2.0`, and its schema is draft 9's with a root description that no longer says DRAFT. Under the release rule of the [governance policy](/docs/governance/versioning-release-policy), a draft becomes final after 2 independent adopters implement and validate it; the 2 on record are in [the adopters file](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md) of the schema repository. The draft-by-draft record is in the [changelog](/docs/changelog).
+v1.2.0 is final after 9 published drafts, tagged `v1.2.0-draft.1` through `v1.2.0-draft.9`; the release is tagged `v1.2.0`, and its schemas are draft 9's with 2 descriptions changed: the root description of `benefit-plan.schema.json` no longer says DRAFT, and the description of `formulary.schema.json` opens with "(new in v1.2.0)" where it said "(v1.2.0 draft 9)". Under the release rule of the [governance policy](/docs/governance/versioning-release-policy), a draft becomes final after 2 independent adopters implement and validate it; the 2 on record are in [the adopters file](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md) of the schema repository. The draft-by-draft record is in the [changelog](/docs/changelog).
 
 ## 📐 What v1.2.0 Adds to v1.1.0
 
@@ -63,9 +63,9 @@ The Marketplace, Medicare Advantage and Part D formulary importers, the converte
 
 ## 📝 Known Gaps in This Documentation
 
-Three pages of this site are not yet brought to v1.2.0. They follow the release:
+Three pages of this site and 1 line of the medical MVP technical specification are not yet brought to v1.2.0. They follow the release:
 
-- [Medical MVP](/docs/specification/medical-mvp) still says the importers write the Benefit Plan Standard schema 1.2.0 as "a draft that becomes final after 2 independent adopters implement and validate it". The page follows the medical MVP technical specification, which does not change with this release.
+- [Medical MVP](/docs/specification/medical-mvp) still says the importers write the Benefit Plan Standard schema 1.2.0 as "a draft that becomes final after 2 independent adopters implement and validate it". The page follows the medical MVP technical specification, which does not change with this release; the specification's [README](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/specs/rtb-medical-mvp/README.md) in the schema repository, line 56, still says "Benefit Plan Standard schema 1.2.0 is a draft under the Benefit Plan Standard release rule".
 - [Field Definitions](/docs/specification/field-definitions) lists the v1.1.0 fields only. The v1.2.0 additions are listed above, in the schema and in the [changelog](/docs/changelog).
 - [Crosswalk](/docs/specification/crosswalk): the generated medical crosswalk table still says "tier_class drafted for v1.2". It changes when the crosswalk data is generated again.
 
@@ -167,10 +167,10 @@ The published schema itself was already correct.
 
 ---
 
-# v1.0.0: Foundational Release (Draft)
+# v1.0.0: Foundational Release
 
 **Release Date:** June 2025  
-**Status:** Draft (public preview)
+**Status:** Released, tagged `v1.0.0`
 
 The **v1.0.0** release represents the foundational publication of the Benefit Plan Standard, defining the structural, semantic, and operational elements for a unified benefit-plan representation. This release establishes the baseline for interoperability across carriers and for downstream applications that consume normalized health plan data.
 
