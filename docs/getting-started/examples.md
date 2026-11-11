@@ -35,7 +35,7 @@ The full table, with plan years, schema versions and benefit counts, is on the [
 
 The first 8 are commercial and marketplace plans built from the SBC. The 7 Medicare Advantage plans come from other CMS documents: 2 from the Summary of Benefits and 5 from the PBP files. Medicaid is not part of this set yet.
 
-All 20 validate against the Benefit Plan Standard schema 1.2.0 draft: from the Benefit Plan Standard schema repository, `node scripts/validate.js --schema schema/v1.2.0/benefit-plan.schema.json examples/*.json` prints 20 PASS. Without `--schema`, `scripts/validate.js` checks against Benefit Plan Standard schema 1.1.0, the latest final release, which only the 8 SBC examples declare; the Marketplace importer and the Medicare Advantage importer write 1.2.0 documents.
+All 22 examples in `examples/`, these 15, the 5 Marketplace examples and the 2 stand-alone Part D plans, validate against the Benefit Plan Standard schema 1.2.0: from the Benefit Plan Standard schema repository, `node scripts/validate.js examples/*.json` prints 22 PASS, since `scripts/validate.js` checks against 1.2.0, the latest release, when no `--schema` is given. 7 of the 8 SBC examples declare 1.1.0 and validate against it too; the importers write 1.2.0 documents.
 
 ## Example: Blue Cross PPO
 

@@ -32,7 +32,7 @@ node scripts/validate.js examples/aetna_example.json
 Output for a conforming file:
 
 ```
-PASS  examples/aetna_example.json — valid against schema/v1.1.0/benefit-plan.schema.json
+PASS  examples/aetna_example.json — valid against schema/v1.2.0/benefit-plan.schema.json
       vocabulary: all category/canonical_key/market/plan_type values are canonical
 ```
 
@@ -49,14 +49,15 @@ Useful flags:
 ```bash
 node scripts/validate.js --no-vocab plan.json        # layer 1 only
 node scripts/validate.js --strict-vocab plan.json    # vocabulary warnings also fail
-node scripts/validate.js --schema schema/v1.2.0/benefit-plan.schema.json plan.json
+node scripts/validate.js --schema schema/v1.1.0/benefit-plan.schema.json plan.json   # the previous version
+node scripts/validate.js --schema schema/v1.2.0/formulary.schema.json list.json      # a Part D formulary list
 ```
 
 The script source is [`scripts/validate.js`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/scripts/validate.js) — about 150 lines, no framework, readable in one sitting.
 
 ## Layer 1 — Schema validation
 
-The official schema is [`schema/v1.1.0/benefit-plan.schema.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/schema/v1.1.0/benefit-plan.schema.json) (JSON Schema Draft 2020-12). Any compliant validator in any language works: AJV for Node, `jsonschema` for Python, `everit` or `networknt` for Java, and so on.
+The official schema is [`schema/v1.2.0/benefit-plan.schema.json`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/schema/v1.2.0/benefit-plan.schema.json) (JSON Schema Draft 2020-12), the schema `scripts/validate.js` checks against when no `--schema` is given (it was v1.1.0 until the 1.2.0 release). Any compliant validator in any language works: AJV for Node, `jsonschema` for Python, `everit` or `networknt` for Java, and so on.
 
 What it enforces:
 
@@ -72,7 +73,7 @@ import Ajv2020 from "ajv/dist/2020";
 import addFormats from "ajv-formats";
 import fs from "fs";
 
-const schema = JSON.parse(fs.readFileSync("schema/v1.1.0/benefit-plan.schema.json"));
+const schema = JSON.parse(fs.readFileSync("schema/v1.2.0/benefit-plan.schema.json"));
 const plan = JSON.parse(fs.readFileSync("my-plan.json"));
 
 const ajv = new Ajv2020({ allErrors: true, strict: false });
@@ -82,7 +83,7 @@ const validate = ajv.compile(schema);
 if (!validate(plan)) {
   console.error(validate.errors);   // exact path and rule for every violation
 } else {
-  console.log("Valid against Benefit Plan Standard v1.1.0");
+  console.log("Valid against Benefit Plan Standard v1.2.0");
 }
 ```
 
@@ -93,7 +94,7 @@ The schema deliberately does **not** hard-code the controlled vocabularies as en
 Instead, the recommended values live as versioned lists in [`/vocabularies`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/vocabularies):
 
 - `canonical-benefits.json`: 124 canonical benefit keys in version 1.4.0 (`primary_care`, `imaging_advanced`, …)
-- `categories.json`: 25 benefit categories (`PHYSICIAN_SERVICES`, `EMERGENCY_CARE`, …)
+- `categories.json`: 38 benefit categories in version 1.2.0 (`PHYSICIAN_SERVICES`, `EMERGENCY_CARE`, …)
 - `markets.json`: market segments
 - `plan-types.json`: plan types
 

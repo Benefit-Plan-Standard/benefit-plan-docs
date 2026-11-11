@@ -11,7 +11,7 @@ The **Benefit Plan Standard** defines a canonical JSON data model for representi
 This overview introduces the major concepts in the specification and links to detailed sections.
 
 :::info Current version
-The current published version is **v1.1.0** (released May 2026), which is backward-compatible with v1.0.0.  See the [release notes](/docs/release-notes) for what changed, and the [roadmap](roadmap) for what's next — including the v1.2.0 formulary module.
+The current published version is **v1.2.0** (released November 13, 2026), which is backward-compatible with v1.1.0 and v1.0.0.  See the [release notes](/docs/release-notes) for what changed, and the [roadmap](roadmap) for what's next, including the pharmacy module's formulary layer.
 :::
 
 ## Why a New Standard?
@@ -44,7 +44,7 @@ At the highest level, a normalized plan is represented as a single JSON object w
 | `accumulators`      | Deductibles and out-of-pocket maximums, individual and family, in- and out-of-network |
 | `benefits`          | Array of benefit items describing cost sharing per service           |
 | `source_references` | References back to the original document for auditing               |
-| `schema_version`    | Version of the standard used to validate the document (e.g., `1.1.0`) |
+| `schema_version`    | Version of the Benefit Plan Standard schema used to validate the document (e.g., `1.2.0`) |
 
 You can see the full JSON schema definition in the [benefit‑plan‑schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema).
 

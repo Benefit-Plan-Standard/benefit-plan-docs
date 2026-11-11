@@ -5,13 +5,10 @@ The official documentation site for the open, vendor-neutral data standard for r
   <a href="https://benefitplanstandard.org">
     <img src="https://img.shields.io/badge/Documentation-Live-blue?style=for-the-badge" />
   </a>
-  <a href="https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.1.0">
-    <img src="https://img.shields.io/badge/Schema-v1.1.0-green?style=for-the-badge" />
+  <a href="https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.2.0">
+    <img src="https://img.shields.io/badge/Schema-v1.2.0-green?style=for-the-badge" />
   </a>
   <img src="https://img.shields.io/badge/Status-Stable-blueviolet?style=for-the-badge" />
-  <a href="https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.2.0-draft.7">
-    <img src="https://img.shields.io/badge/Draft-v1.2.0%20draft%207-orange?style=for-the-badge" />
-  </a>
   <img src="https://img.shields.io/github/license/Benefit-Plan-Standard/benefit-plan-docs?style=for-the-badge" />
 </p>
 
@@ -29,13 +26,13 @@ It provides:
 - Extensible modules (pharmacy, behavioral health, dental/vision, supplemental benefits)  
 - A normalized data model for analytics, automation, and interoperability  
 - A FHIR R4 `InsurancePlan` alignment guide and a converter to the CARIN Digital Insurance Card SBC InsurancePlan profile, with 15 example plans published as FHIR Bundles at https://benefitplanstandard.org/fhir/index.json  
-- Importers from the CMS public files: the Marketplace public use files and the Medicare Advantage Plan Benefit Package files  
+- Importers from the CMS public files: the Marketplace public use files, the Medicare Advantage Plan Benefit Package files and the Medicare Part D formulary files  
 - The medical MVP technical specification for the CMS Health Tech Ecosystem Real-Time Benefits workgroup  
-- Recommended vocabularies (118 canonical benefits, categories, markets, plan types)
+- Recommended vocabularies (124 canonical benefits, categories, markets, plan types)
 
-The example plans come from Summary of Benefits and Coverage documents, from Medicare Advantage Summary of Benefits documents, and from the CMS public files for the Marketplace and Medicare Advantage.
+The example plans come from Summary of Benefits and Coverage documents, from Medicare Advantage Summary of Benefits documents, and from the CMS public files for the Marketplace, Medicare Advantage and Medicare Part D.
 
-The current schema release is **v1.1.0** (backward-compatible with v1.0.0); **v1.2.0** is a draft (draft 7), which the two importers write and which becomes final after two independent adopters implement and validate it. See the [changelog](https://benefitplanstandard.org/docs/changelog) for what's new.
+The current schema release is **v1.2.0**, released on 2026-11-13 after 9 published drafts (backward-compatible with v1.1.0 and v1.0.0), which the importers write. See the [release notes](https://benefitplanstandard.org/docs/release-notes) and the [changelog](https://benefitplanstandard.org/docs/changelog) for what's new.
 
 All official documentation is published at:
 

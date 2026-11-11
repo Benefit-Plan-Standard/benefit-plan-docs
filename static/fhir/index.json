@@ -97,7 +97,7 @@
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/humana-gold-plus-h1036-025-hmo.json",
       "benefits_placed": 26,
       "benefits_unmapped": 46,
-      "label": "Medicare Advantage, read from the CMS Summary of Benefits, validates against the v1.2.0 draft only."
+      "label": "Medicare Advantage, read from the CMS Summary of Benefits, validates against v1.2.0, not v1.1.0."
     },
     {
       "id": "kaiser-ca-gold-80-hmo",
@@ -124,7 +124,7 @@
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/scan-classic-hmo-los-angeles.json",
       "benefits_placed": 22,
       "benefits_unmapped": 49,
-      "label": "Medicare Advantage, read from the CMS Summary of Benefits, validates against the v1.2.0 draft only."
+      "label": "Medicare Advantage, read from the CMS Summary of Benefits, validates against v1.2.0, not v1.1.0."
     },
     {
       "id": "uhc-choice-plus-hsa-gold-1700",
@@ -151,7 +151,7 @@
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/aetna-medicare-select-extra-hmo-pos-h1609-028-000.json",
       "benefits_placed": 16,
       "benefits_unmapped": 89,
-      "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against the v1.2.0 draft only."
+      "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against v1.2.0, not v1.1.0."
     },
     {
       "id": "humana-gold-plus-h1036-068-hmo-h1036-068-000",
@@ -165,7 +165,7 @@
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/humana-gold-plus-h1036-068-hmo-h1036-068-000.json",
       "benefits_placed": 16,
       "benefits_unmapped": 64,
-      "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against the v1.2.0 draft only."
+      "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against v1.2.0, not v1.1.0."
     },
     {
       "id": "scan-costco-medicare-advantage-hmo-h5425-140-000",
@@ -179,7 +179,7 @@
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/scan-costco-medicare-advantage-hmo-h5425-140-000.json",
       "benefits_placed": 16,
       "benefits_unmapped": 89,
-      "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against the v1.2.0 draft only."
+      "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against v1.2.0, not v1.1.0."
     },
     {
       "id": "aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000",
@@ -193,7 +193,7 @@
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/aarp-medicare-advantage-from-uhc-fl-0021-ppo-h2406-013-000.json",
       "benefits_placed": 16,
       "benefits_unmapped": 55,
-      "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against the v1.2.0 draft only."
+      "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against v1.2.0, not v1.1.0."
     },
     {
       "id": "upmc-for-life-ppo-rx-choice-ppo-h5533-019-000",
@@ -207,7 +207,7 @@
       "url": "https://benefitplanstandard.org/fhir/InsurancePlan/upmc-for-life-ppo-rx-choice-ppo-h5533-019-000.json",
       "benefits_placed": 16,
       "benefits_unmapped": 89,
-      "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against the v1.2.0 draft only."
+      "label": "Medicare Advantage, imported from the CMS PBP benefits files for contract year 2027, validates against v1.2.0, not v1.1.0."
     }
   ]
 }

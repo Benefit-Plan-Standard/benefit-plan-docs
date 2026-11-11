@@ -14,7 +14,7 @@ Several carriers, brokers and technology vendors provided invaluable feedback on
 
 ## Adopters
 
-The first two organizations to run the Benefit Plan Standard in their own production software, and the reason the 1.2.0 draft can become a release: [RxCare](https://rxcare.ai), for its Medicare plan tools, and [MyDigiRecords](https://mydigirecords.com), for its patient app. Each entry, with its evidence, is in [ADOPTERS.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md).
+The first two organizations to run the Benefit Plan Standard in their own production software, and the reason 1.2.0 became a release: [RxCare](https://rxcare.ai), for its Medicare plan tools, and [MyDigiRecords](https://mydigirecords.com), for its patient app. Each entry, with its evidence, is in [ADOPTERS.md](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md).
 
 ## Community Contributors
 

@@ -11,6 +11,58 @@ For a detailed, chronological record of all technical changes, see the **Changel
 
 ---
 
+# v1.2.0: CARIN Alignment, Medicare Advantage and Medicare Part D
+
+**Release Date:** November 13, 2026  
+**Status:** Stable (backward-compatible with v1.1.0 and v1.0.0)
+
+v1.2.0 is final after 9 published drafts, tagged `v1.2.0-draft.1` through `v1.2.0-draft.9`; the release is tagged `v1.2.0`, and its schema is draft 9's with a root description that no longer says DRAFT. Under the release rule of the [governance policy](/docs/governance/versioning-release-policy), a draft becomes final after 2 independent adopters implement and validate it; the 2 on record are in [the adopters file](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md) of the schema repository. The draft-by-draft record is in the [changelog](/docs/changelog).
+
+## 📐 What v1.2.0 Adds to v1.1.0
+
+Every addition is optional. Compared with v1.1.0, no property is removed, none becomes required and no type is narrowed, and the 7 examples that validate against v1.1.0 validate against v1.2.0 unchanged.
+
+- **Network tiers and limits**, from the reconciliation with the CARIN Digital Insurance Card changes of June 2026: `network_tiers[].tier_class`, `parent_tier_id` and `provider_set`, and `limits[].raw_text`.
+- **Medicare Advantage fields**: `plan_identifiers`, `service_area`, `premium`, `part_b_premium_reduction`, the `pharmacy` accumulators, cost-share unit ranges, caps and ranges, `deductible_ref`, `coverage_basis`, `alternative_group`, limit `scope`, `shared_limit_id` and `carryover`, and per-benefit `source_references`.
+- **For the medical MVP** of the CMS Health Tech Ecosystem Real-Time Benefits workgroup: `contacts` and `network_tiers[].provider_directory_url`.
+- **The pharmacy module in core** (draft 6, copying the module v0.2.1, then v0.2.2 at draft 7 and v0.2.3 at draft 9): the rest of the `pharmacy` object and the benefit extension fields, and `cost_shares[].moop_ref`.
+- **Draft 7**: `pharmacy.deductible.family_amount`, `cost_shares[].min_amount` and `min_basis`, `network_cost_shares[].covered_under` and `not_covered_reason`, and `source_references[].document`.
+- **Draft 8**: `limits[].unlimited`, with `limits[].value` null on such an entry and only there.
+- **Draft 9**: `pharmacy.formulary_reference.formulary_version` and `formulary_items_url`, `formulary_items[].coverage_basis`, `negotiation_selected_drug`, `capped_benefit` and `source_references`, `premium.drug_amount`, `formulary_items[].drug_name` and `quantity_limit_detail.units` optional, and [`/schema/v1.2.0/formulary.schema.json`](https://benefitplanstandard.org/schema/v1.2.0/formulary.schema.json), a drug list written once for the plans that share it.
+
+## 🗂 Recommended Vocabularies
+
+| Vocabulary | Version | Entries |
+|------------|---------|---------|
+| Canonical benefits | 1.4.0 | 124 across 13 categories |
+| Categories | 1.2.0 | 38 codes, with `REDUCTIONS_IN_COST_SHARING` |
+| Markets | 1.2.0 | 13 codes, with `medicare_part_d` |
+| Plan types | 1.1.0 | 13 codes |
+| Benefit types | 1.1.0 | 9 codes |
+
+## 🛠 Tools in the Schema Repository
+
+The Marketplace, Medicare Advantage and Part D formulary importers, the converter to the CARIN SBC `InsurancePlan` profile, and `scripts/validate.js`, which now validates against v1.2.0 when no `--schema` is given (it was v1.1.0).
+
+## 🔁 Migration from v1.1.0
+
+- A v1.1.0 document needs no change. To say it is a v1.2.0 document, set `schema_version` to "1.2.0".
+- `node scripts/validate.js plan.json` validates against v1.2.0; `--schema schema/v1.1.0/benefit-plan.schema.json` keeps the v1.1.0 check.
+- A document written against a v1.2.0 draft validates against v1.2.0 as it is: the release schema is draft 9's.
+- What a reader written for v1.1.0 can misread in a v1.2.0 document:
+  - `limits[].value` is null when `unlimited` is true: the source states no limit of that type.
+  - `premium.amount` is not the whole premium when `premium.drug_amount` is present: the monthly premium is their sum (a Medicare Advantage plan with drug coverage).
+  - `pharmacy.formulary_items[].drug_name` and `quantity_limit_detail.units` can be absent.
+  - An accumulator's `network_tier` is the `tier_id` of a tier in `network_tiers`, such as `IN`, `OUT` or `POS`; the importers write tier ids.
+  - A benefit can have no `canonical_key` and no `network_cost_shares` rows, such as a Medicare Advantage Reductions in Cost Sharing entry (`category` `REDUCTIONS_IN_COST_SHARING`), whose amount is a `dollars` limit.
+
+## 🧭 Not in This Release
+
+- The validator does not flag a plan-identity value that has no source reference.
+- The rule that `market` comes from a dataset with provenance is not written into a tool.
+
+---
+
 # v1.1.0: Production-Driven Refinement
 
 **Release Date:** May 21, 2026  
@@ -75,7 +127,7 @@ The schema repo holds ten example plans in [`examples/`](https://github.com/Bene
 | `humana_example.json` | Humana | `medicare_advantage` | HMO | 2026 | 1.2.0 | Summary of Benefits | 72 | 19 | 72 |
 | `scan_example.json` | SCAN Health Plan | `medicare_advantage` | HMO | 2026 | 1.2.0 | Summary of Benefits | 71 | 14 | 71 |
 
-The eight SBC examples validate against v1.1.0 and, unchanged, against the v1.2.0 draft. The two Summary of Benefits examples use fields added in the v1.2.0 draft, so they validate against that draft only.
+The 7 SBC examples that declare 1.1.0 validate against v1.1.0 and, unchanged, against v1.2.0. `gatorcare_example.json` and the two Summary of Benefits examples use fields added in v1.2.0, so they validate against v1.2.0 and not v1.1.0.
 
 ## 🩹 FHIR Alignment
 

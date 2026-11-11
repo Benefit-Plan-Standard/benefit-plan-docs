@@ -24,9 +24,9 @@ The files are not in the repository. You download them into `data/puf/<year>/`, 
 
 ## What the importer produces
 
-1 plan variant in, 1 Benefit Plan Standard schema 1.2.0 document out (1.1.0 until October 20, 2026). The Marketplace importer checks the document against the Benefit Plan Standard schema 1.2.0 draft before it writes it; a document that fails is not written. Medical plans only: a stand-alone dental plan is refused.
+1 plan variant in, 1 Benefit Plan Standard schema 1.2.0 document out (1.1.0 until October 20, 2026). The Marketplace importer checks the document against the Benefit Plan Standard schema 1.2.0 before it writes it; a document that fails is not written. Medical plans only: a stand-alone dental plan is refused.
 
-The Benefit Plan Standard schema 1.2.0 draft gives the Marketplace importer fields that 1.1.0 lacks:
+The Benefit Plan Standard schema 1.2.0 gives the Marketplace importer fields that 1.1.0 lacks:
 
 - **`plan_identifiers`**, with 2 systems: `hios_plan_id`, the 17-character `PlanId` with its variant (`68398FL0030058-01`), which is the plan key, and `hios_id`, the 14-character `StandardComponentId` (`68398FL0030058`).
 - **`provider_directory_url`** on the in-network tier, from the Network PUF's `NetworkURL`, written when it is a URI with its scheme.
@@ -120,11 +120,11 @@ Some BPS fields have nothing to fill them in the public files:
 - **No page numbers.** The files are tables, not documents, so every source reference is text with no page.
 - No coverage period separate from the plan dates, and no place of service.
 
-Going the other way, the public files carry things the Benefit Plan Standard schema 1.2.0 draft has no field for, or has a field for that the Marketplace importer does not write yet. The Marketplace importer keeps each one as text in `source_references[]` (or, for explanations, as a condition):
+Going the other way, the public files carry things the Benefit Plan Standard schema 1.2.0 has no field for, or has a field for that the Marketplace importer does not write yet. The Marketplace importer keeps each one as text in `source_references[]` (or, for explanations, as a condition):
 
 - metal level, cost-sharing reduction variation and HSA eligibility;
 - tier 2 accumulators, and accumulators combined across in and out of network;
-- a separate drug deductible and out-of-pocket maximum (the Benefit Plan Standard schema 1.2.0 draft has `pharmacy.deductible` and `pharmacy.out_of_pocket_max`, which the Marketplace importer does not write yet);
+- a separate drug deductible and out-of-pocket maximum (the Benefit Plan Standard schema 1.2.0 has `pharmacy.deductible` and `pharmacy.out_of_pocket_max`, which the Marketplace importer does not write yet);
 - a family per-person amount with no family total;
 - the plan's default coinsurance;
 - benefit-level explanation text (no benefit notes field);

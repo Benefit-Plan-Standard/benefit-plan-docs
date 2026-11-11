@@ -8,6 +8,18 @@ sidebar_position: 5
 
 This changelog lists all notable changes to the Benefit Plan Standard.  For a high‑level overview of changes in each release, see the [release notes](/docs/release-notes).  The format is based on [Keep a Changelog](https://keepachangelog.com/) and adheres to Semantic Versioning.
 
+## Tooling and examples (2026-11-04 and 2026-11-11): no-limit entries, the Part D formulary importer, the Part D premium and Reductions in Cost Sharing
+
+The schema changes of these dates are drafts 8 and 9 of 1.2.0, listed under [1.2.0] below. The wording follows [the changelog in the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md), entries of 2026-11-04 and 2026-11-11.
+
+- **No-limit entries (2026-11-04).** `scripts/from-pbp.js` writes a limits entry with `unlimited` true and `value` null for every unlimited or no-maximum answer on a covered benefit, so an app can tell "no limit" from "not read". Covering plans with a limits entry, over the 6,872 plans of contract year 2027, before and after: meals 37 to 2,681 of 2,681, fitness 1,367 to 4,795 of 4,795, rides to medical appointments 1,551 to 1,816 of 1,816. The 5 PBP examples gain 38 such entries.
+- **Part D formulary importer (2026-11-11).** `scripts/from-partd-formulary.js` reads the CMS monthly public use file "Prescription Drug Plan Formulary and Pharmacy Network Information" and writes a drug list once per formulary (`schema/v1.2.0/formulary.schema.json`) and a plan document per plan that points at its list. On release `2027_20261008`: 286 lists and 5,478 plans, all valid, 0 errors, 17 plans refused (3 suppressed, 14 of plan types the Medicare Advantage importer does not cover). New examples in `examples/partd-formulary/`: 5 lists and 5 plans; 2 are checked against the carrier's published drug list, 10 drugs each, 19 of 20 agree.
+- **The Part D part of the premium (2026-11-11).** A stand-alone drug plan's document gains `premium` from the formulary file's `PREMIUM`, per month. A Medicare Advantage plan's premium in the PBP files leaves its Part D part out; the formulary importer writes that part as `premium.drug_amount`, and the Medicare Advantage importer says in `premium.notes`, on a plan with drug coverage, that its amount leaves it out. Checked on 3 plans, each adding up to its Summary of Benefits ($13 + $13 = $26, $13 + $105 = $118, $5 + $28 = $33).
+- **Reductions in Cost Sharing (2026-11-11).** `scripts/from-pbp.js` reads Section D's Reductions in Cost Sharing groups, an amount per period that lowers the member's cost sharing for the services it lists: 1 benefit entry per group, `PBP_D_RICS_<n>`, with the amount as a `dollars` limit and the categories, delivery mode and deductible answer as conditions. 95 plans and 110 groups in 2027; 78 groups share the amount of a combined supplemental benefit group and take its `shared_limit_id`. `categories.json` version 1.2.0 (was 1.1.0), 38 codes, with `REDUCTIONS_IN_COST_SHARING`, served at `/vocabularies/v1.2.0/categories.json` beside the unchanged v1.1.0 file.
+- **Accuracy checks (2026-11-11).** 10 UnitedHealthcare and AARP plans, 5 Medicare Advantage and 5 stand-alone drug plans in Florida, Texas and California, against their 2027 Summaries of Benefits, premium included: 453 checks, 424 match, 29 readings, 0 differences.
+- **Bundles.** The 5 PBP Bundles change twice: on 2026-11-04 each inpatient hospital benefit gains a `BenefitLimitation` with `limitText` and `limitType` and no value, and on 2026-11-11 each premium entry gains a `comment`. They are republished on [FHIR InsurancePlan](/docs/specification/fhir-insuranceplan), and the index labels of the 7 Medicare Advantage Bundles now say they validate against v1.2.0, not v1.1.0. HL7 FHIR validator, twelfth and thirteenth runs, on all 20 Bundles: 0 errors. The 10 Bundles read from plan documents and the 5 Marketplace Bundles are unchanged.
+- **Validator.** `scripts/validate.js` checks against 1.2.0 when no `--schema` is given (it was 1.1.0).
+
 ## Tooling and examples (2026-10-24): Part D in the Medicare Advantage importer
 
 No schema change: the importer writes the `pharmacy` object and the pharmacy fields of the v1.2.0 draft 6. 2 additions to non-normative vocabularies, below. The wording follows [the changelog in the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md), entry of 2026-10-24.
@@ -51,11 +63,11 @@ No schema change.
 - **Examples: deductible flags on silent cells.** A cost share whose SBC cell says nothing about the deductible is read from the issuer's annotation convention: `false` where the chart marks the cells where the deductible applies ("Deductible +", "after Deductible"; GatorCare, Florida Blue), `true` where it marks only "Deductible does not apply" (Aetna, Cigna), and otherwise from the SBC template footnote and the page 1 "services covered before you meet your deductible" answer (United). 35 flags corrected (United 25, Aetna PPO 1500 4, Aetna PPO 5000 4, GatorCare 2); the 4 Bundles are republished, 0 errors, 75 warnings unchanged. The rule is written out in `examples/README.md`.
 - **Examples: limits and deductible flags from the source PDFs.** Each value is read from the example's source PDF in `examples/sources/`. The 8 FHIR Bundles in `examples/fhir/` are regenerated and re-validated.
 
-## [Unreleased]: v1.2.0 draft
+## [1.2.0] – 2026-11-13
 
-**Status:** draft, tagged [`v1.2.0-draft.1`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.2.0-draft.1) on 2026-09-20, `v1.2.0-draft.2` to `v1.2.0-draft.5` on 2026-10-21, `v1.2.0-draft.6` on 2026-10-24, which wires the pharmacy module v0.2.1 into core and adds `moop_ref`, and `v1.2.0-draft.7` on 2026-11-01, which adds 6 optional properties motivated by the GatorCare Prime EPO 2026 pharmacy SBC. Not a release. Every v1.0.0 and v1.1.0 document validates against it unchanged; every addition is optional. A final v1.2.0 release needs validation by two independent adopters, per the [governance policy](/docs/governance/versioning-release-policy). Full field-by-field detail with page evidence: [the changelog in the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md).
+**Status:** released on 2026-11-13, tagged `v1.2.0`, after 9 published drafts: [`v1.2.0-draft.1`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/releases/tag/v1.2.0-draft.1) on 2026-09-20, `v1.2.0-draft.2` to `v1.2.0-draft.5` on 2026-10-21, `v1.2.0-draft.6` on 2026-10-24, which wires the pharmacy module v0.2.1 into core and adds `moop_ref`, `v1.2.0-draft.7` on 2026-11-01, which adds 6 optional properties motivated by the GatorCare Prime EPO 2026 pharmacy SBC, `v1.2.0-draft.8` on 2026-11-04 and `v1.2.0-draft.9` on 2026-11-11. The release schema is draft 9's; only its root description changes, which no longer says DRAFT. Every v1.0.0 and v1.1.0 document validates against it unchanged; every addition is optional. The release rule of the [governance policy](/docs/governance/versioning-release-policy) asks for 2 independent adopters, and the 2 on record in [the adopters file](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md) of the schema repository meet it. Summary and migration guidance: [release notes](/docs/release-notes). Full field-by-field detail with page evidence: [the changelog in the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md).
 
-The draft carries five additive blocks.
+1.2.0 carries 7 additive blocks, each dated as it was published.
 
 ### Added, 2026-07-02: alignment with the HL7 CARIN Digital Insurance Card IG
 Reconciles the three `InsurancePlan` changes merged into the CARIN IG on June 25, 2026 (FHIR-57525 multi-tier cost sharing, FHIR-57526 deductible applicability, FHIR-57527 structured benefit limitation).
@@ -97,12 +109,36 @@ Every field is optional. 21 of the 22 examples are untouched and validate agains
 - `gatorcare_example.json` moves to schema 1.2.0 and gains its pharmacy side, 3 medical rows and verbatim citations that each name their PDF. Its Bundle, `gatorcare-prime-epo.json`, changes at the same address: 36 benefits placed and 11 listed; 0 errors from the HL7 validator on all 20 Bundles. The other 19 are byte-identical.
 - The converter carries the new fields in `bps-cost-share`, `bps-benefit`, `bps-source-reference` and a second `generalCost` entry, and `fhir/carin-sbc-crosswalk.json` has 3 more keys, 41 in all.
 
-### Deferred from this draft
+### Added, 2026-11-04: a limit that the source states as no limit (draft 8)
+1 optional property. Every document valid against draft 7 is valid against draft 8 unchanged.
+- `benefits[].limits[].unlimited` (boolean or null): true says the source states that the benefit has no limit of the entry's `type`; `value` is then null, and `period`, `scope`, `shared_limit_id` and `carryover` do not apply. Any other entry takes a number in `value`, as before. Absent, null or false means a limit with a value, the reading before draft 8.
+- The motivation: when a 2027 Medicare Advantage plan files "no maximum" or "unlimited" for an extra benefit, a document could not say so, and an app could not tell "no limit" from "not read".
+
+### Added, 2026-11-11: room for the CMS Part D formulary files, and the Part D part of the premium (draft 9)
+Every addition is optional, and the 2 properties that stop being required leave every draft 8 document valid. The motivation is the CMS monthly public use file "Prescription Drug Plan Formulary and Pharmacy Network Information": release `2027_20261008` lists 286 formularies shared by 5,492 plans, up to 660 plans on 1 list.
+- `pharmacy.formulary_reference.formulary_version` and `formulary_items_url`: the version of the formulary the items were read from, and where the plan's drug list is published as a formulary list document.
+- `pharmacy.formulary_items[].coverage_basis`, `negotiation_selected_drug`, `capped_benefit` and `source_references`: whether a drug is a Part D drug or an excluded drug the plan covers, whether it is selected for Medicare drug price negotiation, the excluded drugs file's capped benefit flag, and the row an item was read from.
+- `premium.drug_amount`: the Part D part of a Medicare Advantage plan's premium, when the source gives it apart; `amount` is then the premium without it, and the monthly plan premium is their sum.
+- `formulary_items[].drug_name` and `quantity_limit_detail.units` are no longer required: the CMS formulary files name no drug and give a quantity limit with no unit.
+- `schema/v1.2.0/formulary.schema.json`, a new schema beside core for a drug list written once for the plans that share it, served at [/schema/v1.2.0/formulary.schema.json](https://benefitplanstandard.org/schema/v1.2.0/formulary.schema.json).
+- The pharmacy module is v0.2.3, with the same changes, in a new folder served at [/modules/pharmacy/v0.2.3/pharmacy.schema.json](https://benefitplanstandard.org/modules/pharmacy/v0.2.3/pharmacy.schema.json); v0.2.2 is unchanged and still served. Core copies v0.2.3.
+- **Vocabulary (non-normative):** `categories.json` version 1.2.0, 38 codes, with `REDUCTIONS_IN_COST_SHARING`.
+
+### Migration from 1.1.0
+- A 1.1.0 document needs no change. To say it is a 1.2.0 document, set `schema_version` to "1.2.0". Compared with 1.1.0, no property is removed, none becomes required and no type is narrowed.
+- `node scripts/validate.js plan.json` validates against 1.2.0; `--schema schema/v1.1.0/benefit-plan.schema.json` keeps the 1.1.0 check.
+- A document written against a 1.2.0 draft validates against 1.2.0 as it is.
+- What a reader written for 1.1.0 can misread in a 1.2.0 document: `limits[].value` is null when `unlimited` is true; `premium.amount` is not the whole premium when `premium.drug_amount` is present; `pharmacy.formulary_items[].drug_name` and `quantity_limit_detail.units` can be absent; an accumulator's `network_tier` is the `tier_id` of a tier in `network_tiers`; and a benefit can have no `canonical_key` and no `network_cost_shares` rows, such as a Reductions in Cost Sharing entry, whose amount is a `dollars` limit.
+
+### Deferred
 - Optional supplemental packages (riders): a name, a premium, and the benefits that apply only when a member buys the package.
 - Population-specific cost sharing, such as Extra Help replacing the Part D amounts for members who qualify.
 
+### Not in this release
+- The validator does not flag a plan-identity value that has no source reference, and the rule that `market` comes from a dataset with provenance is not written into a tool (items 1 and 2 of the v1.2.0 list in the schema repository's roadmap).
+
 ### Not changed
-- `schema/v1.0.0` and `schema/v1.1.0` are frozen. The eight SBC examples are not edited and validate against v1.1.0 and the draft with the same result.
+- `schema/v1.0.0` and `schema/v1.1.0` are frozen. The 7 SBC examples that declare 1.1.0 (all 8 but `gatorcare_example.json`, which moved to 1.2.0 at draft 7) validate against v1.1.0 and 1.2.0.
 
 ## [1.1.0] — 2026‑05‑21
 

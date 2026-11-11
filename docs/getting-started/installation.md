@@ -13,7 +13,7 @@ This section explains how to obtain the Benefit Plan Standard schema and start u
 
 ## Installing the Schema
 
-The canonical JSON schema (v1.1.0) is available in the `benefit-plan-schema` repository under `schema/v1.1.0/benefit-plan.schema.json`. v1.0.0 remains available at `schema/v1.0.0/benefit-plan.schema.json` for backward-compatible consumers. You can download these files directly or install via npm.
+The canonical JSON schema (v1.2.0) is available in the `benefit-plan-schema` repository under `schema/v1.2.0/benefit-plan.schema.json`, with `schema/v1.2.0/formulary.schema.json` for a Medicare Part D drug list that many plans share. v1.1.0 and v1.0.0 remain available at `schema/v1.1.0/benefit-plan.schema.json` and `schema/v1.0.0/benefit-plan.schema.json` for backward-compatible consumers. You can download these files directly or install via npm.
 
 ### Via npm
 
@@ -32,7 +32,7 @@ The package exports the JSON schema and TypeScript typings.
 You can download the schema file directly from GitHub:
 
 ```bash
-curl -O https://raw.githubusercontent.com/Benefit-Plan-Standard/benefit-plan-schema/main/schema/v1.1.0/benefit-plan.schema.json
+curl -O https://raw.githubusercontent.com/Benefit-Plan-Standard/benefit-plan-schema/main/schema/v1.2.0/benefit-plan.schema.json
 ```
 
 Store it in your project and use your preferred JSON Schema validator (AJV, JSON Schema Core, etc.) to validate normalized plans.

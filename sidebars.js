@@ -27,6 +27,7 @@ module.exports = {
         'specification/fhir-insuranceplan',
         'specification/marketplace-public-files',
         'specification/medicare-advantage-pbp',
+        'specification/medicare-part-d-formulary',
         'specification/medical-mvp',
         'specification/roadmap',
       ],

@@ -6,11 +6,11 @@ sidebar_label: How the data flows
 
 # How the data flows: from CMS files to FHIR
 
-Two public CMS inputs, each read by its own importer, become one Benefit Plan Standard (BPS) document per plan. One converter, `scripts/to-insuranceplan.js`, turns that document into one output: a FHIR InsurancePlan file, and it is the only step that writes FHIR.
+Two public CMS inputs, each read by its own importer, become one Benefit Plan Standard (BPS) document per plan; a third, the CMS Part D formulary file, adds a Medicare plan's drug list ([Import Part D drug lists](#import-part-d-drug-lists), not drawn). One converter, `scripts/to-insuranceplan.js`, turns that document into one output: a FHIR InsurancePlan file, and it is the only step that writes FHIR.
 
 <svg width="100%" viewBox="0 0 1100 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="bps-flow-title bps-flow-desc" style={{maxWidth: '1100px', height: 'auto', display: 'block', margin: '1.5rem 0'}}>
   <title id="bps-flow-title">How the data flows: from CMS files to FHIR</title>
-  <desc id="bps-flow-desc">The CMS Marketplace public use files are read by from-marketplace-puf.js and the CMS Medicare Advantage plan benefit package files are read by from-pbp.js. Both write a Benefit Plan Standard document on the Benefit Plan Standard schema 1.2.0 draft. to-insuranceplan.js converts the document into an InsurancePlan in the CARIN Digital Insurance Card profile, FHIR R4, one file per plan.</desc>
+  <desc id="bps-flow-desc">The CMS Marketplace public use files are read by from-marketplace-puf.js and the CMS Medicare Advantage plan benefit package files are read by from-pbp.js. Both write a Benefit Plan Standard document on the Benefit Plan Standard schema 1.2.0. to-insuranceplan.js converts the document into an InsurancePlan in the CARIN Digital Insurance Card profile, FHIR R4, one file per plan.</desc>
   <defs>
     <marker id="bps-flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#7dd3fc" />
@@ -38,8 +38,8 @@ Two public CMS inputs, each read by its own importer, become one Benefit Plan St
   <text x="585" y="170" textAnchor="middle" fill="#f9fafb" fontSize="18" fontWeight="600">Benefit Plan Standard</text>
   <text x="585" y="194" textAnchor="middle" fill="#f9fafb" fontSize="18" fontWeight="600">document</text>
   <text x="585" y="224" textAnchor="middle" fill="#cbd5f5" fontSize="13">JSON, one per plan</text>
-  <text x="585" y="250" textAnchor="middle" fill="#cbd5f5" fontSize="13">Schema v1.2.0 draft</text>
-  <text x="585" y="268" textAnchor="middle" fill="#cbd5f5" fontSize="13">v1.1.0: latest final release</text>
+  <text x="585" y="250" textAnchor="middle" fill="#cbd5f5" fontSize="13">Schema v1.2.0</text>
+  <text x="585" y="268" textAnchor="middle" fill="#cbd5f5" fontSize="13">latest release</text>
   <line x1="702" y1="210" x2="866" y2="210" stroke="#7dd3fc" strokeWidth="2" markerEnd="url(#bps-flow-arrow)" />
   <a href="/docs/specification/fhir-insuranceplan">
     <text x="784" y="198" textAnchor="middle" fill="#38bdf8" fontSize="13" fontFamily="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" textDecoration="underline">to-insuranceplan.js</text>
@@ -80,7 +80,7 @@ Record the download dates in `data/puf/2026/download.json` (`{"downloaded": "YYY
 
 ## Import Marketplace
 
-List an issuer's plans in a state, then import one plan variant with the Marketplace importer into a document on the Benefit Plan Standard schema 1.2.0 draft (the Marketplace importer wrote 1.1.0 until October 20, 2026):
+List an issuer's plans in a state, then import one plan variant with the Marketplace importer into a document on the Benefit Plan Standard schema 1.2.0 (the Marketplace importer wrote 1.1.0 until October 20, 2026):
 
 ```bash
 node scripts/from-marketplace-puf.js --year 2026 --issuer 40220 --state TX
@@ -91,7 +91,7 @@ Explained on [CMS Marketplace public files](./marketplace-public-files.md#from-t
 
 ## Import Medicare Advantage
 
-List a contract's plans, then import one plan into a BPS document on the v1.2.0 draft schema:
+List a contract's plans, then import one plan into a BPS document on the v1.2.0 schema:
 
 ```bash
 node scripts/from-pbp.js --year 2027 --contract H2406
@@ -99,6 +99,17 @@ node scripts/from-pbp.js --year 2027 --plan H2406-013-000 --out h2406.json
 ```
 
 Explained on [CMS Medicare Advantage PBP files](./medicare-advantage-pbp.md#from-the-file-to-a-fhir-bundle).
+
+## Import Part D drug lists
+
+Since November 11, 2026, a third importer, `scripts/from-partd-formulary.js`, reads the CMS monthly public use file "Prescription Drug Plan Formulary and Pharmacy Network Information" and writes the drug lists of Medicare Part D plans: a formulary list (`schema/v1.2.0/formulary.schema.json`) once for every plan that shares it, and a plan document that is the Medicare Advantage importer's document for the plan with `pharmacy.formulary_reference` and the plan's own items. It needs the PBP files above beside the monthly file, which goes, unzipped, into `data/partd-formulary/<release>/txt/` with a `download.json`:
+
+```bash
+node scripts/from-partd-formulary.js --release 2027_20261008 --plan H2406-013-000 --out plan.json   # 1 plan, its list inline
+node scripts/from-partd-formulary.js --release 2027_20261008 --formulary 00027002 --out list.json   # 1 list
+```
+
+Specification: [`docs/specs/partd-formulary-importer.md`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/specs/partd-formulary-importer.md) in the schema repository.
 
 ## Convert to FHIR
 
@@ -113,11 +124,11 @@ Explained on [FHIR InsurancePlan](./fhir-insuranceplan.md#running-the-converter-
 
 ## Validate
 
-Check each document against the Benefit Plan Standard schema 1.2.0 draft, which the Marketplace importer and the Medicare Advantage importer both write (`scripts/validate.js` checks against 1.1.0, the latest final release, unless `--schema` names another version), then check the Bundles with the HL7 FHIR validator against the CARIN Digital Insurance Card ballot package:
+Check each document against the Benefit Plan Standard schema 1.2.0, which the importers write and which `scripts/validate.js` checks against unless `--schema` names another version (a formulary list: `--schema schema/v1.2.0/formulary.schema.json`), then check the Bundles with the HL7 FHIR validator against the CARIN Digital Insurance Card ballot package:
 
 ```bash
-node scripts/validate.js --schema schema/v1.2.0/benefit-plan.schema.json plan.json
-node scripts/validate.js --schema schema/v1.2.0/benefit-plan.schema.json h2406.json
+node scripts/validate.js plan.json
+node scripts/validate.js h2406.json
 
 java -Dfile.encoding=UTF-8 -jar validator_cli.jar -version 4.0.1 \
   -ig hl7.fhir.us.insurance-card#2.0.0-ballot \
