@@ -61,6 +61,14 @@ The Marketplace, Medicare Advantage and Part D formulary importers, the converte
 - The validator does not flag a plan-identity value that has no source reference.
 - The rule that `market` comes from a dataset with provenance is not written into a tool.
 
+## 📝 Known Gaps in This Documentation
+
+Three pages of this site are not yet brought to v1.2.0. They follow the release:
+
+- [Medical MVP](/docs/specification/medical-mvp) still says the importers write the Benefit Plan Standard schema 1.2.0 as "a draft that becomes final after 2 independent adopters implement and validate it". The page follows the medical MVP technical specification, which does not change with this release.
+- [Field Definitions](/docs/specification/field-definitions) lists the v1.1.0 fields only. The v1.2.0 additions are listed above, in the schema and in the [changelog](/docs/changelog).
+- [Crosswalk](/docs/specification/crosswalk): the generated medical crosswalk table still says "tier_class drafted for v1.2". It changes when the crosswalk data is generated again.
+
 ---
 
 # v1.1.0: Production-Driven Refinement
