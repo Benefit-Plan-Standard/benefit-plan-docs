@@ -16,13 +16,15 @@ The schema version follows the format **MAJOR.MINOR.PATCH**, for example `1.0.0`
 - **MINOR** — Increments when new fields, modules, or optional features are added in a backwards‑compatible manner.  Existing integrations continue to function without modification.
 - **PATCH** — Increments when clarifications or bug fixes are made that do not alter the schema structure or semantics.  These typically involve documentation updates, typo corrections, or additional examples.
 
-## Release Cadence
+## Drafts and Releases
 
-The Working Group plans quarterly **Minor** releases and yearly **Major** releases, subject to demand.  **Patch** releases occur as needed.  A pre‑release branch (e.g., `next`) hosts draft work for the upcoming version.
+The release rule is the one in the schema repository's [governance document](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/governance.md), under Releases:
 
-### Drafts and Candidate Releases
+1. Draft versions are published for community testing and feedback. Each published draft is a git tag on the schema repository, `vX.Y.Z-draft.N` (for 1.2.0, `v1.2.0-draft.1` through `v1.2.0-draft.9`), so any draft can be checked out by its tag.
+2. A final release requires successful implementation and validation by at least 2 independent adopters. Adopters are recorded in the [adopters file](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md), each with its evidence and whether it is independent of the maintainer.
+3. Release notes summarize changes and provide migration guidance.
 
-Before a release becomes final, it is published as a **Release Candidate** (e.g., `1.1.0-rc.1`).  Stakeholders have a two‑week review period to raise issues.  Candidate releases may be updated with additional release candidates if necessary.
+There is no release candidate stage, and no release has been issued as a candidate. Releases have no fixed calendar: a version is released when its draft meets the rule above. **Patch** releases are made as needed.
 
 ## Backwards Compatibility Policy
 

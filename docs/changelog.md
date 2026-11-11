@@ -8,6 +8,10 @@ sidebar_position: 5
 
 This changelog lists all notable changes to the Benefit Plan Standard.  For a high‑level overview of changes in each release, see the [release notes](/docs/release-notes).  The format is based on [Keep a Changelog](https://keepachangelog.com/) and adheres to Semantic Versioning.
 
+## Documentation (2026-11-11): the versioning and release policy
+
+- **[Versioning & Release Policy](/docs/governance/versioning-release-policy).** The page now matches the release rule of the schema repository's [governance document](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/governance.md): published drafts, tagged `vX.Y.Z-draft.N`, and a final release after at least 2 independent adopters implement and validate a draft. Its release candidate stage, with a 2-week review, and its quarterly calendar are removed: no release was ever issued as a candidate, and the schema repository has no candidate tag.
+
 ## Tooling and examples (2026-11-04 and 2026-11-11): no-limit entries, the Part D formulary importer, the Part D premium and Reductions in Cost Sharing
 
 The schema changes of these dates are drafts 8 and 9 of 1.2.0, listed under [1.2.0] below. The wording follows [the changelog in the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md), entries of 2026-11-04 and 2026-11-11.
