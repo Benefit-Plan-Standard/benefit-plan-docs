@@ -54,7 +54,7 @@ v1.1.0 is the first minor release after six months of production extraction expe
 
 See the [v1.1.0 release notes](/docs/release-notes) and [changelog](/docs/changelog) for full detail.
 
-## v1.0.0 — Released (2025)
+## v1.0.0 — Released (May 2026)
 
 Foundational release: the core JSON schema for medical benefit plans, the field-definition matrix, the initial seven-carrier crosswalk, and the documentation site.
 

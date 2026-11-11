@@ -169,7 +169,7 @@ The published schema itself was already correct.
 
 # v1.0.0: Foundational Release
 
-**Release Date:** June 2025  
+**Release Date:** May 21, 2026  
 **Status:** Released, tagged `v1.0.0`
 
 The **v1.0.0** release represents the foundational publication of the Benefit Plan Standard, defining the structural, semantic, and operational elements for a unified benefit-plan representation. This release establishes the baseline for interoperability across carriers and for downstream applications that consume normalized health plan data.

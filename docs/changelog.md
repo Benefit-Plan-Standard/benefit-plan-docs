@@ -170,7 +170,7 @@ Backward-compatible minor release. v1.0.0 documents validate against v1.1.0 unch
 - All additions are optional; `additionalProperties: false` boundaries are respected.
 - A document declaring `"schema_version": "1.0.0"` validates against the v1.1.0 schema without changes.
 
-## [1.0.0] — 2025‑11‑30
+## [1.0.0] — 2026‑05‑21
 
 ### Added
 - **Initial schema** covering plan metadata, network tiers, accumulators, benefits, limits, conditions, and source references.
