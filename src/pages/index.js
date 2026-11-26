@@ -71,7 +71,7 @@ export default function Home() {
 
           <div className={styles.heroVersion}>
             ✅ Latest release:&nbsp;
-            <Link to="/docs/release-notes">v1.2.0</Link>&nbsp;(November 2026): CARIN alignment, Medicare Advantage and Medicare Part D
+            <Link to="/docs/release-notes">v1.2.1</Link>&nbsp;(unreleased): the Medicare Advantage importer patch, on v1.2.0's CARIN alignment, Medicare Advantage and Medicare Part D
           </div>
 
           <p className={styles.heroNote}>

@@ -8,6 +8,15 @@ sidebar_position: 5
 
 This changelog lists all notable changes to the Benefit Plan Standard.  For a high‑level overview of changes in each release, see the [release notes](/docs/release-notes).  The format is based on [Keep a Changelog](https://keepachangelog.com/) and adheres to Semantic Versioning.
 
+## [1.2.1] – unreleased: the Medicare Advantage importer's zero-dollar D-SNPs, deductible scopes and point-of-service maximum
+
+No schema change: the schema is v1.2.0's. The wording follows [the changelog in the schema repository](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md).
+
+- **Zero-dollar cost-sharing D-SNPs.** `scripts/from-pbp.js` writes a Medicare zero-dollar cost-sharing D-SNP's in-network rows of Medicare-covered benefits as $0, with the cost sharing the plan files in their notes, and no in-network deductible. Out-of-network and point-of-service rows, the maximums, supplemental benefits and Part D stay as filed (739 plans in contract year 2027).
+- **The in-network deductible scopes.** A PPO deductible whose scope names in-network services applies in and out of network: `network_tier` null, with the out-of-network Medicare-covered steps flagged (537 plans).
+- **The point-of-service maximum.** `pbp_c_pos_maxplan_*` is the benefit entry `PBP_C_POS_MAXPLAN`, a dollar limit with its network and categories as conditions (164 plans).
+- **Vocabulary.** `categories.json` 1.3.0 adds `POINT_OF_SERVICE_MAXIMUM`, served at [`/vocabularies/v1.3.0/categories.json`](https://benefitplanstandard.org/vocabularies/v1.3.0/categories.json); the 1.2.0 file stays at its own address.
+
 ## Documentation (2026-11-11): the versioning and release policy
 
 - **[Versioning & Release Policy](/docs/governance/versioning-release-policy).** The page now matches the release rule of the schema repository's [governance document](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/governance.md): published drafts, tagged `vX.Y.Z-draft.N`, and a final release after at least 2 independent adopters implement and validate a draft. Its release candidate stage, with a 2-week review, and its quarterly calendar are removed: no release was ever issued as a candidate, and the schema repository has no candidate tag.

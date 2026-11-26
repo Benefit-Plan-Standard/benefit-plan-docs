@@ -11,6 +11,31 @@ For a detailed, chronological record of all technical changes, see the **Changel
 
 ---
 
+# v1.2.1: the Medicare Advantage importer's zero-dollar D-SNPs, deductible scopes and point-of-service maximum
+
+**Release Date:** unreleased  
+**Status:** Stable. A patch of the tools and of 1 vocabulary: the schema is v1.2.0's, unchanged, and every v1.2.0 document stays valid.
+
+10 plans of contract year 2027 from 5 organizations (Humana, Wellcare, Kaiser Permanente, HealthSpring, Priority Health) were checked against their own Summaries of Benefits with the Medicare Advantage importer's check script: 750 checks. 40 of the differences were values the importer did not read, and v1.2.1 reads 38 of them; the other 2 are optional supplemental packages, a gap the specification lists. The tagged release is `v1.2.1`, and the record is in the [changelog](/docs/changelog).
+
+The schema is unchanged, and the importer's output changes on 1,404 of its 7,195 documents for contract year 2027, each only where 1 of the 3 rules below says; the release rule's 2 independent adopters are met because the schema they implemented and validated, v1.2.0 (RxCare and MyDigiRecords, in [the adopters file](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md)), is the schema of 1.2.1, and every document the 1.2.1 importer writes validates against it.
+
+## 🛠 What v1.2.1 Changes
+
+- **Zero-dollar cost-sharing D-SNPs.** A plan the CMS file marks as a Medicare zero-dollar cost-sharing D-SNP charges $0 in network for Medicare-covered services, as its Summary of Benefits prints. The importer writes those rows as $0, with the cost sharing the plan files in their notes, and writes no in-network deductible. Out-of-network rows, the out-of-pocket maximums, the supplemental benefits and Part D stay as filed. 739 plans in contract year 2027.
+- **The in-network deductible scopes.** A PPO deductible whose scope names in-network services also covers the out-of-network Medicare-covered services, so it is written as applying in both networks. 537 plans.
+- **The point-of-service maximum.** The most an HMO-POS plan pays for the services of its point-of-service option is read, as a benefit entry of its own with a dollar limit. 164 plans.
+
+## 🗂 Recommended Vocabularies
+
+| Vocabulary | Version | Entries |
+|------------|---------|---------|
+| Categories | 1.3.0 | 39 codes, with `POINT_OF_SERVICE_MAXIMUM`, at [`/vocabularies/v1.3.0/categories.json`](https://benefitplanstandard.org/vocabularies/v1.3.0/categories.json) |
+
+The other vocabularies are v1.2.0's.
+
+---
+
 # v1.2.0: CARIN Alignment, Medicare Advantage and Medicare Part D
 
 **Release Date:** November 13, 2026  

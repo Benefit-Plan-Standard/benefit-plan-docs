@@ -94,7 +94,7 @@ The schema deliberately does **not** hard-code the controlled vocabularies as en
 Instead, the recommended values live as versioned lists in [`/vocabularies`](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/tree/main/vocabularies):
 
 - `canonical-benefits.json`: 124 canonical benefit keys in version 1.4.0 (`primary_care`, `imaging_advanced`, …)
-- `categories.json`: 38 benefit categories in version 1.2.0 (`PHYSICIAN_SERVICES`, `EMERGENCY_CARE`, …)
+- `categories.json`: 39 benefit categories in version 1.3.0 (`PHYSICIAN_SERVICES`, `EMERGENCY_CARE`, …)
 - `markets.json`: market segments
 - `plan-types.json`: plan types
 
