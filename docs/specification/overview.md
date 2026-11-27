@@ -41,7 +41,7 @@ At the highest level, a normalized plan is represented as a single JSON object w
 | `coverage_period`   | Explicit `{ start_date, end_date }` for the coverage window — added in v1.1.0 |
 | `market`            | Market segment (e.g., individual, small_group, medicare_advantage)   |
 | `network_tiers`     | List of network tiers (e.g., in-network, out-of-network)             |
-| `accumulators`      | Deductibles and out-of-pocket maximums, individual and family, in- and out-of-network |
+| `accumulators`      | Deductibles and out-of-pocket maximums, individual and family, in- and out-of-network, and (v1.3.0 draft) in and out of network combined |
 | `benefits`          | Array of benefit items describing cost sharing per service           |
 | `source_references` | References back to the original document for auditing               |
 | `schema_version`    | Version of the Benefit Plan Standard schema used to validate the document (e.g., `1.2.0`) |

@@ -11,6 +11,36 @@ For a detailed, chronological record of all technical changes, see the **Changel
 
 ---
 
+# v1.3.0 Draft 1: Amounts That Cover Both Networks Together
+
+**Draft Date:** November 27, 2026
+**Status:** Draft (tag `v1.3.0-draft.1`; backward-compatible with v1.2.0)
+
+Draft 1 of v1.3.0, a minor release: every addition is optional, nothing in v1.2.0 changes meaning, and every v1.2.0 document validates against v1.3.0. Under the [release policy](/docs/governance/versioning-release-policy) it becomes final after 2 independent adopters implement and validate a draft. It also carries the importer changes written for a 1.2.1 that was not tagged. The full record is in the [changelog](/docs/changelog) and [the schema repository's changelog](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/changelog.md).
+
+## 📐 What v1.3.0 Draft 1 Adds
+
+- **4 combined accumulator slots**: `combined_individual_deductible`, `combined_family_deductible`, `combined_individual_oop_max` and `combined_family_oop_max`, each 1 amount that counts what a member pays in network and out of network together. Their `network_tier` is absent or null: they count all of the plan's tiers. A plan may have one beside its per-network slots, and a combined maximum counts what the in-network maximum counts, unless the plan says otherwise ([Field Definitions](/docs/specification/field-definitions#combined-slots-v130-draft-1)).
+- **`combined`** as a recommended value of `cost_shares[].deductible_ref` and `moop_ref`: the step's flag refers to a combined slot.
+- **Why.** Before, no slot could hold such an amount: in the CMS Plan Benefit Package files for contract year 2027, 531 Medicare Advantage PPOs file 1 deductible for both networks and 2,632 plans a maximum for both networks beside the in-network one (HealthSpring H7849-002: $4,450 in network, $6,700 combined), and the Marketplace public files give the same kind of amount in their `CombInnOon` columns (3,498 medical plans of 2026, 2,558 of 2027).
+- **The importers** write v1.3.0 documents with these slots, and `scripts/validate.js` checks against v1.3.0 by default.
+
+## 🔁 Migration from v1.2.0
+
+- A v1.2.0 document needs no change. To say it is a v1.3.0 document, set `schema_version` to "1.3.0".
+- **Read the combined slots.** A document that has one may have no legacy slot for that amount: the 531 Medicare Advantage PPOs of contract year 2027 whose deductible applies in and out of network have `combined_individual_deductible` and no `individual_deductible`, so a reader of the legacy slots alone shows no deductible on them.
+- A combined slot beside a per-network slot is a second amount, not a correction, and it can equal the in-network amount; the document writes it as the source states it.
+- A combined slot has no `network_tier`; do not default it to `IN`.
+- `deductible_ref` or `moop_ref` `combined` on a step names the combined slot; an in-network step keeps the in-network maximum.
+- `node scripts/validate.js plan.json` validates against v1.3.0; `--schema schema/v1.2.0/benefit-plan.schema.json` keeps the v1.2.0 check, which a document with a combined slot fails.
+
+## 📝 Known Gaps
+
+- The 1.3.0 draft has 1 draft so far and no adopter validation yet; the final waits for it.
+- The HL7 validator has not been run over the Bundles regenerated for draft 1.
+
+---
+
 # v1.2.0: CARIN Alignment, Medicare Advantage and Medicare Part D
 
 **Release Date:** November 13, 2026  

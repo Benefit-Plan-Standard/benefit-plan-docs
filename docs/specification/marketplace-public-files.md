@@ -24,7 +24,7 @@ The files are not in the repository. You download them into `data/puf/<year>/`, 
 
 ## What the importer produces
 
-1 plan variant in, 1 Benefit Plan Standard schema 1.2.0 document out (1.1.0 until October 20, 2026). The Marketplace importer checks the document against the Benefit Plan Standard schema 1.2.0 before it writes it; a document that fails is not written. Medical plans only: a stand-alone dental plan is refused.
+1 plan variant in, 1 Benefit Plan Standard schema 1.3.0 document out (1.2.0 until November 27, 2026, 1.1.0 until October 20, 2026). The Marketplace importer checks the document against the Benefit Plan Standard schema 1.2.0 before it writes it; a document that fails is not written. Medical plans only: a stand-alone dental plan is refused.
 
 The Benefit Plan Standard schema 1.2.0 gives the Marketplace importer fields that 1.1.0 lacks:
 
@@ -123,7 +123,7 @@ Some BPS fields have nothing to fill them in the public files:
 Going the other way, the public files carry things the Benefit Plan Standard schema 1.2.0 has no field for, or has a field for that the Marketplace importer does not write yet. The Marketplace importer keeps each one as text in `source_references[]` (or, for explanations, as a condition):
 
 - metal level, cost-sharing reduction variation and HSA eligibility;
-- tier 2 accumulators, and accumulators combined across in and out of network;
+- tier 2 accumulators (accumulators combined across in and out of network are written since the 1.3.0 draft 1 as the 4 `combined_*` slots, from the `CombInnOon` columns: 3,498 plans of 2026 and 2,558 of 2027, and are still quoted);
 - a separate drug deductible and out-of-pocket maximum (the Benefit Plan Standard schema 1.2.0 has `pharmacy.deductible` and `pharmacy.out_of_pocket_max`, which the Marketplace importer does not write yet);
 - a family per-person amount with no family total;
 - the plan's default coinsurance;

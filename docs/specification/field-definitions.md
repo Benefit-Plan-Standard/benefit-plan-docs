@@ -39,7 +39,7 @@ Fields marked **v1.1.0** were added in the 2026-05-21 minor release. All v1.1.0 
 
 ## Accumulators
 
-`accumulators` is an **optional** object holding plan-wide financial thresholds. v1.0.0 defined the four legacy slots, which are implicitly **in-network**. v1.1.0 adds four explicit **out-of-network** counterparts plus richer per-accumulator metadata.
+`accumulators` is an **optional** object holding plan-wide financial thresholds. v1.0.0 defined the four legacy slots, which are implicitly **in-network**. v1.1.0 adds four explicit **out-of-network** counterparts plus richer per-accumulator metadata. **v1.3.0** (a draft: draft 1, November 27, 2026) adds four **combined** slots, for an amount that counts what a member pays in network and out of network together.
 
 ### Accumulator slots
 
@@ -53,6 +53,32 @@ Fields marked **v1.1.0** were added in the 2026-05-21 minor release. All v1.1.0 
 | `oon_family_deductible`       | out-of-network       | **v1.1.0** new                 |
 | `oon_individual_oop_max`      | out-of-network       | **v1.1.0** new                 |
 | `oon_family_oop_max`          | out-of-network       | **v1.1.0** new                 |
+| `combined_individual_deductible` | in and out of network together | **v1.3.0** draft 1, new |
+| `combined_family_deductible`  | in and out of network together | **v1.3.0** draft 1, new |
+| `combined_individual_oop_max` | in and out of network together | **v1.3.0** draft 1, new |
+| `combined_family_oop_max`     | in and out of network together | **v1.3.0** draft 1, new |
+
+### Combined slots (v1.3.0 draft 1)
+
+A combined slot holds 1 amount that counts what a member pays in network and out of network together. The deductible slots have the deductible shape and the maximum slots the out-of-pocket maximum shape, below.
+
+- **No `network_tier`.** A combined slot counts all of the plan's tiers, so its `network_tier` is absent or null. This is the only place where null has that meaning: on the other slots it has none, and the legacy slots still default to the in-network tier, `IN`, and the `oon_*` slots to `OUT`.
+- **Beside the per-network slots, or alone.** A plan may have a combined slot beside its in-network and out-of-network slots, and each counts its own costs. A combined maximum counts what the in-network maximum counts, unless the plan says otherwise. A deductible the plan states for both networks is written in `combined_individual_deductible` only, never also as `individual_deductible`, so a document that has a combined slot may have no legacy slot for that amount: read the combined slots.
+- **The steps that count toward one.** A cost-share step names a combined slot with `deductible_ref` or `moop_ref` `combined` (below). An in-network step keeps the in-network maximum, which the combined maximum also counts.
+
+HealthSpring H7849-002 (True Choice, a Medicare Advantage PPO in Illinois), as the CMS Plan Benefit Package files for contract year 2027 state it: a $525 deductible that applies in and out of network, a $4,450 in-network maximum and a $6,700 maximum in and out of network combined. This is the example in the schema:
+
+```json
+{
+  "accumulators": {
+    "individual_oop_max": { "amount": 4450, "currency": "USD", "network_tier": "IN", "applies_to": "medical" },
+    "combined_individual_deductible": { "amount": 525, "currency": "USD", "applies_to": "medical" },
+    "combined_individual_oop_max": { "amount": 6700, "currency": "USD", "applies_to": "medical" }
+  }
+}
+```
+
+Where the importers write them: the Medicare Advantage importer for 531 PPOs whose deductible applies in and out of network, 2,632 plans with a combined maximum and 1 HMO-POS plan with a combined deductible (contract year 2027); the Marketplace importer from the public files' `CombInnOon` columns (3,498 medical plans of plan year 2026, 2,558 of 2027).
 
 ### Accumulator object shape
 
@@ -63,7 +89,7 @@ Each accumulator slot is an object with these fields:
 | `amount`       | number  | Yes      | Dollar amount of the deductible or OOP maximum                                    |
 | `currency`     | string  | No       | ISO 4217 currency code (default `USD`)                                            |
 | `period`       | string  | No       | **v1.1.0** Accumulation period (`per_calendar_year`, `per_plan_year`)             |
-| `network_tier` | string  | No       | **v1.1.0** Network scope (`in-network`, `out-of-network`, or a custom `tier_id`)  |
+| `network_tier` | string  | No       | **v1.1.0** Network scope: the `tier_id` of a tier in `network_tiers`, such as `IN`, `OUT` or `POS` (the importers write tier ids since v1.2.0). On a `combined_*` slot (**v1.3.0**) absent or null: the slot counts all of the plan's tiers. |
 | `applies_to`   | string  | No       | Coverage line the accumulator applies to (`medical`, `pharmacy`, `integrated`). In v1.0.0 this was deductible-only; **v1.1.0** allows it on OOP max for parity. |
 | `embedded`     | boolean | No       | **v1.1.0** For family-level slots: whether each member has an embedded individual sub-limit that contributes to the family max. |
 
@@ -110,6 +136,8 @@ Each entry in `network_cost_shares[].cost_shares` describes one step in the cost
 | `basis`                 | string \| null  | No | Calculation basis (`per_visit`, `per_day`, `per_test`, `per_prescription`, `allowed_amount`) |
 | `applies_to_deductible` | boolean | No       | Whether this step applies before the deductible is met (default `false`)   |
 | `applies_to_moop`       | boolean | No       | Whether this step counts toward the maximum out-of-pocket (default `true`) |
+| `deductible_ref`        | string \| null | No | **v1.2.0** Which deductible `applies_to_deductible` refers to: `medical` (absent or null: the plan's medical deductible), `pharmacy` (`pharmacy.deductible`), and since **v1.3.0** `combined` (a `combined_*` deductible) |
+| `moop_ref`              | string \| null | No | **v1.2.0** Which out-of-pocket maximum `applies_to_moop` refers to: `medical` (absent or null), `pharmacy` (`pharmacy.out_of_pocket_max`), and since **v1.3.0** `combined` (a `combined_*` maximum). An in-network step keeps `medical`; `combined` names a step that counts toward the combined maximum and no per-network one |
 | `notes`                 | string \| null  | No | **v1.1.0** Free-text qualifier for this step (e.g., "copay waived after day 5") |
 
 #### Example

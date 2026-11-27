@@ -20,7 +20,7 @@ The schema version follows the format **MAJOR.MINOR.PATCH**, for example `1.0.0`
 
 The release rule is the one in the schema repository's [governance document](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/docs/governance.md), under Releases:
 
-1. Draft versions are published for community testing and feedback. Each published draft is a git tag on the schema repository, `vX.Y.Z-draft.N` (for 1.2.0, `v1.2.0-draft.1` through `v1.2.0-draft.9`), so any draft can be checked out by its tag.
+1. Draft versions are published for community testing and feedback. Each published draft is a git tag on the schema repository, `vX.Y.Z-draft.N` (for 1.2.0, `v1.2.0-draft.1` through `v1.2.0-draft.9`; for 1.3.0, `v1.3.0-draft.1` first), so any draft can be checked out by its tag.
 2. A final release requires successful implementation and validation by at least 2 independent adopters. Adopters are recorded in the [adopters file](https://github.com/Benefit-Plan-Standard/benefit-plan-schema/blob/main/ADOPTERS.md), each with its evidence and whether it is independent of the maintainer.
 3. Release notes summarize changes and provide migration guidance.
 

@@ -25,7 +25,7 @@ The files are not in the repository. You download them into `data/pbp/<year>/`, 
 
 ## What the importer produces
 
-1 plan in, 1 BPS v1.2.0 document out. The document is checked against the v1.2.0 schema before it is written; a document that fails is not written. The importer writes v1.2.0, not v1.1.0, because the PBP data needs fields that only v1.2.0 has: the contract, plan and segment identifiers (`plan_identifiers`), the service area, copay and coinsurance ranges, inpatient day intervals, per-ear hearing aid limits and a coverage basis for supplemental benefits.
+1 plan in, 1 BPS v1.3.0 document out (v1.2.0 until November 27, 2026). The document is checked against the v1.3.0 schema before it is written; a document that fails is not written. The importer writes v1.2.0, not v1.1.0, because the PBP data needs fields that only v1.2.0 has: the contract, plan and segment identifiers (`plan_identifiers`), the service area, copay and coinsurance ranges, inpatient day intervals, per-ear hearing aid limits and a coverage basis for supplemental benefits.
 
 The Medicare Advantage importer reads the MVP benefit set, 41 benefits: primary care, specialist, inpatient hospital, skilled nursing facility, home health, outpatient hospital, observation, ambulatory surgery center, emergency and urgent care, ambulance, transportation, diagnostic tests, lab, radiology, therapy, mental health individual sessions, chiropractic, podiatry, acupuncture, hearing and eye exams, hearing aids, eyeglasses, dental cleaning and fillings, over-the-counter items, meals, fitness and, since October 20, 2026, preventive services (category 14a, a $0 copay in network on the plan's attestation). Other service categories, such as Part B drugs, cardiac rehabilitation, other dental services, contact lenses and the other defined supplemental benefits, are not imported yet.
 
@@ -66,8 +66,8 @@ Then, from the schema repository:
 # 1. Import 1 plan (here UnitedHealthcare, AARP Medicare Advantage from UHC FL-0021, Florida, contract year 2027)
 node scripts/from-pbp.js --year 2027 --plan H2406-013-000 --out plan.json
 
-# 2. Validate the BPS document (v1.2.0 schema and vocabularies)
-node scripts/validate.js --schema schema/v1.2.0/benefit-plan.schema.json plan.json
+# 2. Validate the BPS document (v1.3.0 schema and vocabularies)
+node scripts/validate.js --schema schema/v1.3.0/benefit-plan.schema.json plan.json
 
 # 3. Convert it to a FHIR Bundle; the Bundle is written to stdout
 node scripts/to-insuranceplan.js plan.json > plan.insuranceplan.json
@@ -137,7 +137,7 @@ Some BPS fields have nothing to fill them in the PBP files:
 
 Going the other way, the PBP files carry things BPS has no field for. The importer keeps each one as text, and the spec lists each with a proposed field:
 
-- the combined in-network and out-of-network deductible and out-of-pocket maximum (the Summary of Benefits prints the combined maximum in its out-of-network column);
+- the combined in-network and out-of-network deductible and out-of-pocket maximum, until the 1.3.0 draft 1 (November 27, 2026) gave them the `combined_*` slots: the importer now writes a deductible that applies in both networks as `combined_individual_deductible` (531 PPOs), the combined maximum as `combined_individual_oop_max` (2,632 plans; the Summary of Benefits prints it in its out-of-network column) and an HMO-POS combined deductible with an amount (1 plan), with `deductible_ref` or `moop_ref` `combined` on the steps that refer to them;
 - a Medicare-defined deductible or cost share with no amount in the file, such as the Part B deductible or the Medicare-defined inpatient stay;
 - the out-of-pocket maximum type (lower, intermediate or mandatory) and service-specific out-of-pocket maximums;
 - which services a deductible covers, as a list of service categories;
